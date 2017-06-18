@@ -21,11 +21,22 @@ Pod::Spec.new do |s|
   # s.social_media_url = 'https://twitter.com/alsoyay'
 
   s.ios.deployment_target = '10.0'
-  s.frameworks = 'UIKit', 'Foundation'
+  # s.ios.frameworks = 'UIKit', 'Foundation'
+  s.osx.deployment_target = '10.12'
+  s.osx.frameworks = 'Foundation'
 
-  s.source_files = 'Andea/**/*'
 
-  s.frameworks = 'UIKit', 'Foundation'
+
+  s.source_files = 'Sources/Andea/**/*'
+
+
+  s.subspec 'AndeaUIKit' do |ss|
+
+  	ss.ios.frameworks = 'UIKit', 'Foundation'
+  	ss.source_files = 'Sources/Andea/AndeaUIKit'
+
+  end
+
 #   # s.dependency 'AFNetworking', '~> 2.3'
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
