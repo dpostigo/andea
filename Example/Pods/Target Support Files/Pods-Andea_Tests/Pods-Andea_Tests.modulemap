@@ -1,0 +1,6 @@
+framework module Pods_Andea_Tests {
+  umbrella header "Pods-Andea_Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}

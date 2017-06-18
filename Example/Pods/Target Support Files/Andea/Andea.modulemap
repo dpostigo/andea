@@ -1,0 +1,6 @@
+framework module Andea {
+  umbrella header "Andea-umbrella.h"
+
+  export *
+  module * { export * }
+}

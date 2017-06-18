@@ -1,0 +1,22 @@
+{
+  "name": "Andea",
+  "version": "0.1.0",
+  "summary": "A short description of Andea.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/Dani Postigo/Andea",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Dani Postigo": "dani.postigo@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/Dani Postigo/Andea.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "Andea/Classes/**/*"
+}
