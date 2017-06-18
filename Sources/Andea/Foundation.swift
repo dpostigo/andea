@@ -4,6 +4,21 @@
 
 import Foundation
 
+extension Bundle {
+    public enum JSONLoadingError: Error {
+        case fileNotFound
+    }
+
+    public func load(json filename: String) throws -> Any {
+        guard let file = Bundle.main.url(forResource: filename, withExtension: "json") else { throw JSONLoadingError.fileNotFound }
+        do {
+            let data = try Data(contentsOf: file)
+            return try JSONSerialization.jsonObject(with: data, options: [])
+        }
+        catch { throw error }
+    }
+}
+
 extension RangeReplaceableCollection {
     func appending(_ item: Self.Iterator.Element) -> Self {
         var ret = Array(self) as! Self
@@ -23,3 +38,5 @@ extension Sequence {
         return nil
     }
 }
+
+
