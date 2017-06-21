@@ -2,7 +2,7 @@
 // Created by Dani Postigo on 9/30/16.
 //
 
-import Foundation
+#if os(iOS)
 import UIKit
 
 extension UIBarButtonItem {
@@ -23,3 +23,5 @@ extension UIBarButtonItem {
         self.init(customView: customView); self.target = self; self.action = action
     }
 }
+
+#endif

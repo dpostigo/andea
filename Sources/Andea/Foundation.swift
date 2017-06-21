@@ -9,11 +9,34 @@ extension Bundle {
         case fileNotFound
     }
 
-    public func load(json filename: String) throws -> Any {
-        guard let file = Bundle.main.url(forResource: filename, withExtension: "json") else { throw JSONLoadingError.fileNotFound }
+
+    public func load(plist name: String) throws -> JSON? {
         do {
-            let data = try Data(contentsOf: file)
+            let data = try self.load(file: name, ext: "plist")
+            do {
+                let plist = try? PropertyListSerialization.propertyList(from: data, options: .mutableContainers, format: nil)
+                return plist as? JSON
+            } catch {
+                throw error
+            }
+
+
+        } catch { throw error }
+    }
+
+
+    public func load(json filename: String) throws -> Any {
+        do {
+            let data = try self.load(file: filename, ext: "json")
             return try JSONSerialization.jsonObject(with: data, options: [])
+        }
+        catch { throw error }
+    }
+
+    public func load(file filename: String, ext: String) throws -> Data {
+        guard let file = Bundle.main.url(forResource: filename, withExtension: ext) else { throw JSONLoadingError.fileNotFound }
+        do {
+            return try Data(contentsOf: file)
         }
         catch { throw error }
     }

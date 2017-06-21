@@ -27,15 +27,25 @@ Pod::Spec.new do |s|
 
 
 
-  s.source_files = 'Sources/Andea/**/*'
+  s.source_files = 'Sources/Andea/*'
 
 
-  s.subspec 'AndeaUIKit' do |ss|
 
-  	ss.ios.frameworks = 'UIKit', 'Foundation'
-  	ss.source_files = 'Sources/Andea/AndeaUIKit'
-
+  s.subspec 'Extras' do |ss|
+  	ss.frameworks = 'Foundation'
+  	ss.source_files = 'Sources/AndeaExtras/**'
+    ss.dependency 'Marshal'
   end
+
+
+  s.subspec 'UIKit' do |ss|
+    ss.osx.frameworks = 'Foundation', 'AppKit'
+  	ss.ios.frameworks = 'Foundation', 'UIKit'
+  	ss.source_files = 'Sources/AndeaUIKit/**'
+  end
+
+
+
 
 #   # s.dependency 'AFNetworking', '~> 2.3'
 

@@ -2,7 +2,7 @@
 // Created by Dani Postigo on 10/3/16.
 //
 
-import Foundation
+#if os(iOS)
 import UIKit
 
 extension UIBezierPath {
@@ -79,3 +79,5 @@ extension UIRectEdge {
         return rect
     }
 }
+
+#endif

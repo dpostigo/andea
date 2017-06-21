@@ -3,7 +3,21 @@
 //
 
 import Foundation
-import UIKit
+
+//#if os(iOS)
+//import UIKit
+//#elseif os(OSX)
+//import AppKit
+//#endif
+
+//#if os(iOS) || os(watchOS) || os(tvOS)
+//let color = UIColor.redColor()
+//#elseif os(OSX)
+//let color = NSColor.redColor()
+//#else
+//println("OMG, it's that mythical new Apple product!!!")
+//#endif
+//import UIKit
 
 extension NSMutableAttributedString {
     
