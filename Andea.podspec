@@ -21,15 +21,17 @@ Pod::Spec.new do |s|
   # s.social_media_url = 'https://twitter.com/alsoyay'
 
   s.ios.deployment_target = '10.0'
-  # s.ios.frameworks = 'UIKit', 'Foundation'
   s.osx.deployment_target = '10.12'
   s.osx.frameworks = 'Foundation'
+  # s.ios.frameworks = 'UIKit', 'Foundation'
 
 
+  s.default_subspec = 'Andea'
 
-  s.source_files = 'Sources/Andea/*'
-
-
+  s.subspec 'Andea' do |ss|
+  	ss.frameworks = 'Foundation'
+    ss.source_files = 'Sources/Andea/*'
+  end
 
   s.subspec 'Extras' do |ss|
   	ss.frameworks = 'Foundation'
@@ -41,7 +43,23 @@ Pod::Spec.new do |s|
   s.subspec 'UIKit' do |ss|
     ss.osx.frameworks = 'Foundation', 'AppKit'
   	ss.ios.frameworks = 'Foundation', 'UIKit'
-  	ss.source_files = 'Sources/AndeaUIKit/**'
+  	ss.osx.source_files = 'Sources/AndeaUIKit/**'
+  	ss.ios.source_files = 'Sources/AndeaUIKit/**', 'Sources/AndeaUIKit/UIControl/**'
+  end
+
+
+
+  s.subspec 'Alamofire' do |ss|
+  	ss.source_files = 'Sources/AndeaExtras/Alamofire/**'
+  	ss.dependency 'Alamofire'
+  end
+
+
+  s.subspec 'XCTest' do |ss|
+  	ss.ios.frameworks = 'Foundation', 'XCTest'
+  	ss.osx.frameworks = 'Foundation', 'XCTest'
+  	ss.ios.source_files = 'Sources/XCTest/*'
+  	ss.osx.source_files = 'Sources/XCTest/*'
   end
 
 

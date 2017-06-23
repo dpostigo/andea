@@ -4,6 +4,7 @@
 
 import Foundation
 
+
 extension Bundle {
     public enum JSONLoadingError: Error {
         case fileNotFound
@@ -25,10 +26,17 @@ extension Bundle {
     }
 
 
-    public func load(json filename: String) throws -> Any {
+    public func load(json filename: String, key: String? = nil) throws -> JSON? {
         do {
             let data = try self.load(file: filename, ext: "json")
-            return try JSONSerialization.jsonObject(with: data, options: [])
+//            if let json = JSONSerialization.jsonObject(with: data, options: []) {
+//                return (json as? JSON)?[key ?? filename]
+//            }
+//            return nil
+
+            guard let json = try? JSONSerialization.jsonObject(with: data, options: []) else { return nil }
+            
+            return json as? JSON
         }
         catch { throw error }
     }
