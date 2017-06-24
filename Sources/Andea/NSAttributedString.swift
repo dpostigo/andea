@@ -22,9 +22,23 @@ extension NSMutableAttributedString {
     
 }
 
+
 extension NSAttributedString {
+    public func appending(_ s: NSAttributedString) -> NSAttributedString {
+        let ret = self.mutableCopy() as! NSMutableAttributedString
+        ret.append(s); return ret
+    }
+
+    public func replacing(_ value: Any, forKey key: String) -> NSAttributedString {
+        let ret = self.mutableCopy() as! NSMutableAttributedString
+        ret.replaceAttribute(key, value: value)
+        return ret
+    }
+
+    // MARK: Getters
+
     fileprivate var stringRange: NSRange { return NSMakeRange(0, self.length) }
-    
+
     public var attributes: [String: Any]? {
         guard self.length > 0 else { return nil }
         return self.attributes(at: 0, longestEffectiveRange: nil, in: self.stringRange)

@@ -4,6 +4,14 @@
 
 import Foundation
 
+extension String {
+    public var indented: String { return self.indent() }
+    public func indent(_ amount: Int = 1) -> String {
+        let indent = (0 ..< amount).map({ _ in "\t" }).joined()
+        let indented = self.components(separatedBy: "\n").map({ indent + $0 })
+        return indented.joined(separator: "\n")
+    }
+}
 
 enum Generative {
     case `enum`
