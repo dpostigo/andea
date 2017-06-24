@@ -34,9 +34,11 @@ extension Bundle {
 //            }
 //            return nil
 
-            guard let json = try? JSONSerialization.jsonObject(with: data, options: []) else { return nil }
+//            guard let json = try? JSONSerialization.jsonObject(with: data, options: []) else { return nil };
+//            return json as? JSON
             
-            return json as? JSON
+            return try JSONSerialization.jsonObject(with: data, options: []) as? JSON
+            
         }
         catch { throw error }
     }
