@@ -48,6 +48,14 @@ Pod::Spec.new do |s|
   end
 
 
+  s.subspec 'AppKit' do |ss|
+    ss.osx.deployment_target = '10.12'
+    ss.osx.frameworks = 'Foundation', 'AppKit'
+  	ss.osx.source_files = 'Sources/AppKit/**'
+  end
+
+
+
 
   s.subspec 'Alamofire' do |ss|
   	ss.source_files = 'Sources/AndeaExtras/Alamofire/**'
