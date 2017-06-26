@@ -7,20 +7,34 @@ import Marshal
 
 public struct Model: Unmarshaling {
     private let name: String
-    private let properties: [Property]
+    private let properties: [Property2]
     private let isPublic: Bool
 
+    public var marshals: Bool = false
+
     public var definition: String {
-        var string = self.modifier + "struct \(self.name): Unmarshaling {\n"
+        var string = self.modifier + "struct \(self.name): \(self.inheritance) {\n"
         string += "\(self.properties.declarations.indented)\n\n"
         string += "\(self.initializer.indented)\n"
+        string += self.marshals ? "\(self.serializer.indented)\n" : ""
         string += "}"
         return string
+
+    }
+
+    private var inheritance: String {
+        return self.marshals ? "Unmarshaling, Marshaling" : "Unmarshaling"
     }
 
     public var initializer: String {
         var string = self.modifier + "init(object: MarshaledObject) throws {\n"
         string += "\(self.properties.initializers.indented)\n}"
+        return string
+    }
+
+    public var serializer: String {
+        var string = "public func marshaled() -> [String: Any] {\n"
+        string += "\(self.properties.serializer.indented)\n}"
         return string
     }
 
@@ -40,45 +54,67 @@ public struct Model: Unmarshaling {
 }
 
 
-fileprivate struct Property: Unmarshaling {
+fileprivate struct Property2: Unmarshaling {
     private let name: String
     private let type: String
     private let optional: Bool
-    private let modifier: String
+//    private let modifier: String
 
     // MARK: Public
-
-    var initializer: String { return "self.\(self.name) = try object.value(for: \"\(self.name)\")" }
-    var declaration: String { return (self.optional ? "var" : "let") + " \(name): \(type)" }
 
     init(object: MarshaledObject) throws {
         self.name = try object.value(for: "name")
         self.type = try object.value(for: "type")
-        self.modifier = object.optionalAny(for: "modifier") as? String ?? "private"
-        // self.optional = object.optionalAny(for: "optional") as? Bool ?? false
+         self.optional = object.optionalAny(for: "optional") as? Bool ?? false
+    }
 
-        guard let last = self.type.characters.last else { self.optional = false; return }
-        self.optional = String(last) == "?"
+    var declaration: String {
+        return (self.optional ? "var" : "let") + " \(name): \(type)"
+    }
+
+    var initializer: String {
+        return "self.\(self.name) = try object.\(self.deserializer)"
+    }
+
+    var serialized: String {
+        return "\"\(self.name)\" : self.\(self.name)"
+    }
+
+    var deserializer: String {
+        switch self.type.marshalType {
+            case .any : return "any(for: \"\(self.name)\")"
+            case .optional : return "optionalAny(for: \"\(self.name)\")"
+            case .value : return "value(for: \"\(self.name)\")"
+        }
+    }
+
+}
+
+fileprivate enum MarshalValueType {
+    case any, optional, value
+}
+
+extension String {
+
+    fileprivate var marshalType: MarshalValueType {
+        guard !self.isOptional else { return .optional }
+        return self == "Any" ? .any : .value
+    }
+
+    fileprivate var isOptional: Bool {
+        guard let last = self.last else { return false }
+        return last == "?"
+    }
+
+    fileprivate var last: String? {
+        guard let last = self.characters.last else { return nil }
+        return String(last)
     }
 }
 
 
-protocol Definition {
-    var isPublic: Bool { get }
-}
 
-extension Definition {
-
-
-}
-
-enum Modifier {
-    case isPublic
-    case isPrivate
-    case isFileprivate
-}
-
-fileprivate extension Collection where Self.Iterator.Element == Property {
+fileprivate extension Collection where Self.Iterator.Element == Property2 {
 
     var initializers: String {
         return self.map({ $0.initializer }).joined(separator: "\n")
@@ -88,11 +124,13 @@ fileprivate extension Collection where Self.Iterator.Element == Property {
         return self.map({ $0.declaration }).joined(separator: "\n")
     }
 
+    var serializer: String {
+        return "return [\n\(self.serializers.indented)\n]"
+    }
+
+    var serializers: String {
+        return self.map({ $0.serialized }).joined(separator: ",\n")
+    }
+
 }
 
-extension Unmarshaling {
-    public static func from(_ array: Any) throws -> [Self] {
-        return try Array.value(from: array)
-//        return try ["value": array].value(for: "value")
-    }
-}

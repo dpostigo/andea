@@ -5,11 +5,7 @@
 import Foundation
 import AppKit
 
-extension NSTableView {
-    public func removeTableColumns() {
-        self.tableColumns.forEach({ self.removeTableColumn($0) })
-    }
-}
+
 
 extension NSClipView {
     public convenience init(documentView: NSView) {
