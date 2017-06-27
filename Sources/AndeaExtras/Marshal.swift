@@ -10,3 +10,7 @@ extension Unmarshaling {
         return try Array.value(from: array)
     }
 }
+
+extension KeyType where Self: RawRepresentable, Self.RawValue == Int {
+    public var stringValue: String { return String(describing: self) }
+}
