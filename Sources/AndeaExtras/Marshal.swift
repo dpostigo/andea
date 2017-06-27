@@ -30,3 +30,23 @@ extension Unmarshaling {
         }
     }
 }
+
+
+
+
+extension MarshaledObject {
+    public func double(for key: KeyType) throws -> Double {
+        let value = try self.any(for: key)
+        guard let string = value as? String else { throw MarshalError.typeMismatch(expected: String.self, actual: type(of: value)) }
+        guard let double = Double(string) else { throw MarshalError.typeMismatch(expected: Double.self, actual: type(of: string)) }
+        return double
+    }
+}
+
+extension ValueType {
+    public static func double(from object: Any) throws -> Double {
+        guard let value = object as? String else { throw MarshalError.typeMismatch(expected: String.self, actual: type(of: object)) }
+        guard let double = Double(value) else {throw MarshalError.typeMismatch(expected: Double.self, actual: type(of: object)) }
+        return double
+    }
+}
