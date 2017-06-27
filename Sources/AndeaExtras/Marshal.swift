@@ -32,9 +32,11 @@ extension Unmarshaling {
 }
 
 
-
-
 extension MarshaledObject {
+
+    public func optionalDouble(for key: KeyType) -> Double? {
+        return (try? self.double(for: key)) ?? nil
+    }
     public func double(for key: KeyType) throws -> Double {
         let value = try self.any(for: key)
         guard let string = value as? String else { throw MarshalError.typeMismatch(expected: String.self, actual: type(of: value)) }
