@@ -18,8 +18,9 @@ extension Alamofire.DataRequest {
     }
 }
 
-public func request(_ request: URLRequestConvertible, completion: ((Any) -> Void)? = nil, failure: Failure? = nil) -> DataRequest {
-    let ret = Alamofire.request(request)
-    ret.responseJSON(completion: completion, failure: failure)
-    return ret
-}
+
+//public func request(_ request: URLRequestConvertible, completion: ((Any) -> Void)? = nil, failure: Failure? = nil) -> DataRequest {
+//    let ret = Alamofire.request(request)
+//    ret.responseJSON(completion: completion, failure: failure)
+//    return ret
+//}
