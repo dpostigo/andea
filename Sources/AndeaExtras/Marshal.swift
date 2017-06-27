@@ -46,9 +46,15 @@ extension MarshaledObject {
 }
 
 extension ValueType {
+    public static func any(double object: Any) -> Double {
+        guard let value = object as? String else { return 0 }
+        guard let double = Double(value) else { return 0 }
+        return double
+    }
+
     public static func double(from object: Any) throws -> Double {
         guard let value = object as? String else { throw MarshalError.typeMismatch(expected: String.self, actual: type(of: object)) }
-        guard let double = Double(value) else {throw MarshalError.typeMismatch(expected: Double.self, actual: type(of: object)) }
+        guard let double = Double(value) else { throw MarshalError.typeMismatch(expected: Double.self, actual: type(of: object)) }
         return double
     }
 }
