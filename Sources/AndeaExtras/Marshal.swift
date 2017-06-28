@@ -58,3 +58,18 @@ extension ValueType {
         return double
     }
 }
+
+
+extension Date : ValueType {
+    public static func value(from object: Any) throws -> Date {
+        guard let double = object as? Double else {
+            throw MarshalError.typeMismatch(expected: Double.self, actual: type(of: object))
+        }
+        return Date(timeIntervalSince1970: double)
+        // assuming you have a Date.fromISO8601String implemented...
+//        guard let date = Date(timeIntervalSince1970: double) else {
+//            throw MarshalError.typeMismatch(expected: "ISO8601 date string", actual: double)
+//        }
+        // return date
+    }
+}
