@@ -5,6 +5,8 @@
 import Foundation
 
 extension NSView {
+
+    public static var classIdentifier: String { return String(describing: self) }
 //
 //    public func addView(_ view: UIView, frame: CGRect = CGRect.null) {
 //        view.frame = frame == CGRect.null ? (view.frame == CGRect.zero ? self.bounds : view.frame) : self.bounds

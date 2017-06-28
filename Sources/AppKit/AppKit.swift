@@ -5,7 +5,13 @@
 import Foundation
 import AppKit
 
-
+extension NSTextField {
+    public convenience init(backgroundColor: NSColor, isBordered: Bool) {
+        self.init()
+        self.backgroundColor = backgroundColor
+        self.isBordered = isBordered
+    }
+}
 
 extension NSClipView {
     public convenience init(documentView: NSView) {
