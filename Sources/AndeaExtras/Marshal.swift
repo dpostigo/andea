@@ -33,7 +33,6 @@ extension Unmarshaling {
 
 
 extension MarshaledObject {
-
     public func optionalDouble(for key: KeyType) -> Double? {
         return (try? self.double(for: key)) ?? nil
     }

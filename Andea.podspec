@@ -23,12 +23,13 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '10.0'
   s.osx.deployment_target = '10.12'
   s.osx.frameworks = 'Foundation'
-  # s.ios.frameworks = 'UIKit', 'Foundation'
+  s.ios.frameworks = 'Foundation'
+  s.module_name = "Andea"
 
 
-  s.default_subspec = 'Andea'
+  s.default_subspec = 'Core'
 
-  s.subspec 'Andea' do |ss|
+  s.subspec 'Core' do |ss|
   	ss.frameworks = 'Foundation'
     ss.source_files = 'Sources/Andea/*'
   end
@@ -36,8 +37,21 @@ Pod::Spec.new do |s|
   s.subspec 'Extras' do |ss|
   	ss.frameworks = 'Foundation'
   	ss.source_files = 'Sources/AndeaExtras/**'
+  	ss.exclude_files = 'Sources/AndeaExtras/{Alamofire,Marshal}.swift'
     ss.dependency 'Marshal'
   end
+
+
+  s.subspec 'Alamofire' do |ss|
+  	ss.source_files = 'Sources/AndeaExtras/Alamofire.swift'
+  	ss.dependency 'Alamofire'
+  end
+
+  s.subspec 'Marshal' do |ss|
+  	ss.source_files = 'Sources/AndeaExtras/Marshal.swift'
+    ss.dependency 'Marshal'
+  end
+
 
 
   s.subspec 'UIKit' do |ss|
@@ -56,13 +70,6 @@ Pod::Spec.new do |s|
 
 
 
-
-  s.subspec 'Alamofire' do |ss|
-  	ss.source_files = 'Sources/AndeaExtras/Alamofire/**'
-  	ss.dependency 'Alamofire'
-  end
-
-
   s.subspec 'XCTest' do |ss|
   	ss.ios.frameworks = 'Foundation', 'XCTest'
   	ss.osx.frameworks = 'Foundation', 'XCTest'
@@ -72,49 +79,4 @@ Pod::Spec.new do |s|
 
 
 
-
-#   # s.dependency 'AFNetworking', '~> 2.3'
-
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.resource_bundles = { 'Handy' => ['Handy/Assets/*.png'] }
-
-  # s.subspec 'Handy' do |ss|
-  #   ss.source_files = 'Handy/**/*'
-  #   # ss.exclude_files = 'Handy/UIKit-Extensions.swift'
-  # end
-
-  # s.subspec 'Components' do |ss|
-  #   ss.source_files = 'Components/**/*'
-  # end
-
-  # s.subspec 'Quartz' do |ss|
-  #   ss.source_files = 'Quartz/**/*'
-  #   ss.frameworks = 'QuartzCore'
-  # end
-
-  # s.default_subspec = 'Handy'
-
-
-#   s.description      = <<-DESC
-# TODO: Add long description of the pod here.
-#                        DESC
-
-#   s.homepage         = 'https://github.com/Dani Postigo/Andea'
-#   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
-#   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-#   s.author           = { 'Dani Postigo' => 'dani.postigo@gmail.com' }
-#   s.source           = { :git => 'https://github.com/Dani Postigo/Andea.git', :tag => s.version.to_s }
-#   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
-
-#   s.ios.deployment_target = '8.0'
-
-#   s.source_files = 'Andea/Classes/**/*'
-  
-#   # s.resource_bundles = {
-#   #   'Andea' => ['Andea/Assets/*.png']
-#   # }
-
-#   # s.public_header_files = 'Pod/Classes/**/*.h'
-#   # s.frameworks = 'UIKit', 'MapKit'
-#   # s.dependency 'AFNetworking', '~> 2.3'
 end
