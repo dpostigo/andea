@@ -24,6 +24,7 @@ Pod::Spec.new do |s|
   s.osx.deployment_target = '10.12'
   s.osx.frameworks = 'Foundation'
   s.ios.frameworks = 'Foundation'
+
   s.module_name = "Andea"
 
 

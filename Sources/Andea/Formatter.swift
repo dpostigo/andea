@@ -8,6 +8,11 @@ extension DateFormatter {
     public convenience init(dateStyle: Style) {
         self.init(); self.dateStyle = dateStyle
     }
+
+
+    public convenience init(dateFormat: String) {
+        self.init(); self.dateFormat = dateFormat
+    }
 }
 
 extension NumberFormatter {

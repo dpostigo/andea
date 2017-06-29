@@ -42,6 +42,11 @@ extension MarshaledObject {
         guard let double = Double(string) else { throw MarshalError.typeMismatch(expected: Double.self, actual: type(of: string)) }
         return double
     }
+
+    public func unixDate(for key: KeyType) throws -> Date {
+        let value = try self.any(for: key)
+        return try Date.unixDate(from: value)
+    }
 }
 
 extension ValueType {
@@ -56,19 +61,25 @@ extension ValueType {
         guard let double = Double(value) else { throw MarshalError.typeMismatch(expected: Double.self, actual: type(of: object)) }
         return double
     }
+
+
 }
 
 
 extension Date : ValueType {
+
+    static let unixFormatter = DateFormatter(dateFormat: "yyyy-MM-dd HH:mm:ss")
+
+    public static func unixDate(from object: Any) throws -> Date {
+        guard let string = object as? String else {  throw MarshalError.typeMismatch(expected: String.self, actual: type(of: object)) }
+        guard let date = Date.unixFormatter.date(from: string) else { throw MarshalError.typeMismatch(expected: "UNIX date string", actual: string) }
+        return date
+    }
+
     public static func value(from object: Any) throws -> Date {
         guard let double = object as? Double else {
             throw MarshalError.typeMismatch(expected: Double.self, actual: type(of: object))
         }
         return Date(timeIntervalSince1970: double)
-        // assuming you have a Date.fromISO8601String implemented...
-//        guard let date = Date(timeIntervalSince1970: double) else {
-//            throw MarshalError.typeMismatch(expected: "ISO8601 date string", actual: double)
-//        }
-        // return date
     }
 }
