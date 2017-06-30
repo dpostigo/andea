@@ -16,6 +16,11 @@ extension NSTableView {
 }
 
 extension NSTableColumn {
+
+    public convenience init?(identifier: String, title: String) {
+        self.init(identifier: identifier)
+        self.title = title
+    }
     public convenience init?(properties: [NSTableColumnPropertyKey: Any]) {
         guard let identifier = properties[.identifier] as? String else { return nil }
         self.init(identifier: identifier)

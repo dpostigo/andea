@@ -49,3 +49,11 @@ extension NSScrollView {
         get { return self.contentView }
     }
 }
+
+
+extension NSWindowController {
+    public convenience init(contentViewController: NSViewController) {
+        self.init(window: NSWindow(contentViewController: contentViewController))
+    }
+
+}
