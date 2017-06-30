@@ -5,6 +5,13 @@
 import Foundation
 import AppKit
 
+extension NSTableCellView {
+    public convenience init(identifier: String) {
+        self.init()
+        self.identifier = identifier
+    }
+}
+
 extension NSTextField {
     public convenience init(backgroundColor: NSColor, isBordered: Bool) {
         self.init()

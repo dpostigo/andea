@@ -65,7 +65,7 @@ Pod::Spec.new do |s|
 
   s.subspec 'AppKit' do |ss|
     ss.osx.deployment_target = '10.12'
-    ss.osx.frameworks = 'Foundation', 'AppKit'
+    ss.osx.frameworks = 'Foundation', 'AppKit', 'QuartzCore'
   	ss.osx.source_files = 'Sources/AppKit/**'
   end
 

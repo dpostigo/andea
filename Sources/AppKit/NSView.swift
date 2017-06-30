@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import QuartzCore
 
 extension NSView {
 
@@ -14,6 +15,15 @@ extension NSView {
 //        self.addSubview(view)
 //    }
 
+
+    public convenience init(wantsLayer: Bool) {
+        self.init(); self.wantsLayer = wantsLayer
+    }
+//
+//    public convenience init(backgroundColor: NSColor) {
+//        self.init(wantsLayer: true)
+//        self.view.layer?.backgroundColor = backgroundColor.cgColor
+//    }
 
     public func addView(_ view: NSView) {
         view.translatesAutoresizingMaskIntoConstraints = false
