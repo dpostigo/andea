@@ -5,7 +5,24 @@
 import Foundation
 import AppKit
 
+extension NSTableCellView {
+    public convenience init(wantsLayer: Bool) {
+        self.init(); self.wantsLayer = wantsLayer
+    }
+}
+
 extension NSTableView {
+
+    public func dequeue<T: NSTableCellView>(forClass type: T.Type) -> T {
+        return self.dequeue(withIdentifier: T.classIdentifier)
+    }
+
+    public func dequeue<T: NSTableCellView>(withIdentifier identifier: String) -> T {
+        let view: T? = self.make(withIdentifier: identifier, owner: self) as? T
+        guard view == nil else { return view! }
+        let ret = T(); ret.wantsLayer = true; return ret
+    }
+
     public func addTableColumns(_ columns: [NSTableColumn]) {
         columns.forEach({ self.addTableColumn($0) })
     }

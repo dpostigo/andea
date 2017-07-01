@@ -20,6 +20,7 @@ extension NSView {
     }
 
     public func addView(_ view: NSView) {
+        view.wantsLayer = self.wantsLayer
         view.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(view)
     }
