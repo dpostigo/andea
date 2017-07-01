@@ -16,12 +16,14 @@ extension DateFormatter {
 }
 
 extension NumberFormatter {
-    public convenience init(fraction: CountableClosedRange<Int>? = nil, integer: CountableClosedRange<Int>) {
+    public typealias MinMax = (min: Int, max: Int)
+    public convenience init(fraction: MinMax? = nil, integer: MinMax) {
         self.init()
-        self.minimumFractionDigits = fraction?.lowerBound ?? 0
-        self.maximumFractionDigits = fraction?.upperBound ?? 0
-        self.minimumIntegerDigits = integer.lowerBound
-        self.maximumIntegerDigits = integer.upperBound
+        self.minimumFractionDigits = fraction?.min ?? 0
+        self.maximumFractionDigits = fraction?.max ?? 0
+        
+        self.minimumIntegerDigits = integer.min
+        self.maximumIntegerDigits = integer.max
     }
 
     public convenience init(numberStyle style: Style) {
