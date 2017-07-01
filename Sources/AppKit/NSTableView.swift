@@ -20,7 +20,7 @@ extension NSTableView {
     public func dequeue<T: NSTableCellView>(withIdentifier identifier: String) -> T {
         let view: T? = self.make(withIdentifier: identifier, owner: self) as? T
         guard view == nil else { return view! }
-        let ret = T(); ret.wantsLayer = true; return ret
+        let ret = T(); ret.wantsLayer = self.wantsLayer; return ret
     }
 
     public func addTableColumns(_ columns: [NSTableColumn]) {
