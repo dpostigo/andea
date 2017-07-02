@@ -28,7 +28,7 @@ extension Bundle {
         do {
             let data = try self.load(file: name, ext: "plist")
             do {
-                let plist = try? PropertyListSerialization.propertyList(from: data, options: .mutableContainers, format: nil)
+                let plist = try PropertyListSerialization.propertyList(from: data, options: .mutableContainers, format: nil)
                 return plist as? JSON
             } catch {
                 throw error

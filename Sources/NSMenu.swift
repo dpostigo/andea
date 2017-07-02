@@ -29,7 +29,6 @@ extension NSMenu {
 
 extension NSMenuItem {
     public func toggleState(_ sender: AnyObject) {
-        let item = sender as! NSMenuItem
         self.state = self.state == NSOnState ? NSOffState : NSOnState
     }
 }

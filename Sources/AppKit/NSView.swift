@@ -7,11 +7,14 @@ import AppKit
 import QuartzCore
 
 extension NSView {
-
     public static var classIdentifier: String { return String(describing: self) }
 
-    public convenience init(wantsLayer: Bool) {
-        self.init(); self.wantsLayer = wantsLayer
+    public convenience init(wantsLayer flag: Bool) {
+        self.init(); self.wantsLayer = flag
+    }
+
+    public convenience init(canDrawSubviewsIntoLayer flag: Bool) {
+        self.init(); self.canDrawSubviewsIntoLayer = flag
     }
 
     public convenience init(color: NSColor) {
@@ -32,5 +35,4 @@ extension NSView {
         self.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         self.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
     }
-
 }
