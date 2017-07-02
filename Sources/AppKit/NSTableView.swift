@@ -21,8 +21,8 @@ extension NSTableView {
         return self.dequeue(withIdentifier: T.classIdentifier)
     }
 
-    public func dequeue<T: NSTableCellView>(withIdentifier identifier: String) -> T {
-        let view: T? = self.make(withIdentifier: identifier, owner: self) as? T
+    public func dequeue<T: NSTableCellView>(withIdentifier identifier: String, owner: Any? = nil) -> T {
+        let view: T? = self.make(withIdentifier: identifier, owner: owner) as? T
         guard view == nil else { return view! }
         let ret = T();
         ret.wantsLayer = self.wantsLayer

@@ -5,6 +5,13 @@
 import Foundation
 import AppKit
 
+extension NSStackView {
+    public convenience init(axis: NSUserInterfaceLayoutOrientation, views: [NSView]) {
+        self.init(views: views)
+        self.orientation = axis
+    }
+}
+
 extension NSButton {
     public convenience init(image: NSImage) {
         self.init(image: image, target: nil, action: nil)
