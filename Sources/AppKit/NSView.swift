@@ -28,11 +28,11 @@ extension NSView {
         self.addSubview(view)
     }
 
-    public func embed(_ view: NSView) {
+    public func embed(_ view: NSView, insets: EdgeInsets = EdgeInsets()) {
         self.addView(view)
-        self.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        self.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        self.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        self.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        self.topAnchor.constraint(equalTo: view.topAnchor, constant: -insets.top).isActive = true
+        self.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: insets.bottom).isActive = true
+        self.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: -insets.left).isActive = true
+        self.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: insets.right).isActive = true
     }
 }

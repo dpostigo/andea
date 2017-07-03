@@ -9,6 +9,13 @@
 import Foundation
 
 extension CGRect {
+
+    public func insetBy(insets: EdgeInsets) -> CGRect {
+        var rect = self.insetBy(dx: insets.right, dy: insets.bottom)
+        rect = rect.offsetBy(dx: insets.left, dy: insets.top)
+        return rect
+    }
+
     public init(width: CGFloat) {
         self.init(x: 0, y: 0, width: width, height: width)
     }

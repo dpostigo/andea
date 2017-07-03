@@ -16,9 +16,18 @@ extension NSButton {
     public convenience init(image: NSImage) {
         self.init(image: image, target: nil, action: nil)
     }
+
+    public convenience init(title: String) {
+        self.init(title: title, target: nil, action: nil)
+    }
+
 }
 
 extension NSTextField {
+    public convenience init(wantsLayer flag: Bool) {
+        self.init(); self.wantsLayer = flag
+    }
+
     public convenience init(backgroundColor: NSColor, isBordered: Bool) {
         self.init()
         self.backgroundColor = backgroundColor

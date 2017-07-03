@@ -15,6 +15,8 @@ extension NSTableCellView {
     }
 }
 
+
+
 extension NSTableView {
 
     public func dequeue<T: NSTableCellView>(forClass type: T.Type) -> T {

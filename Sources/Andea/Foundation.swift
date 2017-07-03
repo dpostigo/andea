@@ -5,10 +5,20 @@
 import Foundation
 
 
+public protocol Terminable: RawRepresentable {
+    static var terminus: Self { get }
+}
+
+extension Terminable where RawValue == Int  {
+    public static var breadth: [Self] {
+        return self.allCases(to: self.terminus)
+    }
+}
+
 extension RawRepresentable where RawValue == Int {
 
 
-    public static func cases(from: Self = Self(rawValue: 0)!, to last: Self) -> [Self] {
+    public static func allCases(from: Self = Self(rawValue: 0)!, to last: Self) -> [Self] {
         return (from.rawValue ..< last.rawValue + 1).flatMap({ Self(rawValue: $0 )})
     }
 
