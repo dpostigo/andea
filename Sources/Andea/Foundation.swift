@@ -76,7 +76,7 @@ extension Bundle {
 }
 
 extension RangeReplaceableCollection {
-    func appending(_ item: Self.Iterator.Element) -> Self {
+    public func appending(_ item: Self.Iterator.Element) -> Self {
         var ret = Array(self) as! Self
         ret.append(item)
         return ret

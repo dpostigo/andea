@@ -6,7 +6,14 @@ import Foundation
 import AppKit
 
 extension NSStackView {
-    public convenience init(axis: NSUserInterfaceLayoutOrientation, views: [NSView]) {
+
+    public convenience init(axis: NSUserInterfaceLayoutOrientation, alignment: NSLayoutAttribute, distribution: NSStackViewDistribution, views: [NSView] = []) {
+        self.init(axis: axis, views: views)
+        self.alignment = alignment
+        self.distribution = distribution
+    }
+
+    public convenience init(axis: NSUserInterfaceLayoutOrientation, views: [NSView] = []) {
         self.init(views: views)
         self.orientation = axis
     }
@@ -21,7 +28,12 @@ extension NSButton {
         self.init(title: title, target: nil, action: nil)
     }
 
+    public func toggleState(_ sender: Any? = nil) {
+        self.state = self.state == NSOnState ? NSOffState : NSOnState
+    }
 }
+
+
 
 extension NSTextField {
     public convenience init(wantsLayer flag: Bool) {
