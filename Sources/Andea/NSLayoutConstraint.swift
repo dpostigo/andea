@@ -19,6 +19,11 @@ extension NSLayoutConstraint {
         self.priority = priority
         return self
     }
+    #elseif os(OSX)
+    public func priority(_ priority: NSLayoutPriority) -> Self {
+        self.priority = priority
+        return self
+    }
     #endif
 }
 

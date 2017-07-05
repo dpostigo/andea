@@ -12,7 +12,8 @@ extension NSClipView {
         self.documentView = documentView
         self.topAnchor.constraint(equalTo: documentView.topAnchor).isActive = true
         self.leadingAnchor.constraint(equalTo: documentView.leadingAnchor).isActive = true
-        self.trailingAnchor.constraint(equalTo: documentView.trailingAnchor).isActive = true
+        // self.trailingAnchor.constraint(equalTo: documentView.trailingAnchor).priority(500).isActive = true
+        // self.trailingAnchor.constraint(equalTo: documentView.trailingAnchor).priority(500).isActive = true
     }
 }
 
