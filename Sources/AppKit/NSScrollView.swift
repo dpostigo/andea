@@ -6,14 +6,14 @@ import Foundation
 import AppKit
 
 extension NSClipView {
-    public convenience init(documentView: NSView) {
+    public convenience init(documentView: NSView, fullscreen: Bool = true) {
         self.init(frame: documentView.bounds)
         documentView.translatesAutoresizingMaskIntoConstraints = false
         self.documentView = documentView
         self.topAnchor.constraint(equalTo: documentView.topAnchor).isActive = true
         self.leadingAnchor.constraint(equalTo: documentView.leadingAnchor).isActive = true
-        // self.trailingAnchor.constraint(equalTo: documentView.trailingAnchor).priority(500).isActive = true
-        // self.trailingAnchor.constraint(equalTo: documentView.trailingAnchor).priority(500).isActive = true
+        guard !fullscreen else { return }
+        self.trailingAnchor.constraint(equalTo: documentView.trailingAnchor).isActive = true
     }
 }
 

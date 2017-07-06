@@ -18,7 +18,7 @@ extension NSMenu {
             item.state = column.isHidden ? NSOffState : NSOnState
             item.onStateImage = NSImage(named: NSImageNameMenuOnStateTemplate)
             column.bind(NSHiddenBinding, to: item, withKeyPath: "state", options: [
-                    NSValueTransformerBindingOption: ValueTransformer(forName: .negateBooleanTransformerName),
+                    NSValueTransformerBindingOption: ValueTransformer(forName: .negateBooleanTransformerName)!,
                     NSContinuouslyUpdatesValueBindingOption: true
             ])
             return item

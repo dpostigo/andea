@@ -16,7 +16,9 @@ extension NSTableCellView {
 }
 
 
+extension NSOutlineView {
 
+}
 extension NSTableView {
 
     public func dequeue<T: NSTableCellView>(forClass type: T.Type) -> T {
@@ -42,6 +44,14 @@ extension NSTableView {
 
 extension NSTableColumn {
 
+    public var fixedWidth: CGFloat {
+        set {
+            self.width = newValue
+            self.minWidth = newValue
+            self.maxWidth = newValue
+        }
+        get { return self.width }
+    }
     public convenience init(identifier: String, title: String) {
         self.init(identifier: identifier)
         self.title = title

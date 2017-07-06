@@ -12,7 +12,7 @@ class Box<A> {
 }
 
 extension Sequence {
-    public func groupHello<U: Hashable>(by key: (Iterator.Element) -> U) -> [U:[Iterator.Element]] {
+    public func group<U: Hashable>(by key: (Iterator.Element) -> U) -> [U:[Iterator.Element]] {
         var categories: [U: Box<[Iterator.Element]>] = [:]
         for element in self {
             let key = key(element)
