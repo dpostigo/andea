@@ -6,6 +6,15 @@ import Foundation
 import Marshal
 
 extension Unmarshaling {
+    public static func from(_ array: Any, completion: (([Self]) -> Void)? = nil, failure: ((Error) -> Void)? = nil) {
+        do {
+            let result = try self.from(array)
+            completion?(result)
+        } catch {
+            failure?(error)
+        }
+    }
+
     public static func from(_ array: Any) throws -> [Self] {
         return try Array.value(from: array)
     }

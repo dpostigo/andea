@@ -11,6 +11,16 @@ extension String {
         let indented = self.components(separatedBy: "\n").map({ indent + $0 })
         return indented.joined(separator: "\n")
     }
+
+    public var capitalizedFirst: String {
+        let characters = self.characters.enumerated().map({ $0.offset == 0 ? String($0.element).capitalized : String($0.element) })
+        return characters.joined()
+    }
+
+    public var lowercasedFirst: String {
+        let characters = self.characters.enumerated().map({ $0.offset == 0 ? String($0.element).lowercased() : String($0.element) })
+        return characters.joined()
+    }
 }
 
 extension NSObject {
