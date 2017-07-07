@@ -46,3 +46,10 @@ extension NSTextField {
         self.isBordered = isBordered
     }
 }
+
+
+extension NSToolbar {
+    public convenience init(identifier: String, delegate: NSToolbarDelegate) {
+        self.init(identifier: identifier); self.delegate = delegate
+    }
+}
