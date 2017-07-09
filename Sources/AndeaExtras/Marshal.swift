@@ -40,6 +40,11 @@ extension Unmarshaling {
     }
 }
 
+extension Sequence where Iterator.Element: Marshaling {
+    public func marshaled() -> [Iterator.Element.MarshalType] {
+        return self.map({ $0.marshaled() })
+    }
+}
 
 extension MarshaledObject {
     public func optionalDouble(for key: KeyType) -> Double? {
