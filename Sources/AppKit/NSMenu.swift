@@ -6,6 +6,14 @@ import Foundation
 import AppKit
 
 extension NSMenu {
+
+    public var fileMenu: NSMenu? {
+        return self.fileItem?.submenu
+    }
+    public var fileItem: NSMenuItem? {
+        return self.item(withTitle: "File")
+    }
+
     public convenience init(forTableView tableView: NSTableView, state: Int = 0) {
         self.init(title: tableView.autosaveName ?? "Untitled", tableColumns: tableView.tableColumns, state: state)
     }
