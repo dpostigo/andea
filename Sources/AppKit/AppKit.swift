@@ -6,7 +6,6 @@ import Foundation
 import AppKit
 
 extension NSStackView {
-
     public convenience init(axis: NSUserInterfaceLayoutOrientation, alignment: NSLayoutAttribute, distribution: NSStackViewDistribution, views: [NSView] = []) {
         self.init(axis: axis, views: views)
         self.alignment = alignment
@@ -34,7 +33,6 @@ extension NSButton {
 }
 
 
-
 extension NSTextField {
     public convenience init(wantsLayer flag: Bool) {
         self.init(); self.wantsLayer = flag
@@ -53,3 +51,4 @@ extension NSToolbar {
         self.init(identifier: identifier); self.delegate = delegate
     }
 }
+

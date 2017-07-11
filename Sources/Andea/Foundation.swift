@@ -29,14 +29,15 @@ extension RawRepresentable where RawValue == Int {
 
 
 extension Bundle {
-    public enum JSONLoadingError: Error {
+    public enum BundleError: Error {
+        case typeMismatch(expected: Any, actual: Any)
         case fileNotFound
     }
 
 
     public func load(plist name: String) throws -> JSON? {
         do {
-            let data = try self.load(file: name, ext: "plist")
+            let data = try self.load(resource: name, ext: "plist")
             do {
                 let plist = try PropertyListSerialization.propertyList(from: data, options: .mutableContainers, format: nil)
                 return plist as? JSON
@@ -49,29 +50,31 @@ extension Bundle {
     }
 
 
-    public func load(json filename: String, key: String? = nil) throws -> JSON? {
+    public func load(json jsonName: String, options opt: JSONSerialization.ReadingOptions = []) throws -> JSON {
         do {
-            let data = try self.load(file: filename, ext: "json")
-//            if let json = JSONSerialization.jsonObject(with: data, options: []) {
-//                return (json as? JSON)?[key ?? filename]
-//            }
-//            return nil
-
-//            guard let json = try? JSONSerialization.jsonObject(with: data, options: []) else { return nil };
-//            return json as? JSON
-            
-            return try JSONSerialization.jsonObject(with: data, options: []) as? JSON
-            
+            let data = try self.load(resource: jsonName, ext: "json")
+            return try JSONSerialization.json(with: data, options: opt)
         }
         catch { throw error }
     }
 
-    public func load(file filename: String, ext: String) throws -> Data {
-        guard let file = Bundle.main.url(forResource: filename, withExtension: ext) else { throw JSONLoadingError.fileNotFound }
+    public func load(resource filename: String, ext: String) throws -> Data {
+        guard let file = Bundle.main.url(forResource: filename, withExtension: ext) else { throw BundleError.fileNotFound }
+        return try Data(contentsOf: file)
+    }
+}
+
+extension JSONSerialization {
+    public enum JSONError: Error {
+        case typeMismatch(expected: Any, actual: Any)
+    }
+
+    public class func json(with data: Data, options opt: JSONSerialization.ReadingOptions = []) throws -> [String: Any] {
         do {
-            return try Data(contentsOf: file)
-        }
-        catch { throw error }
+            let value = try JSONSerialization.jsonObject(with: data, options: opt)
+            guard let json = value as? JSON else { throw JSONError.typeMismatch(expected: [String: Any].self, actual: type(of: value)) }
+            return json
+        } catch { throw error }
     }
 }
 

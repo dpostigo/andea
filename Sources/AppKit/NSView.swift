@@ -17,6 +17,10 @@ extension NSView {
         self.init(); self.canDrawSubviewsIntoLayer = flag
     }
 
+    public convenience init(autolayout flag: Bool) {
+        self.init(); self.translatesAutoresizingMaskIntoConstraints = !flag
+    }
+
     public convenience init(color: NSColor) {
         self.init(wantsLayer: true)
         self.layer?.backgroundColor = color.cgColor
@@ -27,6 +31,8 @@ extension NSView {
         view.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(view)
     }
+
+
 
     public func embed(_ view: NSView, insets: EdgeInsets = EdgeInsets()) {
         self.addView(view)

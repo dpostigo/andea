@@ -9,3 +9,10 @@ extension FileManager {
         return self.urls(for: .documentDirectory, in: .userDomainMask).first
     }
 }
+
+
+extension URL {
+    public var pathExists: Bool {
+        return FileManager.default.fileExists(atPath: self.path)
+    }
+}

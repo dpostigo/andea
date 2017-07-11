@@ -9,7 +9,6 @@ extension DateFormatter {
         self.init(); self.dateStyle = dateStyle
     }
 
-
     public convenience init(dateFormat: String) {
         self.init(); self.dateFormat = dateFormat
     }
