@@ -12,6 +12,12 @@ extension NSStackView {
         self.distribution = distribution
     }
 
+    public convenience init(axis: NSUserInterfaceLayoutOrientation, spacing: CGFloat = 0, distribution: NSStackViewDistribution, views: [NSView] = []) {
+        self.init(axis: axis, views: views)
+        self.spacing = spacing
+        self.distribution = distribution
+    }
+
     public convenience init(axis: NSUserInterfaceLayoutOrientation, views: [NSView] = []) {
         self.init(views: views)
         self.orientation = axis
