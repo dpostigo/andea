@@ -15,19 +15,6 @@ extension Terminable where RawValue == Int  {
     }
 }
 
-extension RawRepresentable where RawValue == Int {
-
-
-    public static func allCases(from: Self = Self(rawValue: 0)!, to last: Self) -> [Self] {
-        return (from.rawValue ..< last.rawValue + 1).flatMap({ Self(rawValue: $0 )})
-    }
-
-//    public static func cases(to last: Self) -> [Self] {
-//        return (0 ..< last.rawValue + 1).flatMap({ Self(rawValue: $0 )})
-//    }
-}
-
-
 extension Bundle {
     public enum BundleError: Error {
         case typeMismatch(expected: Any, actual: Any)

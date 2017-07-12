@@ -6,7 +6,7 @@ import Foundation
 import Marshal
 
 extension Unmarshaling {
-    public static func from(_ array: Any, completion: (([Self]) -> Void)? = nil, failure: ((Error) -> Void)? = nil) {
+    @discardableResult public static func from(_ array: Any, completion: (([Self]) -> Void)? = nil, failure: ((Error) -> Void)? = nil) {
         do {
             let result = try self.from(array)
             completion?(result)
@@ -20,14 +20,10 @@ extension Unmarshaling {
     }
 }
 
-extension KeyType where Self: RawRepresentable, Self.RawValue == Int {
-    public var stringValue: String { return String(describing: self) }
-}
 
-extension KeyType where Self: RawRepresentable, Self.RawValue == String {
-    public var stringValue: String { return self.rawValue }
-}
 
+
+// MARK: Collection helpers
 
 extension Unmarshaling {
     public static func resultArray(_ json: Any, completion: (([Self]) -> Void)? = nil, failure: ((Error) -> Void)? = nil) {
@@ -45,6 +41,9 @@ extension Sequence where Iterator.Element: Marshaling {
         return self.map({ $0.marshaled() })
     }
 }
+
+// MARK: ValueTypes
+
 
 extension MarshaledObject {
     public func optionalDouble(for key: KeyType) -> Double? {

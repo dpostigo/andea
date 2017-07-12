@@ -13,9 +13,6 @@ extension UserDefaults {
         self.set(value, forKey: type.rawValue)
     }
 
-    public func value<T: RawRepresentable>(forKey type: T) -> Any? where T.RawValue == String {
-        return self.value(forKey: type.rawValue)
-    }
 
     public func set<T: RawRepresentable>(_ value: Any?, forKey type: T) where T.RawValue == String {
         guard let value = value else { self.removeObjectForKey(type); return }

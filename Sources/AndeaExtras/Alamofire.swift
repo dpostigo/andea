@@ -7,6 +7,16 @@ import Foundation
 import Alamofire
 
 extension Alamofire.DataRequest {
+
+    @discardableResult public func response(json completion: ((JSON) -> Void)? = nil, failure: ((Error) -> Void)? = nil) -> Self {
+        return self.responseJSON(completionHandler: { response in
+            switch response.result {
+                case .success(let value): completion?(value as! JSON)
+                case .failure(let error): failure?(error)
+            }
+        })
+    }
+
     @discardableResult public func responseJSON(completion: ((Any) -> Void)? = nil, failure: ((Error) -> Void)? = nil) -> Self {
         return self.responseJSON(completionHandler: { response in
             switch response.result {

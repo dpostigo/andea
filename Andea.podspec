@@ -38,18 +38,18 @@ Pod::Spec.new do |s|
   s.subspec 'Extras' do |ss|
   	ss.frameworks = 'Foundation'
   	ss.source_files = 'Sources/AndeaExtras/**'
-  	ss.exclude_files = 'Sources/AndeaExtras/{Alamofire,Marshal}.swift'
+  	ss.exclude_files = 'Sources/AndeaExtras/Alamofire?.swift'
     ss.dependency 'Marshal'
   end
 
 
   s.subspec 'Alamofire' do |ss|
-  	ss.source_files = 'Sources/AndeaExtras/Alamofire.swift'
+  	ss.source_files = 'Sources/AndeaExtras/Alamofire?.swift'
   	ss.dependency 'Alamofire'
   end
 
   s.subspec 'Marshal' do |ss|
-  	ss.source_files = 'Sources/AndeaExtras/Marshal.swift'
+  	ss.source_files = 'Sources/Marshal/**/*'
     ss.dependency 'Marshal'
   end
 
