@@ -10,15 +10,28 @@ extension NSArrayController {
         return (self.arrangedObjects as! [Any]).indexSet
     }
 
+    public convenience init(automaticallyRearrangesObjects: Bool, selectsInsertedObjects: Bool = false) {
+        self.init(); self.automaticallyRearrangesObjects = automaticallyRearrangesObjects; self.selectsInsertedObjects = selectsInsertedObjects
+    }
+
+    public func value(forKeyPath keyPath: String, at index: Int) -> Any? {
+        return self.object(at: index)?.value(forKeyPath: keyPath)
+    }
+
+    public func object(at index: Int) -> NSObject? {
+        return self.value(at: index) as? NSObject
+    }
+
+    public func value(at index: Int) -> Any? {
+        return (self.arrangedObjects as! [Any])[index]
+    }
+
     public func setSelectedSymmetricDifference(withIndexes indexes: IndexSet? = nil) {
         let selected = indexes ?? self.selectionIndexes
         let indexes = self.indexes.symmetricDifference(selected)
         self.setSelectionIndexes(indexes)
     }
 
-    public convenience init(automaticallyRearrangesObjects: Bool, selectsInsertedObjects: Bool = false) {
-        self.init(); self.automaticallyRearrangesObjects = automaticallyRearrangesObjects; self.selectsInsertedObjects = selectsInsertedObjects
-    }
 }
 
 extension NSStackView {

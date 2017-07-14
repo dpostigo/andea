@@ -67,6 +67,10 @@ Pod::Spec.new do |s|
     ss.osx.deployment_target = '10.12'
     ss.osx.frameworks = 'Foundation', 'AppKit', 'QuartzCore'
   	ss.osx.source_files = 'Sources/AppKit/**'
+
+    ss.subspec 'NSApplication' do |sss|
+      sss.osx.source_files = 'Sources/Andea-NSApplication/**/*'
+    end
   end
 
 

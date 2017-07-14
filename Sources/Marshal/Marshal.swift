@@ -6,7 +6,7 @@ import Foundation
 import Marshal
 
 extension Unmarshaling {
-    @discardableResult public static func from(_ array: Any, completion: (([Self]) -> Void)? = nil, failure: ((Error) -> Void)? = nil) {
+    public static func from(_ array: Any, completion: (([Self]) -> Void)? = nil, failure: ((Error) -> Void)? = nil) {
         do {
             let result = try self.from(array)
             completion?(result)
