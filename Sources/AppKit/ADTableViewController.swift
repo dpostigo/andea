@@ -30,8 +30,6 @@ open class ADTableViewController: NSViewController {
     open func add(scrollView: NSScrollView) {
         self.view.embed(scrollView)
         scrollView.contentView.documentView = self.tableView
-        // self.view.embed(scrollView)
-        // scrollView.enclose(view: self.tableView)
     }
 
 }

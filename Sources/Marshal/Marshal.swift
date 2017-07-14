@@ -46,6 +46,13 @@ extension Sequence where Iterator.Element: Marshaling {
 
 
 extension MarshaledObject {
+
+    public func unemptyString(for key: KeyType) -> String? {
+        guard let string: String = try? self.value(for: key) else { return nil }
+        Swift.print("string = \(string), string.isEmpty = \(string.isEmpty)")
+        return string.isEmpty ? nil : string
+    }
+
     public func optionalDouble(for key: KeyType) -> Double? {
         return (try? self.double(for: key)) ?? nil
     }

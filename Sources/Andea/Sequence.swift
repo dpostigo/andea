@@ -11,6 +11,20 @@ class Box<A> {
     }
 }
 
+extension Dictionary {
+    @discardableResult public func appending(_ value: Value?, forKey key: Key) -> Dictionary<Key, Value> {
+        var ret = self
+        ret.append(value, forKey: key)
+        return ret
+    }
+
+    @discardableResult public mutating func append(_ value: Value?, forKey key: Key) -> Dictionary<Key, Value> {
+        guard let value = value else { return self }
+        self[key] = value
+        return self
+    }
+}
+
 extension Sequence {
     public func group<U: Hashable>(by key: (Iterator.Element) -> U) -> [U:[Iterator.Element]] {
         var categories: [U: Box<[Iterator.Element]>] = [:]

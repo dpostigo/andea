@@ -2,8 +2,24 @@
 // Created by Daniela Postigo on 6/25/17.
 //
 
-import Foundation
+import Cocoa
 import AppKit
+
+extension NSArrayController {
+    public var indexes: IndexSet {
+        return (self.arrangedObjects as! [Any]).indexSet
+    }
+
+    public func setSelectedSymmetricDifference(withIndexes indexes: IndexSet? = nil) {
+        let selected = indexes ?? self.selectionIndexes
+        let indexes = self.indexes.symmetricDifference(selected)
+        self.setSelectionIndexes(indexes)
+    }
+
+    public convenience init(automaticallyRearrangesObjects: Bool, selectsInsertedObjects: Bool = false) {
+        self.init(); self.automaticallyRearrangesObjects = automaticallyRearrangesObjects; self.selectsInsertedObjects = selectsInsertedObjects
+    }
+}
 
 extension NSStackView {
     public convenience init(axis: NSUserInterfaceLayoutOrientation, alignment: NSLayoutAttribute, distribution: NSStackViewDistribution, views: [NSView] = []) {

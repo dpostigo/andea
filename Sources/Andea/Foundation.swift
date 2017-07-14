@@ -73,7 +73,14 @@ extension RangeReplaceableCollection {
     }
 }
 
+extension Array {
+    public var indexSet: IndexSet {
+        return IndexSet(integersIn: self.startIndex ... self.endIndex)
+    }
+}
 extension Sequence {
+
+
     public func select(_ find: (Self.Iterator.Element) -> Bool) -> Self.Iterator.Element? {
         var generator = self.makeIterator()
         while let elem = generator.next() {
