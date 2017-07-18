@@ -14,6 +14,7 @@ open class ADTextTableCell: NSTableCellView {
         self.title.wantsLayer = self.wantsLayer
         self.title.controlSize = .small
         self.embed(self.title)
+        self.frame.size.height = self.fittingSize.height
     }
 
     required public init?(coder: NSCoder) {
@@ -23,6 +24,11 @@ open class ADTextTableCell: NSTableCellView {
     override open func prepareForReuse() {
         super.prepareForReuse()
         self.title.unbind(NSValueBinding)
+    }
+
+    override open func layout() {
+        super.layout()
+        self.title.preferredMaxLayoutWidth = self.title.bounds.width
     }
 
 }

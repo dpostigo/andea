@@ -9,6 +9,8 @@ open class ADTableCellView: NSTableCellView {
 
     lazy open var contentView: NSView = ({ NSView(wantsLayer: self.wantsLayer) })()
 
+
+
     lazy open var title: NSTextField = ({
         let title = NSTextField(wantsLayer: self.wantsLayer)
         //self.textField = title
@@ -16,7 +18,9 @@ open class ADTableCellView: NSTableCellView {
         title.cell?.isBezeled = true
         title.bezelStyle = .roundedBezel
         // title.cell?.controlSize = .small
-        self.contentView.embed(title)
+        title.setContentCompressionResistancePriority(1000, for: .vertical)
+
+//        self.frame.size.height = self.contentView.fittingSize.height
         return title
     })()
 
@@ -31,14 +35,26 @@ open class ADTableCellView: NSTableCellView {
         didSet { self.setNeedsDisplay(self.bounds) }
     }
 
+    open var stack: NSStackView?
+
     // MARK: Init
 
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
         self.identifier = (type(of: self)).classIdentifier
-        self.embed(self.title)
-//        self.contentView = self
-        // self.embed(self.contentView)
+
+        self.embed(self.contentView)
+        self.contentView.embed(self.title)
+
+        //self.title.isHidden = true
+        // Swift.print("self.contentView.fittingSize.height = \(self.contentView.fittingSize.height)")
+        //        self.layout()
+        // Swift.print("self.frame = \(self.frame)")
+
+        Swift.print("self.fittingSize = \(self.fittingSize)")
+        self.frame.size.height = self.fittingSize.height
+        Swift.print("self.bounds.height = \(self.bounds.height)")
+
     }
 
     required public init?(coder: NSCoder) {
@@ -49,8 +65,10 @@ open class ADTableCellView: NSTableCellView {
 
     override open func layout() {
         super.layout()
+        Swift.print("self.bounds = \(self.bounds)")
+        self.title.preferredMaxLayoutWidth = self.title.bounds.width
 
-//        Swift.print("self.fittingSize = \(self.fittingSize)")
+        //        Swift.print("self.fittingSize = \(self.fittingSize)")
 //        Swift.print("self.contentView.fittingSize = \(self.contentView.fittingSize)")
 ////        self.contentView.frame = self.bounds.insetBy(insets: self.layoutMargins)
 //        Swift.print("self.frame = \(self.frame)")
@@ -59,6 +77,7 @@ open class ADTableCellView: NSTableCellView {
     override open func prepareForReuse() {
         super.prepareForReuse()
         self.contentView.subviews.forEach({ $0.unbind(NSValueBinding) })
+        self.frame.size.height = self.fittingSize.height
     }
 
     private func update(margins: EdgeInsets) {

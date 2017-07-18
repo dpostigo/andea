@@ -5,6 +5,15 @@
 import Cocoa
 import AppKit
 
+extension NSObjectController {
+    public var contentArray: [Any]? {
+        return self.content as? [Any]
+    }
+}
+
+extension NSTreeController {
+    public var arrangedArray: [Any]? { return self.arrangedObjects as? [Any] }
+}
 extension NSArrayController {
     public var indexes: IndexSet {
         return (self.arrangedObjects as! [Any]).indexSet
@@ -33,6 +42,8 @@ extension NSArrayController {
     }
 
 }
+
+
 
 extension NSStackView {
     public convenience init(axis: NSUserInterfaceLayoutOrientation, alignment: NSLayoutAttribute, distribution: NSStackViewDistribution, views: [NSView] = []) {
@@ -67,6 +78,32 @@ extension NSButton {
     }
 }
 
+extension NSCollectionView {
+    public func makeItem<T: NSCollectionViewItem>(forClass type: T.Type, for indexPath: IndexPath) -> T {
+        return self.makeItem(withIdentifier: type.classIdentifier, for: indexPath) as! T
+    }
+}
+
+
+extension NSCollectionViewFlowLayout {
+    public convenience init(scrollDirection: NSCollectionViewScrollDirection) {
+        self.init(); self.scrollDirection = scrollDirection
+    }
+//
+//    public convenience init(scrollDirection: NSCollectionViewScrollDirection, estimatedItemSize: NSSize) {
+//        self.init()
+//        self.scrollDirection = scrollDirection
+//        self.estimatedItemSize = estimatedItemSize
+//    }
+
+    public convenience init(scrollDirection: NSCollectionViewScrollDirection, estimatedItemSize: NSSize = .zero, minimumLineSpacing: CGFloat = 10, minimumInteritemSpacing: CGFloat = 10) {
+        self.init()
+        self.scrollDirection = scrollDirection
+        self.estimatedItemSize = estimatedItemSize
+        self.minimumLineSpacing = minimumLineSpacing
+        self.minimumInteritemSpacing = minimumInteritemSpacing
+    }
+}
 
 extension NSTextField {
     public convenience init(wantsLayer flag: Bool) {
@@ -81,9 +118,70 @@ extension NSTextField {
 }
 
 
+extension NSTextView {
+    public func scrollView(forBounds bounds: CGRect? = nil) -> NSScrollView {
+        return self.configure(NSScrollView(frame: bounds ?? self.bounds))
+    }
+    @discardableResult public func configure(_ scrollView: NSScrollView) -> NSScrollView {
+        scrollView.contentView.documentView = self
+        self.isVerticallyResizable = true
+        self.isHorizontallyResizable = false
+        self.autoresizingMask = .viewWidthSizable
+        // self.textContainer!.widthTracksTextView = true
+        return scrollView
+    }
+
+    public var scrollViewSize: CGSize {
+        return CGSize(width: self.enclosingScrollView!.bounds.width, height: CGFloat.greatestFiniteMagnitude)
+    }
+}
+
+
 extension NSToolbar {
     public convenience init(identifier: String, delegate: NSToolbarDelegate) {
         self.init(identifier: identifier); self.delegate = delegate
     }
 }
 
+class ShadowLayer: CALayer {
+
+    private let shadowLayer = CAShapeLayer()
+    
+    
+    override open var backgroundColor: CGColor? {
+        didSet {
+            
+        }
+    }
+
+    
+    override var shadowColor: CGColor? {
+        set {
+            self.shadowLayer.strokeColor = self.shadowColor
+            self.shadowLayer.shadowColor = self.shadowColor
+        }
+        get { return self.shadowLayer.shadowColor }
+    }
+    
+    override var shadowRadius: CGFloat {
+        didSet {
+            self.shadowLayer.shadowRadius = self.shadowRadius
+            self.shadowLayer.shadowOffset = CGSize(width: 0, height: self.shadowRadius * 2)
+
+        }
+    }
+    
+    override init(layer: Any) {
+        super.init(layer: layer)
+        Swift.print("\(type(of: self)).\(#function)")
+
+        self.masksToBounds = true
+
+        self.shadowLayer.shadowOpacity = 1
+        self.shadowLayer.fillColor = NSColor.clear.cgColor
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}

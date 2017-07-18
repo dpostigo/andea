@@ -6,9 +6,16 @@ import Foundation
 import AppKit
 
 extension NSViewController {
+
+    public static var classIdentifier: String { return String(describing: self) }
+
     public convenience init(view: NSView) {
         self.init(); self.view = view
     }
+    public convenience init(title: String) {
+        self.init(); self.title = title
+    }
+
     public convenience init(bounds: CGRect) {
         self.init(); self.view.bounds = bounds
     }
@@ -17,6 +24,10 @@ extension NSViewController {
         guard let child = child else { return }
         child.removeFromParentViewController()
         child.view.removeFromSuperview()
+    }
+
+    public func addChildViewControllers(_ controllers: [NSViewController]) {
+        controllers.forEach({ self.addChildViewController($0) })
     }
 }
 

@@ -8,11 +8,34 @@
 
 import Foundation
 
+extension EdgeInsets {
+    public init(top: CGFloat, bottom: CGFloat) {
+        self.init(top: top, left: 0, bottom: bottom, right: 0)
+    }
+
+    public init(left: CGFloat, right: CGFloat) {
+        self.init(top: 0, left: left, bottom: 0, right: right)
+    }
+
+    public init(top: CGFloat, left: CGFloat) {
+        self.init(top: top, left: left, bottom: 0, right: 0)
+    }
+
+    public init(value: CGFloat) {
+        self.init(top: value, left: value, bottom: value, right: value)
+    }
+}
+
 extension CGRect {
 
+    public func insetBy(amount: CGFloat) -> CGRect {
+        return self.insetBy(insets: EdgeInsets(value: amount))
+    }
+
     public func insetBy(insets: EdgeInsets) -> CGRect {
-        var rect = self.insetBy(dx: insets.right, dy: insets.bottom)
-        rect = rect.offsetBy(dx: insets.left, dy: insets.top)
+        var rect = self.offsetBy(dx: insets.left, dy: insets.top)
+        rect.size.width -= (insets.right - insets.left)
+        rect.size.height -= (insets.top - insets.bottom)
         return rect
     }
 
@@ -30,11 +53,11 @@ extension CGRect {
         self.init(x: origin.x, y: origin.y, width: width, height: height)
     }
     
-    mutating func with(width value: CGFloat) -> CGRect {
+    public mutating func setWidth(_ value: CGFloat) -> CGRect {
         self.size.width = value
         return self
     }
-    public mutating func with(height value: CGFloat) -> CGRect {
+    public mutating func setHeight(_ value: CGFloat) -> CGRect {
         self.size.height = value
         return self
     }
