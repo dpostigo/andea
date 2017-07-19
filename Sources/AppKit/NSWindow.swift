@@ -10,6 +10,9 @@ extension NSWindow {
     public static let systemLayoutRect: CGRect = CGRect(size: NSWindow.systemSize)
     public static let systemStyleMask: NSWindowStyleMask = [.titled, .closable, .resizable, .miniaturizable]
 
+    public static let hudStyleMask: NSWindowStyleMask = [NSWindowStyleMask.hudWindow, .titled, .closable, .resizable, .miniaturizable , .borderless, .utilityWindow]
+
+
     public func addChildWindowController(_ wc: NSWindowController, ordered place: NSWindowOrderingMode) {
         guard let window = wc.window else { return  }
         self.addChildWindow(window, ordered: place)

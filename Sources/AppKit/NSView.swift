@@ -86,25 +86,3 @@ extension NSLayoutAnchor {
         return ret
     }
 }
-
-
-public class Playground: NSView {
-
-    public convenience init() {
-        self.init(frame: NSWindow.systemLayoutRect)
-        self.wantsLayer = true
-        self.layer?.backgroundColor = NSColor.white.cgColor
-    }
-//
-//    required public init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-}
-
-
-
-extension CALayer {
-    public convenience init(frame: CGRect) {
-        self.init(); self.frame = frame
-    }
-}

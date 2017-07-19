@@ -15,3 +15,9 @@ extension KeyType where Self: RawRepresentable, Self.RawValue == Int {
 extension KeyType where Self: RawRepresentable, Self.RawValue == String {
     public var stringValue: String { return self.rawValue }
 }
+
+extension Sequence where Self.Iterator.Element: KeyType {
+    public var stringValues: [String] {
+        return self.map({ $0.stringValue })
+    }
+}

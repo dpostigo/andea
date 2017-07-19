@@ -112,6 +112,20 @@ extension ValueType {
 }
 
 
+extension IndexSet: ValueType {
+    
+    public func marshaled() -> [Int] {
+        return self.map({ $0 })
+    }
+    public static func value(from object: Any) throws -> IndexSet {
+        guard let numbers = object as? [Int] else { throw MarshalError.typeMismatch(expected: [Int].self, actual: type(of: object)) }
+        return IndexSet(numbers)
+    }
+
+}
+
+
+
 extension Date : ValueType {
 
     static let unixFormatter = DateFormatter(dateFormat: "yyyy-MM-dd HH:mm:ss")

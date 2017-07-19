@@ -24,3 +24,10 @@ extension NSObject {
         return self.value(forKey: key.rawValue)
     }
 }
+
+
+extension Sequence where Self.Iterator.Element: RawRepresentable {
+    public var rawValues: [Self.Iterator.Element.RawValue] {
+        return self.map({ $0.rawValue })
+    }
+}

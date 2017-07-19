@@ -7,19 +7,14 @@ import AppKit
 
 open class ADButtonTableCell: NSTableCellView {
 
-
-    lazy open var button: NSButton = ({
-        let button = NSButton()
+    @objc lazy open var button: NSButton = ({
+        let button = type(of: self).create("button") as! NSButton
         button.wantsLayer = self.wantsLayer
-        button.bezelStyle = .texturedRounded
-//        button.title = "Button"
         self.embed(button)
         return button
     })()
 
-    // let button = NSButton(image: NSImage(named: NSImageNameGoRightTemplate)!)
-
-    override init(frame frameRect: NSRect) {
+    override public init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
         self.identifier = (type(of: self)).classIdentifier
         //        self.button.isBordered = false
@@ -31,9 +26,42 @@ open class ADButtonTableCell: NSTableCellView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: Overrides
+
+    override open var wantsLayer: Bool {
+        didSet { self.setValue(self.wantsLayer, forKeyPath: "button.wantsLayer") }
+    }
+
     override open func prepareForReuse() {
         super.prepareForReuse()
+        self.button.wantsLayer = self.wantsLayer
         self.button.unbind(NSValueBinding)
     }
 
+    // MARK: Create
+
+    open class func create(_ property: String) -> Any? {
+        switch property {
+            case "button": return self.createButton()
+            default : return nil
+        }
+    }
+
+    open class func createButton() -> NSButton {
+        let button = NSButton()
+        button.bezelStyle = .texturedRounded
+        return button
+    }
+
+
+
+}
+
+
+extension NSView {
+    func recursiveLayer() {
+
+    }
+
+  
 }

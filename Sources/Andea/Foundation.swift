@@ -5,6 +5,20 @@
 import Foundation
 
 
+
+extension URLRequest {
+
+    public init?(string: String, httpMethod: String? = nil) {
+        guard let url = URL(string: string) else { return nil }
+        self.init(url: url, httpMethod: httpMethod)
+    }
+    
+    public init(url: URL, httpMethod: String?) {
+        self.init(url: url)
+        self.httpMethod = httpMethod
+    }
+}
+
 public protocol Terminable: RawRepresentable {
     static var terminus: Self { get }
 }

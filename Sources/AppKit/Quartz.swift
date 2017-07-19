@@ -6,6 +6,13 @@ import Foundation
 import AppKit
 import QuartzCore
 
+extension CALayer {
+    public convenience init(frame: CGRect) {
+        self.init(); self.frame = frame
+    }
+}
+
+
 open class Background: NSView {
     private let maskLayer: CAShapeLayer = CAShapeLayer()
     private static let layerHeight: CGFloat = 5
@@ -16,7 +23,8 @@ open class Background: NSView {
         super.init(frame: frameRect)
 
         self.wantsLayer = true
-        // self.layer?.masksToBounds = true
+        self.layer!.backgroundColor = NSColor.clear.cgColor
+
         self.maskLayer.fillColor = NSColor.clear.cgColor
         self.maskLayer.backgroundColor = NSColor.clear.cgColor
         self.layer!.addSublayer(self.maskLayer)
@@ -48,7 +56,6 @@ open class Background: NSView {
     // MARK: Private
 
     private var layerRect: NSRect {
-        let height: CGFloat = type(of: self).layerHeight
         var rect = self.bounds.offsetBy(dx: 0, dy: -type(of: self).layerHeight)
         rect.size.height = type(of: self).layerHeight
         return rect

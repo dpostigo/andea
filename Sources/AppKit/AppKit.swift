@@ -5,44 +5,13 @@
 import Cocoa
 import AppKit
 
-extension NSObjectController {
-    public var contentArray: [Any]? {
-        return self.content as? [Any]
+extension NSStoryboard {
+    public class var main: NSStoryboard { return NSStoryboard(name: "Main", bundle: nil) }
+    public func viewController<T: NSViewController>(forClass type: T.Type) -> T? {
+        guard let identifier = String(describing: type(of: type)).components(separatedBy: ".").first else { return nil }
+        return self.instantiateController(withIdentifier: identifier) as? T
     }
 }
-
-extension NSTreeController {
-    public var arrangedArray: [Any]? { return self.arrangedObjects as? [Any] }
-}
-extension NSArrayController {
-    public var indexes: IndexSet {
-        return (self.arrangedObjects as! [Any]).indexSet
-    }
-
-    public convenience init(automaticallyRearrangesObjects: Bool, selectsInsertedObjects: Bool = false) {
-        self.init(); self.automaticallyRearrangesObjects = automaticallyRearrangesObjects; self.selectsInsertedObjects = selectsInsertedObjects
-    }
-
-    public func value(forKeyPath keyPath: String, at index: Int) -> Any? {
-        return self.object(at: index)?.value(forKeyPath: keyPath)
-    }
-
-    public func object(at index: Int) -> NSObject? {
-        return self.value(at: index) as? NSObject
-    }
-
-    public func value(at index: Int) -> Any? {
-        return (self.arrangedObjects as! [Any])[index]
-    }
-
-    public func setSelectedSymmetricDifference(withIndexes indexes: IndexSet? = nil) {
-        let selected = indexes ?? self.selectionIndexes
-        let indexes = self.indexes.symmetricDifference(selected)
-        self.setSelectionIndexes(indexes)
-    }
-
-}
-
 
 
 extension NSStackView {
@@ -58,9 +27,10 @@ extension NSStackView {
         self.distribution = distribution
     }
 
-    public convenience init(axis: NSUserInterfaceLayoutOrientation, views: [NSView] = []) {
+    public convenience init(axis: NSUserInterfaceLayoutOrientation, edgeInsets: EdgeInsets = EdgeInsets(), views: [NSView] = []) {
         self.init(views: views)
         self.orientation = axis
+        self.edgeInsets = edgeInsets
     }
 }
 
@@ -142,6 +112,16 @@ extension NSToolbar {
         self.init(identifier: identifier); self.delegate = delegate
     }
 }
+
+
+extension NSControl {
+
+    public func add(target: AnyObject?, for action: Selector? = nil) {
+        self.target = target
+        self.action = action
+    }
+}
+
 
 class ShadowLayer: CALayer {
 
