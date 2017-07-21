@@ -4,6 +4,10 @@
 
 import Foundation
 
+extension RawRepresentable {
+    public var stringValue: String { return String(describing: self) }
+}
+
 
 extension RawRepresentable where RawValue == Int {
     public static func allCases(from: Self = Self(rawValue: 0)!, to last: Self) -> [Self] {

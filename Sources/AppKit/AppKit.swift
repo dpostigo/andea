@@ -34,6 +34,27 @@ extension NSStackView {
     }
 }
 
+extension NSVisualEffectView {
+    public convenience init(frame: NSRect, state: NSVisualEffectState = .followsWindowActiveState, blendingMode: NSVisualEffectBlendingMode) {
+        self.init(frame: frame)
+        self.state = state
+        self.blendingMode = blendingMode
+    }
+
+
+    public convenience init(state: NSVisualEffectState) {
+        self.init(); self.state = state
+    }
+
+    public convenience init(material: NSVisualEffectMaterial, blendingMode: NSVisualEffectBlendingMode, state: NSVisualEffectState) {
+        self.init()
+        self.material = material
+        self.blendingMode = blendingMode
+        self.state = state
+    }
+}
+
+
 extension NSButton {
     public convenience init(image: NSImage) {
         self.init(image: image, target: nil, action: nil)

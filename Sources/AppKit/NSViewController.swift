@@ -29,7 +29,24 @@ extension NSViewController {
     public func addChildViewControllers(_ controllers: [NSViewController]) {
         controllers.forEach({ self.addChildViewController($0) })
     }
+
+    // MARK: Debug
+
+    public func print(unhandledKey key: String, object: Any?) {
+        if let value = self.value(forUnhandled: object, keyPath: key) {
+            Swift.print("Unhandled key = \(key), value = \(value)")
+        } else {
+            Swift.print("Unhandled key = \(key)")
+        }
+    }
+    public func value(forUnhandled object: Any?, keyPath key: String) -> Any? {
+        guard let object = object as? NSViewController, object == self else { return nil }
+        return self.value(forKeyPath: key)
+    }
 }
+
+
+
 
 
 extension NSSplitViewController {

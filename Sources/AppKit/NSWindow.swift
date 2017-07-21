@@ -42,6 +42,10 @@ extension NSWindowController {
         self.window?.show(windowController: wc, ordered: place)
     }
 
+    public var lastTabbedWindow: NSWindow {
+        return self.window?.tabbedWindows?.last ?? self.window!
+    }
+
 }
 
 

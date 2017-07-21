@@ -52,10 +52,15 @@ extension NSTableColumn {
         }
         get { return self.width }
     }
+
     public convenience init(identifier: String, title: String) {
-        self.init(identifier: identifier)
-        self.title = title
+        self.init(identifier: identifier); self.title = title
     }
+
+    public convenience init(identifier: String, title: String, sortDescriptor: NSSortDescriptor) {
+        self.init(identifier: identifier, title: title); self.sortDescriptorPrototype = sortDescriptor
+    }
+
 
     public convenience init?(properties: [NSTableColumnPropertyKey: Any]) {
         guard let identifier = properties[.identifier] as? String else { return nil }

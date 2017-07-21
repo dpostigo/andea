@@ -37,32 +37,3 @@ extension NSKeyValueChange {
         }
     }
 }
-
-extension AppKit.NSViewController {
-
-
-//    func valueFor(object: Any) {
-//
-//        if let object = object as? NSViewController, object == self {
-//            let value = self.value(forKeyPath: key)
-//            Swift.print("Unhandled key = \(key), value = \(value)")
-//        } else {
-//            Swift.print("Unhandled key = \(key)")
-//        }
-//    }
-
-
-    public func print(unhandledKey key: String, object: Any?) {
-        if let value = self.value(forUnhandled: object, keyPath: key) {
-            Swift.print("Unhandled key = \(key), value = \(value)")
-        } else {
-            Swift.print("Unhandled key = \(key)")
-        }
-    }
-    public func value(forUnhandled object: Any?, keyPath key: String) -> Any? {
-        guard let object = object as? NSViewController, object == self else { return nil }
-        return self.value(forKeyPath: key)
-    }
-
-}
-
