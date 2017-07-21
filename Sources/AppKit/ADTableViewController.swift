@@ -34,7 +34,7 @@ open class ADTableViewController: NSViewController {
     }
 
 
-    class func createTableView() -> NSTableView {
+    open class func createTableView() -> NSTableView {
         return NSTableView()
     }
 
@@ -46,7 +46,7 @@ open class ADTableViewController: NSViewController {
 
 
 open class ADOutlineViewController: ADTableViewController {
-    override class func createTableView() -> NSTableView {
+    override open class func createTableView() -> NSTableView {
         return NSOutlineView()
     }
 

@@ -47,13 +47,9 @@ open class ADTableCellView: NSTableCellView {
         self.contentView.embed(self.title)
 
         //self.title.isHidden = true
-        // Swift.print("self.contentView.fittingSize.height = \(self.contentView.fittingSize.height)")
         //        self.layout()
-        // Swift.print("self.frame = \(self.frame)")
 
-        Swift.print("self.fittingSize = \(self.fittingSize)")
         self.frame.size.height = self.fittingSize.height
-        Swift.print("self.bounds.height = \(self.bounds.height)")
 
     }
 
@@ -65,7 +61,6 @@ open class ADTableCellView: NSTableCellView {
 
     override open func layout() {
         super.layout()
-        Swift.print("self.bounds = \(self.bounds)")
         self.title.preferredMaxLayoutWidth = self.title.bounds.width
 
         //        Swift.print("self.fittingSize = \(self.fittingSize)")

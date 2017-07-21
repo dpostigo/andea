@@ -40,6 +40,12 @@ extension NSTableView {
     public func removeTableColumns() {
         self.tableColumns.forEach({ self.removeTableColumn($0) })
     }
+
+    public func selectNextRow(_ extend: Bool = false) {
+        guard var last = self.selectedRowIndexes.last else { return }
+        last = last == self.numberOfRows - 1 ? 0 : last + 1
+        self.selectRowIndexes(IndexSet(integer: last), byExtendingSelection: extend)
+    }
 }
 
 extension NSTableColumn {
