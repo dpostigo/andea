@@ -39,18 +39,18 @@ import Foundation
 
     // MARK: Return values
 
-    override func value(forKeyPath keyPath: String) -> Any? {
+    override public func value(forKeyPath keyPath: String) -> Any? {
         Swift.print("\(type(of: self)).\(#function), keyPath = \(keyPath)")
         return super.value(forKeyPath: keyPath)
     }
 
-    override func value(forKey key: String) -> Any? {
+    override public func value(forKey key: String) -> Any? {
         guard !key.contains(".") else { return self.value(forKeyPath: key) }
         Swift.print("\(type(of: self)).\(#function), key = \(key)")
         return super.value(forKey: key)
     }
 
-    override func value(forUndefinedKey key: String) -> Any? {
+    override public func value(forUndefinedKey key: String) -> Any? {
         switch key {
             case "isEmpty", "isLeaf": return _children.isEmpty
             default :
@@ -62,17 +62,17 @@ import Foundation
 
     // MARK: Set values
 
-    override func setValue(_ value: Any?, forKeyPath keyPath: String) {
+    override public func setValue(_ value: Any?, forKeyPath keyPath: String) {
         Swift.print("\(type(of: self)).\(#function), keyPath = \(keyPath)")
         super.setValue(value, forKeyPath: keyPath)
     }
 
-    override func setValue(_ value: Any?, forKey key: String) {
+    override public func setValue(_ value: Any?, forKey key: String) {
         Swift.print("\(type(of: self)).\(#function), key = \(key)")
         super.setValue(value, forKey: key)
     }
 
-    override func setValue(_ value: Any?, forUndefinedKey key: String) {
+    override public func setValue(_ value: Any?, forUndefinedKey key: String) {
         Swift.print("\(type(of: self)).\(#function), key = \(key)")
         super.setValue(value, forUndefinedKey: key)
     }
