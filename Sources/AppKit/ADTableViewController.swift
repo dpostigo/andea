@@ -20,7 +20,7 @@ open class ADTableViewController: NSViewController {
 
         self.tableView.frame = self.view.bounds
         self.tableView.wantsLayer = self.view.wantsLayer
-        self.tableView.columnAutoresizingStyle = .sequentialColumnAutoresizingStyle
+        self.tableView.columnAutoresizingStyle = .noColumnAutoresizing
 
         let scrollView = NSScrollView(frame: self.view.bounds)
         self.add(scrollView: scrollView)
