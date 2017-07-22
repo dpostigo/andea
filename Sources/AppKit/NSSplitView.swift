@@ -5,6 +5,9 @@
 import Foundation
 import AppKit
 
+extension NSSplitViewController {
+    public var last: NSSplitViewItem? { return self.splitViewItems.last }
+}
 
 extension NSSplitViewItem {
     public convenience init(viewController: NSViewController, isCollapsed: Bool, canCollapse: Bool = true) {
