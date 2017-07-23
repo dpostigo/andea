@@ -6,25 +6,14 @@ import Foundation
 import AppKit
 import Marshal
 
-extension NSObjectController {
-    public var contentArray: [Any]? {
-        return self.content as? [Any]
-    }
-}
 
-extension NSTreeController {
-}
+
 extension NSArrayController {
     public var indexes: IndexSet {
         return (self.arrangedObjects as! [Any]).indexSet
     }
 
 
-    public var arrangedArray: [Any]? { return self.arrangedObjects as? [Any] }
-
-    public convenience init(automaticallyRearrangesObjects: Bool, selectsInsertedObjects: Bool = false) {
-        self.init(); self.automaticallyRearrangesObjects = automaticallyRearrangesObjects; self.selectsInsertedObjects = selectsInsertedObjects
-    }
 
     public func value(forKeyPath keyPath: String, at index: Int) -> Any? {
         return self.object(at: index)?.value(forKeyPath: keyPath)
@@ -51,7 +40,7 @@ extension NSArrayController {
 
 extension NSArrayController {
 
-    public var dictionaryRepresentation: JSON {
+    public var controllerDataRepresentation: JSON {
         set {
 
             do {

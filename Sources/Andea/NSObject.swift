@@ -4,6 +4,19 @@
 
 import Foundation
 
+extension NSObject {
+    open func array(forKeyPath keyPath: String) -> [Any]? {
+        return self.value(forKeyPath: keyPath) as? [Any]
+    }
+
+    open func dictionaryWithValues(forKeyPaths keyPaths: [String]) -> [String : Any] {
+        var ret = [String: Any]()
+        keyPaths.forEach({ ret[$0] = self.value(forKeyPath: $0) })
+        return ret
+    }
+}
+
+
 extension Dictionary where Key == NSKeyValueChangeKey {
     public var changeType: NSKeyValueChange? {
         guard let kind = self[NSKeyValueChangeKey.kindKey] as? UInt else { return nil }
@@ -35,5 +48,21 @@ extension NSKeyValueChange {
             case .setting : return "setting"
             case .replacement : return "replacement"
         }
+    }
+}
+
+extension NSObject {
+    // MARK: Debug
+
+    public func print(unhandledKey key: String, object: Any?) {
+        if let value = self.value(forUnhandled: object, keyPath: key) {
+            Swift.print("Unhandled key = \(key), value = \(value)")
+        } else {
+            Swift.print("Unhandled key = \(key)")
+        }
+    }
+    public func value(forUnhandled object: Any?, keyPath key: String) -> Any? {
+        guard let object = object as? NSObject, object == self else { return nil }
+        return self.value(forKeyPath: key)
     }
 }

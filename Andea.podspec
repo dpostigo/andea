@@ -32,7 +32,7 @@ Pod::Spec.new do |s|
 
   s.subspec 'Core' do |ss|
   	ss.frameworks = 'Foundation'
-    ss.source_files = 'Sources/Andea/*'
+    ss.source_files = 'Sources/{Andea,Protocols}/*'
   end
 
   s.subspec 'Extras' do |ss|

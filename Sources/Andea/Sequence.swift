@@ -26,6 +26,12 @@ extension Dictionary {
 }
 
 extension Sequence {
+
+    public var arrayRepresentation: NSArray {
+        return NSArray(array: Array(self))
+    }
+
+
     public func group<U: Hashable>(by key: (Iterator.Element) -> U) -> [U:[Iterator.Element]] {
         var categories: [U: Box<[Iterator.Element]>] = [:]
         for element in self {
