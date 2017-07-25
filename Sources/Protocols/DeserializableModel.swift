@@ -4,9 +4,7 @@
 
 import Foundation
 
-public protocol DeserializableModel {
-
-}
+public protocol DeserializableModel { }
 
 extension DeserializableModel where Self: RawRepresentable, Self.RawValue == String {
     public init?(identifier: String) {

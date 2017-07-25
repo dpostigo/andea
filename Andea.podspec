@@ -89,12 +89,12 @@ Pod::Spec.new do |s|
   # end
 
 
-  s.subspec 'XCTest' do |ss|
-  	ss.ios.frameworks = 'Foundation', 'XCTest'
-  	ss.osx.frameworks = 'Foundation', 'XCTest'
-  	ss.ios.source_files = 'Sources/XCTest/*'
-  	ss.osx.source_files = 'Sources/XCTest/*'
-  end
+  # s.subspec 'XCTest' do |ss|
+  # 	ss.ios.frameworks = 'XCTest'
+  # 	ss.osx.frameworks = 'XCTest'
+  # 	ss.ios.source_files = 'Sources/XCTest/*'
+  # 	ss.osx.source_files = 'Sources/XCTest/*'
+  # end
 
 
 

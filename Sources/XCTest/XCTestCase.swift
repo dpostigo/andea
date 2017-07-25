@@ -3,7 +3,6 @@
 // Copyright (c) 2017 Daniela Postigo. All rights reserved.
 //
 
-import Foundation
 import XCTest
 
 extension XCTestCase {
