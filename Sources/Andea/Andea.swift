@@ -3,9 +3,3 @@
 //
 
 import Foundation
-
-public typealias JSON = [String: Any]
-public typealias Block = (Void) -> Void
-public typealias Completion = (Void) -> Void
-public typealias Failure = (Error) -> Void
-

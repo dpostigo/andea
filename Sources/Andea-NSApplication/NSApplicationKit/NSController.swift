@@ -2,18 +2,13 @@
 // Created by Daniela Postigo on 7/18/17.
 //
 
-import Foundation
-import AppKit
+import Cocoa
 import Marshal
-
-
 
 extension NSArrayController {
     public var indexes: IndexSet {
         return (self.arrangedObjects as! [Any]).indexSet
     }
-
-
 
     public func value(forKeyPath keyPath: String, at index: Int) -> Any? {
         return self.object(at: index)?.value(forKeyPath: keyPath)
@@ -32,8 +27,6 @@ extension NSArrayController {
         let indexes = self.indexes.symmetricDifference(selected)
         self.setSelectionIndexes(indexes)
     }
-
-
 }
 
 

@@ -10,10 +10,10 @@ extension UIFont {
     public static func listAll() {
         let fontFamilyNames = UIFont.familyNames
         for familyName in fontFamilyNames {
-            print("------------------------------")
-            print("Font Family Name = [\(familyName)]")
+            Swift.print("------------------------------")
+            Swift.print("Font Family Name = [\(familyName)]")
             let names = UIFont.fontNames(forFamilyName: familyName )
-            print("Font Names = [\(names)]")
+            Swift.print("Font Names = [\(names)]")
         }
     }
     

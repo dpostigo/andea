@@ -22,57 +22,71 @@ Pod::Spec.new do |s|
 
   s.ios.deployment_target = '10.0'
   s.osx.deployment_target = '10.12'
+
   s.osx.frameworks = 'Foundation'
   s.ios.frameworks = 'Foundation'
 
   s.module_name = "Andea"
-
-
   s.default_subspec = 'Core'
 
+
+  s.subspec 'Alias' do |ss| ; ss.source_files = 'Sources/Andea/Alias.swift' ; end
+  s.subspec 'Foundation' do |ss| ;  ss.source_files = 'Sources/Foundation/*' ; end
+
   s.subspec 'Core' do |ss|
-  	ss.frameworks = 'Foundation'
-    ss.source_files = 'Sources/{Andea,Protocols}/*'
-  end
-
-  s.subspec 'Extras' do |ss|
-  	ss.frameworks = 'Foundation'
-  	ss.source_files = 'Sources/AndeaExtras/**'
-  	ss.exclude_files = 'Sources/AndeaExtras/Alamofire?.swift'
-    ss.dependency 'Marshal'
+    ss.osx.frameworks = 'AppKit'
+    ss.ios.frameworks = 'UIKit'
+    ss.source_files = 'Sources/{Andea,Protocols}/**/*'
+    ss.dependency 'Andea/Alias'
+    ss.dependency 'Andea/Foundation'
   end
 
 
-  s.subspec 'Alamofire' do |ss|
-  	ss.source_files = 'Sources/AndeaExtras/Alamofire?.swift'
-  	ss.dependency 'Alamofire'
-  end
-
-  s.subspec 'Marshal' do |ss|
-  	ss.source_files = 'Sources/Marshal/**/*'
-    ss.dependency 'Marshal'
+  s.subspec 'UIApplication' do |ss|
+  	ss.ios.frameworks = 'UIKit'
+  	ss.ios.source_files = 'Sources/Andea-UIApplication/**/*'
+    ss.dependency 'Andea/Core'
   end
 
 
+  s.subspec 'NSApplication' do |ss|
+    ss.osx.frameworks = 'Cocoa', 'AppKit', 'QuartzCore'
+  	ss.osx.source_files = 'Sources/Andea-NSApplication/*'
+    ss.dependency 'Andea/Core'
 
-  s.subspec 'UIKit' do |ss|
-    ss.osx.frameworks = 'Foundation', 'AppKit'
-  	ss.ios.frameworks = 'Foundation', 'UIKit'
-  	ss.osx.source_files = 'Sources/AndeaUIKit/**'
-  	ss.ios.source_files = 'Sources/AndeaUIKit/**', 'Sources/AndeaUIKit/UIControl/**'
-  end
-
-
-  s.subspec 'AppKit' do |ss|
-    ss.osx.deployment_target = '10.12'
-    ss.osx.frameworks = 'Foundation', 'AppKit', 'QuartzCore'
-  	ss.osx.source_files = 'Sources/AppKit/**'
-
-    ss.subspec 'NSApplication' do |sss|
-      sss.osx.source_files = 'Sources/Andea-NSApplication/**/*'
+    ss.subspec 'NSApplicationKit' do |sss|
+      sss.osx.source_files = 'Sources/Andea-NSApplication/NSApplicationKit/*'
+      # sss.dependency 'Marshal'
+      sss.dependency 'Andea/Libraries/Marshal'
     end
   end
 
+
+
+  s.subspec 'Libraries' do |ss|
+    ss.subspec 'Alamofire' do |sss|
+      sss.source_files = 'Sources/Libraries/Alamofire/**/*'
+      sss.dependency 'Alamofire'
+      sss.dependency 'Andea/Alias'
+    end
+    ss.subspec 'Marshal' do |sss|
+      sss.source_files = 'Sources/Libraries/Marshal/**/*'
+      sss.dependency 'Marshal'
+      sss.dependency 'Andea/Foundation'
+    end
+  end
+
+  # s.subspec 'Alamofire' do |ss|
+  #   ss.source_files = 'Sources/Libraries/Alamofire/**/*'
+  #   ss.dependency 'Alamofire'
+  #   ss.dependency 'Andea/Alias'
+  # end
+
+  # s.subspec 'Marshal' do |ss|
+  #   ss.source_files = 'Sources/Libraries/Marshal/**/*'
+  #   ss.dependency 'Marshal'
+  #   ss.dependency 'Andea/Foundation'
+  # end
 
 
   s.subspec 'XCTest' do |ss|
@@ -83,5 +97,12 @@ Pod::Spec.new do |s|
   end
 
 
+
+  # s.subspec 'Extras' do |ss|
+  #   ss.frameworks = 'Foundation'
+  #   ss.source_files = 'Sources/AndeaExtras/**'
+  #   ss.exclude_files = 'Sources/AndeaExtras/Alamofire?.swift'
+  #   ss.dependency 'Marshal'
+  # end
 
 end

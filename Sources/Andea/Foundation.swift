@@ -4,10 +4,7 @@
 
 import Foundation
 
-
-
 extension URLRequest {
-
     public init?(string: String, httpMethod: String? = nil) {
         guard let url = URL(string: string) else { return nil }
         self.init(url: url, httpMethod: httpMethod)
@@ -19,15 +16,6 @@ extension URLRequest {
     }
 }
 
-public protocol Terminable: RawRepresentable {
-    static var terminus: Self { get }
-}
-
-extension Terminable where RawValue == Int  {
-    public static var breadth: [Self] {
-        return self.allCases(to: self.terminus)
-    }
-}
 
 extension Bundle {
     public enum BundleError: Error {
