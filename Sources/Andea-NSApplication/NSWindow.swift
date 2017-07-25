@@ -8,17 +8,17 @@ import AppKit
 extension NSWindow {
     public static let systemSize: CGSize = CGSize(width: 480, height: 270)
     public static let systemLayoutRect: CGRect = CGRect(size: NSWindow.systemSize)
-    public static let systemStyleMask: NSWindowStyleMask = [.titled, .closable, .resizable, .miniaturizable]
+    public static let systemStyleMask: NSWindow.StyleMask = [NSWindow.StyleMask.titled, NSWindow.StyleMask.closable, NSWindow.StyleMask.resizable, NSWindow.StyleMask.miniaturizable]
 
-    public static let hudStyleMask: NSWindowStyleMask = [NSWindowStyleMask.hudWindow, .titled, .closable, .resizable, .miniaturizable , .borderless, .utilityWindow]
+    public static let hudStyleMask: NSWindow.StyleMask = [NSWindow.StyleMask.hudWindow, NSWindow.StyleMask.titled, NSWindow.StyleMask.closable, NSWindow.StyleMask.resizable, NSWindow.StyleMask.miniaturizable , NSWindow.StyleMask.borderless, NSWindow.StyleMask.utilityWindow]
 
 
-    public func addChildWindowController(_ wc: NSWindowController, ordered place: NSWindowOrderingMode) {
+    public func addChildWindowController(_ wc: NSWindowController, ordered place: NSWindow.OrderingMode) {
         guard let window = wc.window else { return  }
         self.addChildWindow(window, ordered: place)
     }
 
-    public func show(windowController wc: NSWindowController, ordered place: NSWindowOrderingMode) {
+    public func show(windowController wc: NSWindowController, ordered place: NSWindow.OrderingMode) {
         self.addChildWindowController(wc, ordered: place)
         wc.showWindow(nil)
     }
@@ -34,11 +34,11 @@ extension NSWindowController {
         self.window?.title = contentViewController.title ?? "Untitled"
     }
 
-    public func addChildWindowController(_ wc: NSWindowController, ordered place: NSWindowOrderingMode) {
+    public func addChildWindowController(_ wc: NSWindowController, ordered place: NSWindow.OrderingMode) {
         self.window?.addChildWindowController(wc, ordered: place)
     }
 
-    public func show(windowController wc: NSWindowController, ordered place: NSWindowOrderingMode) {
+    public func show(windowController wc: NSWindowController, ordered place: NSWindow.OrderingMode) {
         self.window?.show(windowController: wc, ordered: place)
     }
 

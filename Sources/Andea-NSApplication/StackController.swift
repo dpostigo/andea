@@ -10,7 +10,7 @@ public protocol StackController {
 }
 
 extension StackController where Self: NSViewController {
-    public func addChildViewController(_ vc: NSViewController, in gravity: NSStackViewGravity) {
+    public func addChildViewController(_ vc: NSViewController, in gravity: NSStackView.Gravity) {
         self.addChildViewController(vc)
         self.stack.addView(vc.view, in: gravity)
     }

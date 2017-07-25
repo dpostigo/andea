@@ -6,7 +6,7 @@
 import Foundation
 
 public typealias JSON = [String: Any]
-public typealias Block = (Void) -> Void
-public typealias Completion = (Void) -> Void
+public typealias Block = () -> Void
+public typealias Completion = () -> Void
 public typealias Failure = (Error) -> Void
 

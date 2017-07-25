@@ -16,7 +16,7 @@ open class ADButtonTableCell: NSTableCellView {
 
     override public init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
-        self.identifier = (type(of: self)).classIdentifier
+        self.identifier = NSUserInterfaceItemIdentifier((type(of: self)).classIdentifier)
         //        self.button.isBordered = false
         self.embed(self.button)
         //        self.button.bind(NSValueBinding, to: self, withKeyPath: "objectValue")
@@ -35,7 +35,7 @@ open class ADButtonTableCell: NSTableCellView {
     override open func prepareForReuse() {
         super.prepareForReuse()
         self.button.wantsLayer = self.wantsLayer
-        self.button.unbind(NSValueBinding)
+        self.button.unbind(NSBindingName.value)
     }
 
     // MARK: Create

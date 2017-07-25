@@ -10,7 +10,8 @@ open class ADTextTableCell: NSTableCellView {
 
     override public init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
-        self.identifier = type(of: self).classIdentifier
+
+        self.identifier = NSUserInterfaceItemIdentifier((type(of: self)).classIdentifier)
         self.title.wantsLayer = self.wantsLayer
         self.title.controlSize = .small
         self.embed(self.title)
@@ -23,7 +24,7 @@ open class ADTextTableCell: NSTableCellView {
 
     override open func prepareForReuse() {
         super.prepareForReuse()
-        self.title.unbind(NSValueBinding)
+        self.title.unbind(NSBindingName.value)
     }
 
     override open func layout() {
