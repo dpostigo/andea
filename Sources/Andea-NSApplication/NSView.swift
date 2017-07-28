@@ -9,8 +9,8 @@ import QuartzCore
 extension NSView {
     public static var classIdentifier: String { return String(describing: self) }
 
-    public convenience init(wantsLayer flag: Bool) {
-        self.init(); self.wantsLayer = flag
+    public convenience init(frame: NSRect = .zero, wantsLayer flag: Bool) {
+        self.init(frame: frame); self.wantsLayer = flag
     }
 
     public convenience init(canDrawSubviewsIntoLayer flag: Bool) {
@@ -21,8 +21,8 @@ extension NSView {
         self.init(); self.translatesAutoresizingMaskIntoConstraints = !flag
     }
 
-    public convenience init(color: NSColor) {
-        self.init(wantsLayer: true)
+    public convenience init(frame: NSRect = .zero, color: NSColor) {
+        self.init(frame: frame, wantsLayer: true)
         self.layer?.backgroundColor = color.cgColor
     }
 
@@ -34,7 +34,7 @@ extension NSView {
 
 
 
-    public func embed(_ view: NSView, insets: EdgeInsets = EdgeInsets(), priority: NSLayoutPriority = 1000) {
+    public func embed(_ view: NSView, insets: NSEdgeInsets = NSEdgeInsets(), priority: NSLayoutConstraint.Priority = .required) {
         self.addView(view)
         self.topAnchor.constraint(equalTo: view.topAnchor, constant: -insets.top).priority(priority).isActive = true
         self.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: insets.bottom).priority(priority).isActive = true
@@ -47,42 +47,43 @@ extension NSView {
 
 extension NSView {
 
-    public func embed2(_ view: NSView, insets: EdgeInsets = EdgeInsets(), priority: NSLayoutPriority = 1000) {
-        self.addView(view)
-
-        let attributes: [NSLayoutAttribute] = [.top, .bottom, .leading, .trailing]
-        let constraints = attributes.flatMap({ self.constrain($0, view, insets, priority) })
-        NSLayoutConstraint.activate(constraints)
-    }
-
-    func constrain(_ attribute: NSLayoutAttribute, _ view: NSView, _ insets: EdgeInsets = EdgeInsets(), _ priority: NSLayoutPriority = 1000) -> NSLayoutConstraint? {
-        switch attribute {
-            case .top: return self.topAnchor.constrain(view.topAnchor, constant: -insets.top, attribute: attribute, priority: priority)
-            case .bottom: return self.bottomAnchor.constrain(view.bottomAnchor, constant: insets.bottom, attribute: attribute, priority: priority)
-            case .leading: return self.leadingAnchor.constrain(view.leadingAnchor, constant: -insets.left, attribute: attribute, priority: priority)
-            case .trailing: return self.trailingAnchor.constrain(view.trailingAnchor, constant: insets.right, attribute: attribute, priority: priority)
-            default: return nil
-        }
-    }
+//    public func embed2(_ view: NSView, insets: NSEdgeInsets = NSEdgeInsets(), priority: NSLayoutConstraint.Priority = .required) {
+//        self.addView(view)
+//
+//        let attributes: [NSLayoutConstraint.Attribute] = [.top, .bottom, .leading, .trailing]
+//        let constraints = attributes.flatMap({ self.constrain($0, view, insets, priority) })
+//        NSLayoutConstraint.activate(constraints)
+//    }
+//
+//    func constrain(_ attribute: NSLayoutConstraint.Attribute, _ view: NSView, _ insets: NSEdgeInsets = NSEdgeInsets(), _ priority: NSLayoutConstraint.Priority = .required) -> NSLayoutConstraint? {
+//        switch attribute {
+//            case .top: return self.topAnchor.constrain(view.topAnchor, constant: -insets.top, attribute: attribute, priority: priority)
+//            case .bottom: return self.bottomAnchor.constrain(view.bottomAnchor, constant: insets.bottom, attribute: attribute, priority: priority)
+//            case .leading: return self.leadingAnchor.constrain(view.leadingAnchor, constant: -insets.left, attribute: attribute, priority: priority)
+//            case .trailing: return self.trailingAnchor.constrain(view.trailingAnchor, constant: insets.right, attribute: attribute, priority: priority)
+//            default: return nil
+//        }
+//    }
 }
 
-extension NSLayoutAttribute {
+extension NSLayoutConstraint.Attribute {
 
     var identifier: String { return "NSLayoutAttribute-\(self.rawValue)" }
 
-    static func from(_ string: String) -> NSLayoutAttribute? {
+    static func from(_ string: String) -> NSLayoutConstraint.Attribute? {
         guard let string = string.components(separatedBy: "-").last, let last = Int(string) else { return nil }
-        return NSLayoutAttribute(rawValue: last)
+        return NSLayoutConstraint.Attribute(rawValue: last)
     }
 
 }
 
 
-extension NSLayoutAnchor {
-    func constrain(_ anchor: NSLayoutAnchor<AnchorType>, constant: CGFloat, attribute: NSLayoutAttribute, priority: NSLayoutPriority = 1000) -> NSLayoutConstraint {
-        let ret = self.constraint(equalTo: anchor, constant: constant)
-        ret.priority = priority
-        ret.identifier = attribute.identifier
-        return ret
-    }
-}
+//extension NSLayoutAnchor {
+//    func constrain(_ anchor: NSLayoutAnchor<AnchorType>, constant: CGFloat, attribute: NSLayoutConstraint.Attribute, priority: NSLayoutConstraint.Priority = .required) -> NSLayoutConstraint {
+//        let ret = self.constraint(equalTo: anchor, constant: constant)
+//        ret.priority = priority
+//        ret.identifier = attribute.identifier
+//        return ret
+//    }
+//}
+

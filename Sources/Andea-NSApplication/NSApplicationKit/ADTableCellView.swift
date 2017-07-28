@@ -18,7 +18,7 @@ open class ADTableCellView: NSTableCellView {
         title.cell?.isBezeled = true
         title.bezelStyle = .roundedBezel
         // title.cell?.controlSize = .small
-        title.setContentCompressionResistancePriority(1000, for: .vertical)
+        title.setContentCompressionResistancePriority(.required, for: .vertical)
 
 //        self.frame.size.height = self.contentView.fittingSize.height
         return title
@@ -31,7 +31,7 @@ open class ADTableCellView: NSTableCellView {
     })()
 
 
-    open var layoutMargins: EdgeInsets = EdgeInsets() {
+    open var layoutMargins: NSEdgeInsets = NSEdgeInsets() {
         didSet { self.setNeedsDisplay(self.bounds) }
     }
 
@@ -41,7 +41,7 @@ open class ADTableCellView: NSTableCellView {
 
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
-        self.identifier = (type(of: self)).classIdentifier
+        self.identifier = NSUserInterfaceItemIdentifier(rawValue: (type(of: self)).classIdentifier)
 
         self.embed(self.contentView)
         self.contentView.embed(self.title)
@@ -71,20 +71,20 @@ open class ADTableCellView: NSTableCellView {
 
     override open func prepareForReuse() {
         super.prepareForReuse()
-        self.contentView.subviews.forEach({ $0.unbind(NSValueBinding) })
+        self.contentView.subviews.forEach({ $0.unbind(NSBindingName.value) })
         self.frame.size.height = self.fittingSize.height
     }
 
-    private func update(margins: EdgeInsets) {
+    private func update(margins: NSEdgeInsets) {
         Swift.print("self.contentView.constraints = \(self.contentView.constraints)")
     }
 
 }
 
 
-extension EdgeInsets {
+extension NSEdgeInsets {
 
-    public func value(for attribute: NSLayoutAttribute)  -> CGFloat {
+    public func value(for attribute: NSLayoutConstraint.Attribute)  -> CGFloat {
         switch attribute {
             case .top : return self.top
             case .bottom : return self.bottom

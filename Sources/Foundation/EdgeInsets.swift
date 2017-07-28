@@ -31,7 +31,7 @@ extension UIEdgeInsets {
 #elseif os(OSX)
 import AppKit
 
-extension EdgeInsets {
+extension NSEdgeInsets {
     public init(top: CGFloat, bottom: CGFloat) {
         self.init(top: top, left: 0, bottom: bottom, right: 0)
     }

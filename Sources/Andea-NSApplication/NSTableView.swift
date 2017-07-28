@@ -6,12 +6,9 @@ import Foundation
 import AppKit
 
 extension NSTableCellView {
-    public convenience init(wantsLayer: Bool) {
-        self.init(); self.wantsLayer = wantsLayer
-    }
 
     public convenience init(identifier: String) {
-        self.init(); self.identifier = identifier
+        self.init(); self.identifier = NSUserInterfaceItemIdentifier(rawValue: identifier)
     }
 }
 
@@ -26,7 +23,7 @@ extension NSTableView {
     }
 
     public func dequeue<T: NSTableCellView>(withIdentifier identifier: String, owner: Any? = nil) -> T {
-        let view: T? = self.make(withIdentifier: identifier, owner: owner) as? T
+        let view: T? = self.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: identifier), owner: owner) as? T
         guard view == nil else { return view! }
         let ret = T();
         ret.wantsLayer = self.wantsLayer
@@ -60,7 +57,7 @@ extension NSTableColumn {
     }
 
     public convenience init(identifier: String, title: String) {
-        self.init(identifier: identifier); self.title = title
+        self.init(identifier: NSUserInterfaceItemIdentifier(rawValue: identifier)); self.title = title
     }
 
     public convenience init(identifier: String, title: String, sortDescriptor: NSSortDescriptor) {
@@ -70,10 +67,10 @@ extension NSTableColumn {
 
     public convenience init?(properties: [NSTableColumnPropertyKey: Any]) {
         guard let identifier = properties[.identifier] as? String else { return nil }
-        self.init(identifier: identifier)
+        self.init(identifier: NSUserInterfaceItemIdentifier(rawValue: identifier))
         if let value = properties[.title] as? String {  self.headerCell.title = value }
-        if let value = properties[.minWidth] as? NSNumber { self.minWidth = CGFloat(value) }
-        if let value = properties[.maxWidth] as? NSNumber { self.maxWidth = CGFloat(value) }
+        if let value = properties[.minWidth] as? NSNumber { self.minWidth = CGFloat(truncating: value) }
+        if let value = properties[.maxWidth] as? NSNumber { self.maxWidth = CGFloat(truncating: value) }
     }
 }
 

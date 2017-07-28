@@ -9,7 +9,19 @@ open class ADTableViewController: NSViewController {
     open lazy var tableView: NSTableView = ({ return type(of: self).createTableView() })()
 
     // MARK: View lifecycle
-
+    
+//    public override init?(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+//        super.init(nibName: nil, bundle: nil)
+//    }
+    
+//    public required init() {
+//        super.init(nibName: nil, bundle: nil)
+//    }
+//
+//    required public init?(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
+    
     override open func loadView() {
         self.view = NSView(frame: NSWindow.systemLayoutRect)
         self.view.wantsLayer = NSApplication.wantsLayer

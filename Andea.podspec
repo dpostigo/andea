@@ -48,20 +48,18 @@ Pod::Spec.new do |s|
     ss.dependency 'Andea/Core'
   end
 
-
   s.subspec 'NSApplication' do |ss|
     ss.osx.frameworks = 'Cocoa', 'AppKit', 'QuartzCore'
   	ss.osx.source_files = 'Sources/Andea-NSApplication/*'
     ss.dependency 'Andea/Core'
-
-    ss.subspec 'NSApplicationKit' do |sss|
-      sss.osx.source_files = 'Sources/Andea-NSApplication/NSApplicationKit/*'
-      # sss.dependency 'Marshal'
-      sss.dependency 'Andea/Libraries/Marshal'
-    end
   end
 
-
+  s.subspec 'NSApplicationKit' do |ss|
+    ss.osx.frameworks = 'Cocoa', 'AppKit', 'QuartzCore'
+    ss.osx.source_files = 'Sources/Andea-NSApplication/NSApplicationKit/*'
+    ss.dependency 'Andea/NSApplication'
+    ss.dependency 'Andea/Libraries/Marshal'
+  end
 
   s.subspec 'Libraries' do |ss|
     ss.subspec 'Alamofire' do |sss|

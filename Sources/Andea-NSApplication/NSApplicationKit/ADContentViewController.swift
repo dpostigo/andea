@@ -28,14 +28,14 @@ open class ADContentViewController: NSSplitViewController {
     }
 
     required public init(viewControllers: [NSViewController]? = nil) {
-        super.init(nibName: nil, bundle: nil)!
+        super.init(nibName: nil, bundle: nil)
         self.splitView = type(of: self).splitView()
 
         let controllers: [NSViewController] = viewControllers ?? []
         controllers.forEach({ self.addSplitViewItem(NSSplitViewItem(viewController: $0)) })
 //        vcs.forEach({ self.addChildViewController($0) })
     }
-
+    
     required public init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

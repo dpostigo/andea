@@ -73,7 +73,7 @@ extension UIButton {
     
     // MARK: Attributed strings
     
-    public var attributes: [String: Any]? {
+    public var attributes: [NSAttributedStringKey: Any]? {
         set {
             guard let newValue = newValue, let current = self.attributedTitle else { return }
             self.attributedTitle = NSAttributedString(string: current.string, attributes: newValue)
@@ -92,7 +92,7 @@ extension UIButton {
         self.attributedTitle = string
     }
     
-    func attributesForState(_ state: UIControlState) -> [String: Any]? {
+    func attributesForState(_ state: UIControlState) -> [NSAttributedStringKey: Any]? {
         guard let string = self.attributedTitle(for: state) else { return nil }
         return string.attributes(at: 0, longestEffectiveRange: nil, in: NSMakeRange(0, string.length))
     }

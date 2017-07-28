@@ -6,7 +6,7 @@ import Foundation
 import AppKit
 
 open class ADTextTableCell: NSTableCellView {
-    open var title = NSTextField(backgroundColor: NSColor.clear, isBordered: false)
+    open var title = NSTextField(title: "Title", backgroundColor: NSColor.clear, isBordered: false)
 
     override public init(frame frameRect: NSRect) {
         super.init(frame: frameRect)

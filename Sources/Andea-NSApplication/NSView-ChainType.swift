@@ -71,7 +71,7 @@ extension NSView {
     }
 
     public func subviewString(_ closure: (NSView) -> String) -> String {
-        var string = closure(self)
+        let string = closure(self)
         guard !self.subviews.isEmpty else { return string }
         let subviewString = self.subviews.map({ $0.subviewString(closure) })
         return "\(string)\n\(subviewString.whitespace(3))"
