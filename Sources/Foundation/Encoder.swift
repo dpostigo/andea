@@ -26,8 +26,8 @@ extension JSONDecoder {
 
 
 
-open class CodableTransformer<T: Codable>: ValueTransformer {
-    let decodableType: T.Type
+open class DecodableTransformer<T: Decodable>: ValueTransformer {
+    open let decodableType: T.Type
 
     public init(forClass decodableType: T.Type) {
         self.decodableType = decodableType
@@ -49,5 +49,6 @@ open class CodableTransformer<T: Codable>: ValueTransformer {
 
         return super.transformedValue(value)
     }
+
 
 }

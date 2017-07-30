@@ -5,15 +5,6 @@
 import Cocoa
 import AppKit
 
-extension NSStoryboard {
-    // public class var main: NSStoryboard { return NSStoryboard(name: NSStoryboard.Name(rawValue: "Main"), bundle: nil) }
-    public func viewController<T: NSViewController>(forClass type: T.Type) -> T? {
-        guard let identifier = String(describing: Swift.type(of: type)).components(separatedBy: ".").first else { return nil }
-        return self.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: identifier)) as? T
-    }
-}
-
-
 extension NSStackView {
     public convenience init(axis: NSUserInterfaceLayoutOrientation, alignment: NSLayoutConstraint.Attribute, distribution: NSStackView.Distribution, views: [NSView] = []) {
         self.init(axis: axis, views: views)

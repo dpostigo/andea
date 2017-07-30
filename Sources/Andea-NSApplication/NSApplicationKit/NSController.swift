@@ -26,6 +26,8 @@ extension NSArrayController {
         let selected = indexes ?? self.selectionIndexes
         let indexes = self.indexes.symmetricDifference(selected)
         self.setSelectionIndexes(indexes)
+
+        self.value(forKeyPath: <#T##String##Swift.String#>)
     }
 }
 
