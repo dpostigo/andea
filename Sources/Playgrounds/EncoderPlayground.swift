@@ -4,6 +4,7 @@
 
 import Cocoa
 
+
 public struct ENProductValue: Codable {
     public var name: String
     public var points: Int

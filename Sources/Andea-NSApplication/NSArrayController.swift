@@ -4,6 +4,16 @@
 
 import Cocoa
 
+extension NSObjectController {
+    public var contentObject: Any? {
+        get { return self.content }
+        set {
+            guard let value = newValue else { self.removeObject(self.content); return }
+            self.addObject(value)
+        }
+    }
+
+}
 extension NSArrayController {
 
     public var contentArray: [Any]? {
