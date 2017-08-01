@@ -3,9 +3,16 @@
 //
 
 import Foundation
-
 import AppKit
 
+
+extension NSColor {
+    public var data: Data { return NSKeyedArchiver.archivedData(withRootObject: self) }
+
+//    open convenience init?(data: Data) {
+//        self.init?(coder: NSKeyedUnarchiver(forReadingWith: data ))
+//    }
+}
 /**
     NSColor extension that add a whole bunch of utility functions like:
     - HTML/CSS RGB format conversion (i.e. 0x124672)

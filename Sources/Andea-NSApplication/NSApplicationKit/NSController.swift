@@ -89,7 +89,7 @@ struct ControllerData: Unmarshaling, Marshaling {
     }
 
     func marshaled() -> JSON {
-        let keys = [RepresentationKey.arrangedObjects, .selectionIndexes]
+        // let keys = [RepresentationKey.arrangedObjects, .selectionIndexes]
 
         return [
                 RepresentationKey.arrangedObjects.stringValue : self.arrangedObjects,

@@ -8,7 +8,12 @@ extension NSObjectController {
     public var contentObject: Any? {
         get { return self.content }
         set {
-            guard let value = newValue else { self.removeObject(self.content); return }
+            
+            guard let value = newValue else {
+                if let content = self.content { self.removeObject(content) }
+                return
+                
+            }
             self.addObject(value)
         }
     }
