@@ -4,6 +4,8 @@
 
 import Foundation
 
+
+
 #if os(iOS)
 import UIKit
 
@@ -20,7 +22,26 @@ extension UIStoryboard {
 import AppKit
 
 extension NSStoryboard {
-    // public class var main: NSStoryboard { return NSStoryboard(name: NSStoryboard.Name(rawValue: "Main"), bundle: nil) }
+
+    
+    
+//    #if available(OSX 10.12)
+//
+//    #elseif
+//
+//    #endif
+
+    @available(OSX 10.12, *)
+    public class var mainBoard: NSStoryboard {
+        
+        return NSStoryboard(name: NSStoryboard.Name(rawValue: "Main"), bundle: nil)
+        
+        // return NSStoryboard(name: NSStoryboard.Name(rawValue: "Main"), bundle: nil)
+        
+    }
+
+    
+    
     public func viewController<T: NSViewController>(forClass type: T.Type) -> T? {
         guard let identifier = String(describing: Swift.type(of: type)).components(separatedBy: ".").first else { return nil }
         return self.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: identifier)) as? T

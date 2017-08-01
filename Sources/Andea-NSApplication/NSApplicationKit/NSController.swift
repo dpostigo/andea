@@ -5,6 +5,13 @@
 import Cocoa
 import Marshal
 
+extension NSUserDefaultsController {
+    public convenience init(playground: String, initialValues: [String: Any]? = nil) {
+        let userDefaults = UserDefaults(suiteName: "com.dpostigo.playgrounds.\(playground)")!
+        self.init(defaults: userDefaults, initialValues: initialValues)
+    }
+}
+
 extension NSArrayController {
     public var indexes: IndexSet {
         return (self.arrangedObjects as! [Any]).indexSet
@@ -27,7 +34,6 @@ extension NSArrayController {
         let indexes = self.indexes.symmetricDifference(selected)
         self.setSelectionIndexes(indexes)
 
-        self.value(forKeyPath: <#T##String##Swift.String#>)
     }
 }
 

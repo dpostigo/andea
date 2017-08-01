@@ -4,7 +4,6 @@
 
 import Foundation
 import AppKit
-import QuartzCore
 
 extension NSView {
     public static var classIdentifier: String { return String(describing: self) }
@@ -13,8 +12,8 @@ extension NSView {
         self.init(frame: frame); self.wantsLayer = flag
     }
 
-    public convenience init(canDrawSubviewsIntoLayer flag: Bool) {
-        self.init(); self.canDrawSubviewsIntoLayer = flag
+    public convenience init(frame: NSRect = .zero, wantsLayer: Bool = true, canDrawSubviewsIntoLayer flag: Bool) {
+        self.init(frame: frame, wantsLayer: wantsLayer); self.canDrawSubviewsIntoLayer = flag
     }
 
     public convenience init(autolayout flag: Bool) {

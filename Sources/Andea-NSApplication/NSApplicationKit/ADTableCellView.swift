@@ -2,30 +2,28 @@
 // Created by Daniela Postigo on 7/12/17.
 //
 
-import Foundation
-import AppKit
+import Cocoa
 
 open class ADTableCellView: NSTableCellView {
 
-    lazy open var contentView: NSView = ({ NSView(wantsLayer: self.wantsLayer) })()
+    lazy open var contentView: NSView = ({
+        return NSView(wantsLayer: self.wantsLayer)
+    })()
 
 
 
     lazy open var title: NSTextField = ({
-        let title = NSTextField(wantsLayer: self.wantsLayer)
+        var title = NSTextField(wantsLayer: true)
         //self.textField = title
-        // title.controlSize = .small
         title.cell?.isBezeled = true
         title.bezelStyle = .roundedBezel
-        // title.cell?.controlSize = .small
         title.setContentCompressionResistancePriority(.required, for: .vertical)
-
-//        self.frame.size.height = self.contentView.fittingSize.height
         return title
     })()
 
     lazy open var subtitle: NSTextField = ({
-        let subtitle = NSTextField(wantsLayer: self.wantsLayer)
+        let subtitle = NSTextField()
+        subtitle.wantsLayer = true
         self.contentView.embed(subtitle)
         return subtitle
     })()
@@ -45,11 +43,14 @@ open class ADTableCellView: NSTableCellView {
 
         self.embed(self.contentView)
         self.contentView.embed(self.title)
+        Swift.print("self.title.wantsLayer = \(String(describing: self.title.wantsLayer))")
+
 
         //self.title.isHidden = true
         //        self.layout()
 
         self.frame.size.height = self.fittingSize.height
+        Swift.print("self.frame.size.height = \(String(describing: self.frame.size.height))")
 
     }
 
@@ -62,11 +63,6 @@ open class ADTableCellView: NSTableCellView {
     override open func layout() {
         super.layout()
         self.title.preferredMaxLayoutWidth = self.title.bounds.width
-
-        //        Swift.print("self.fittingSize = \(self.fittingSize)")
-//        Swift.print("self.contentView.fittingSize = \(self.contentView.fittingSize)")
-////        self.contentView.frame = self.bounds.insetBy(insets: self.layoutMargins)
-//        Swift.print("self.frame = \(self.frame)")
     }
 
     override open func prepareForReuse() {

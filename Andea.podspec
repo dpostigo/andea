@@ -41,11 +41,17 @@ Pod::Spec.new do |s|
     ss.dependency 'Andea/Foundation'
   end
 
-
-  s.subspec 'UIApplication' do |ss|
-  	ss.ios.frameworks = 'UIKit'
-  	ss.ios.source_files = 'Sources/Andea-UIApplication/**/*'
-    ss.dependency 'Andea/Core'
+  s.subspec 'Libraries' do |ss|
+    ss.subspec 'Alamofire' do |sss|
+      sss.source_files = 'Sources/Libraries/Alamofire/**/*'
+      sss.dependency 'Alamofire'
+      sss.dependency 'Andea/Alias'
+    end
+    ss.subspec 'Marshal' do |sss|
+      sss.source_files = 'Sources/Libraries/Marshal/**/*'
+      sss.dependency 'Marshal'
+      sss.dependency 'Andea/Foundation'
+    end
   end
 
   s.subspec 'NSApplication' do |ss|
@@ -61,18 +67,24 @@ Pod::Spec.new do |s|
     ss.dependency 'Andea/Libraries/Marshal'
   end
 
-  s.subspec 'Libraries' do |ss|
-    ss.subspec 'Alamofire' do |sss|
-      sss.source_files = 'Sources/Libraries/Alamofire/**/*'
-      sss.dependency 'Alamofire'
-      sss.dependency 'Andea/Alias'
-    end
-    ss.subspec 'Marshal' do |sss|
-      sss.source_files = 'Sources/Libraries/Marshal/**/*'
-      sss.dependency 'Marshal'
-      sss.dependency 'Andea/Foundation'
-    end
+  s.subspec 'UIApplication' do |ss|
+  	ss.ios.frameworks = 'UIKit'
+  	ss.ios.source_files = 'Sources/Andea-UIApplication/**/*'
+    ss.dependency 'Andea/Core'
   end
+
+  s.subspec 'Playgrounds' do |ss|
+  	ss.source_files = 'Sources/Playgrounds/**/*'
+    ss.dependency 'Andea/Core'
+  end
+
+
+  # s.subspec 'Playgrounds' do |ss|
+  # 	ss.ios.frameworks = 'XCTest'
+  # 	ss.osx.frameworks = 'XCTest'
+  # 	ss.ios.source_files = 'Sources/XCTest/*'
+  # 	ss.osx.source_files = 'Sources/XCTest/*'
+  # end
 
   # s.subspec 'Alamofire' do |ss|
   #   ss.source_files = 'Sources/Libraries/Alamofire/**/*'

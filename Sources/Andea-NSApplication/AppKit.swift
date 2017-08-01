@@ -100,6 +100,11 @@ extension NSTextField {
 //         self.init(); self.wantsLayer = flag
 //    }
 
+    public convenience init(title: String = "Title", wantsLayer: Bool = NSApplication.wantsLayer){
+        self.init()
+        self.stringValue = title
+        self.wantsLayer = wantsLayer
+    }
     public convenience init(title: String = "Title", backgroundColor: NSColor, isBordered: Bool) {
         self.init()
         self.stringValue = title
