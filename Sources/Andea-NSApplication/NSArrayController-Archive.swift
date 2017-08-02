@@ -5,9 +5,20 @@
 import Foundation
 import AppKit
 
+
+open class CodableKeyedArchiver: NSKeyedArchiver {
+    override open class func archivedData(withRootObject rootObject: Any) -> Data {
+        Swift.print("\(type(of: self)).\(#function)")
+        return super.archivedData(withRootObject: rootObject)
+    }
+}
+
 extension NSKeyedArchiver {
 
 	public static let NSArrayControllerKeys = ["content", "selectionIndexes"]
+
+
+
     
 	class func archivedData(_ arrayController: NSArrayController, additionalKeys keys: [String] = NSKeyedArchiver.NSArrayControllerKeys) -> Data {
 		let mutableData = NSMutableData()
