@@ -9,9 +9,10 @@ import AppKit
 extension NSColor {
     public var data: Data { return NSKeyedArchiver.archivedData(withRootObject: self) }
 
-//    open convenience init?(data: Data) {
-//        self.init?(coder: NSKeyedUnarchiver(forReadingWith: data ))
-//    }
+    public class func from(_ data: Data) -> NSColor {
+        return NSKeyedUnarchiver.unarchiveObject(with: data) as? NSColor ?? NSColor.black
+    }
+
 }
 /**
     NSColor extension that add a whole bunch of utility functions like:
