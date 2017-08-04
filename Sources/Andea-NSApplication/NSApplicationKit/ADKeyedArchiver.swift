@@ -2,30 +2,7 @@
 // Created by Daniela Postigo on 8/3/17.
 //
 
-import Foundation
-import AppKit
-
-//protocol Test: Codable {
-//    
-//}
-//
-//extension Test {
-//    private enum CodingKeys: String, CodingKey {
-//        case name = "product_name"
-//        case points = "product_cost"
-//        case description
-//    }
-//}
-
-//
-//extension NSArrayController: Codable {
-//    private enum CodingKeys: String, CodingKey {
-//        case name = "product_name"
-//        case points = "product_cost"
-//        case description
-//    }
-//}
-//
+import Cocoa
 
 public protocol ADArchivable2 {
 	// associatedtype CodingKeys: RawRepresentable where Coding
@@ -200,13 +177,7 @@ open class ADKeyedUnarchiver: NSKeyedUnarchiver {
 	open override func decodeData() -> Data? {
 		return super.decodeData()
 	}
-    open override func decodeValue(ofObjCType type: UnsafePointer<Int8>, at data: UnsafeMutableRawPointer, size: Int) {
-        if #available(OSX 10.13, *) {
-            super.decodeValue(ofObjCType: type, at: data, size: size)
-        } else {
-            // Fallback on earlier versions
-        }
-    }
+
 }
 
 open class ADCustomArchiver: NSCoder {

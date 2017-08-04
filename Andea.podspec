@@ -21,7 +21,7 @@ Pod::Spec.new do |s|
   # s.social_media_url = 'https://twitter.com/alsoyay'
 
   s.ios.deployment_target = '10.0'
-  s.osx.deployment_target = '10.12'
+  s.osx.deployment_target = '10.13'
 
   s.osx.frameworks = 'Foundation'
   s.ios.frameworks = 'Foundation'
