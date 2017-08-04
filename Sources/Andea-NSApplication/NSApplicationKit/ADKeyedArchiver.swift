@@ -44,7 +44,6 @@ fileprivate struct ADArchiveInfo: ADArchivableType {
 	}
 
 	var codingKeys: [String] {
-		//		return self.archiveType.codingKeys
 		switch self.object {
 			case is NSArrayController: return ["content", "selectionIndexes"]
 			default: return []
@@ -71,36 +70,62 @@ open class ADKeyedArchiver: NSKeyedArchiver {
 	}
 
 	convenience init(rootObject: Any) {
+		Swift.print("\(type(of: self)).\(#function)")
 		self.init(forWritingWith: NSMutableData())
 		self.encodeRootObject(rootObject)
 		self.finishEncoding()
+
+
+        if let object = rootObject as? NSObject {
+            
+            Swift.print("object.className = \(String(describing: object.className))")
+            
+            // self.encode(className: object)
+        } else {
+            
+        }
+
+
+
 	}
 
-	override init(forWritingWith data: NSMutableData) {
-		Swift.print("\(type(of: self)).\(#function)")
-		super.init(forWritingWith: data)
+
+	func className(forObject object: String) -> String? {
+
+		let name = NSStringFromClass(type(of: object) as! AnyClass)
+		Swift.print("name = \(String(describing: name))")
+
+		return name
 	}
+
     override open func encodeConditionalObject(_ object: Any?) {
 		object
 		super.encodeConditionalObject(object)
 	}
 
     override open func encode(_ object: Any?) {
-		guard let kind = ADKeyedType(forObject: object), let value = object else { return super.encode(object) }
+		guard let kind = ADKeyedType(forObject: object), let value = object else {
+			return super.encode(object)
+
+		}
 		switch kind {
 			case .encodable: self.encodeEncodable(value as! Encodable)
-			case .arrayController:
-
-				Swift.print("is arrayController")
-				break
 			default: super.encode(value)
 		}
+	}
+
+
+
+	func encode(className object: Any) {
+		let name = NSStringFromClass(type(of: object) as! AnyClass)
+        Swift.print("name = \(String(describing: name))")
+        
+		self.encode(name, forKey: "ADClassName")
 	}
 
 	func encodeEncodable(_ encodable: Encodable) {
 		do {
 			self.encode(try encodable.encodedData())
-			self.encode(NSStringFromClass(type(of: encodable) as! AnyClass), forKey: "ADClassName")
 		} catch {
 			error
 		}
@@ -185,17 +210,18 @@ open class ADCustomArchiver: NSCoder {
 		return ADKeyedArchiver.archivedData(withRootObject: rootObject)
 	}
 
-	private class func archive(encodableObject rootObject: Encodable) -> Data {
-		let archiver = NSKeyedArchiver(forWritingWith: NSMutableData())
-		let objectData = try! rootObject.encodedData()
-		archiver.encodeRootObject(objectData)
-		archiver.encode(NSStringFromClass(type(of: rootObject) as! AnyClass), forKey: "ADClassName")
-		archiver.finishEncoding()
-		return archiver.encodedData
-	}
+//	private class func archive(encodableObject rootObject: Encodable) -> Data {
+//		let archiver = NSKeyedArchiver(forWritingWith: NSMutableData())
+//		let objectData = try! rootObject.encodedData()
+//		archiver.encodeRootObject(objectData)
+//		archiver.encode(NSStringFromClass(type(of: rootObject) as! AnyClass), forKey: "ADClassName")
+//		archiver.finishEncoding()
+//		return archiver.encodedData
+//	}
+
 
 	open class func unarchiveObject(with data: Data) -> Any? {
-		let unarchiver = NSKeyedUnarchiver(forReadingWith: data)
+		let unarchiver = ADKeyedUnarchiver(forReadingWith: data)
 		let name = unarchiver.decodeObject(forKey: "ADClassName") as! String
 		let decodedObjectData = unarchiver.decodeData()!
 		let decodableType = NSClassFromString(name) as! Decodable.Type
