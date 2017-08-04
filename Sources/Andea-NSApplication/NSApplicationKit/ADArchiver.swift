@@ -8,7 +8,7 @@ import AppKit
 protocol ADArchivable {
     var codingKeys: [String] { get }
 }
-open class ADCustomArchiver2: NSKeyedArchiver {
+open class ADCoder: NSKeyedArchiver {
 	fileprivate enum ADArchiveType: String, ADArchivable {
 		case arrayController
 
@@ -76,10 +76,10 @@ extension NSCoder {
 
 extension NSArrayController {
 	open func archivedData() -> Data {
-		return ADCustomArchiver2.archivedData(withRootObject: self)
+		return ADCoder.archivedData(withRootObject: self)
 	}
 	open class func unarchive(_ data: Data) -> NSArrayController? {
-		return ADCustomArchiver2.unarchiveObject(with: data) as? NSArrayController
+		return ADCoder.unarchiveObject(with: data) as? NSArrayController
 	}
 
 	open override func setValue(_ value: Any?, forKey key: String) {

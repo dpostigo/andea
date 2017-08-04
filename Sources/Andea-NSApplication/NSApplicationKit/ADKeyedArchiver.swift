@@ -4,9 +4,6 @@
 
 import Cocoa
 
-public protocol ADArchivable2 {
-	// associatedtype CodingKeys: RawRepresentable where Coding
-}
 public protocol ADArchivableType {
 	var object: Any { get }
 	var codingKeys: [String] { get }
@@ -54,12 +51,12 @@ fileprivate struct ADArchiveInfo: ADArchivableType {
 
 
 
-open class ADKeyedArchiver: NSKeyedArchiver {
+fileprivate class ADKeyedArchiver: NSKeyedArchiver {
 
 
 
-	override open class func archivedData(withRootObject rootObject: Any) -> Data {
-		return ADKeyedArchiver(rootObject: rootObject).encodedData
+	override class func archivedData(withRootObject rootObject: Any) -> Data {
+		return self.init(rootObject: rootObject).encodedData
 		// guard let kind = ADKeyedType(forObject: rootObject) else { return super.archivedData(withRootObject: rootObject) }
 //
 //		switch kind {
@@ -69,41 +66,43 @@ open class ADKeyedArchiver: NSKeyedArchiver {
 //		return super.archivedData(withRootObject: rootObject)
 	}
 
-	convenience init(rootObject: Any) {
+ 	required init(rootObject: Any) {
 		Swift.print("\(type(of: self)).\(#function)")
-		self.init(forWritingWith: NSMutableData())
+		super.init(forWritingWith: NSMutableData())
 		self.encodeRootObject(rootObject)
+		self.encode(className: rootObject)
 		self.finishEncoding()
 
 
-        if let object = rootObject as? NSObject {
-            
-            Swift.print("object.className = \(String(describing: object.className))")
-            
-            // self.encode(className: object)
-        } else {
-            
-        }
-
-
-
 	}
 
 
-	func className(forObject object: String) -> String? {
 
-		let name = NSStringFromClass(type(of: object) as! AnyClass)
-		Swift.print("name = \(String(describing: name))")
+	func encode(className rootObject: Any) {
+		if let object = rootObject as? NSObject {
+			// let className = self.className(forObject: object)
+            let className = object.className
+			Swift.print("className = \(String(describing: className))")
+			Swift.print("object.className = \(String(describing: object.className))")
+			self.encode(className, forKey: "ADClassName")
+		} else {
 
-		return name
+			Swift.print("did not encode class Name")
+		}
+
 	}
 
-    override open func encodeConditionalObject(_ object: Any?) {
+	func className(forObject object: Any) -> String? {
+		guard let ref = type(of: object) as? AnyClass else { return nil }
+		return NSStringFromClass(ref)
+	}
+
+    override func encodeConditionalObject(_ object: Any?) {
 		object
 		super.encodeConditionalObject(object)
 	}
 
-    override open func encode(_ object: Any?) {
+    override func encode(_ object: Any?) {
 		guard let kind = ADKeyedType(forObject: object), let value = object else {
 			return super.encode(object)
 
@@ -115,93 +114,158 @@ open class ADKeyedArchiver: NSKeyedArchiver {
 	}
 
 
-
-	func encode(className object: Any) {
-		let name = NSStringFromClass(type(of: object) as! AnyClass)
-        Swift.print("name = \(String(describing: name))")
-        
-		self.encode(name, forKey: "ADClassName")
-	}
-
 	func encodeEncodable(_ encodable: Encodable) {
-		do {
-			self.encode(try encodable.encodedData())
-		} catch {
-			error
-		}
+		do {self.encode(try encodable.encodedData())}
+		catch {Swift.print("error = \(String(describing: error))")}
 	}
 
-    override open func encode(_ data: Data) {
+    override func encode(_ data: Data) {
 		data
 		super.encode(data)
 	}
 
-    override open func encodeRootObject(_ rootObject: Any) {
+    override func encodeRootObject(_ rootObject: Any) {
 		rootObject
 		super.encodeRootObject(rootObject)
 	}
 
-    override open func encodeValue(ofObjCType type: UnsafePointer<Int8>, at addr: UnsafeRawPointer) {
+    override func encodeValue(ofObjCType type: UnsafePointer<Int8>, at addr: UnsafeRawPointer) {
 		type
 		super.encodeValue(ofObjCType: type, at: addr)
 	}
 
 }
 
-open class ADKeyedUnarchiver: NSKeyedUnarchiver {
-	open override class func unarchiveObject(with data: Data) -> Any? {
-		return super.unarchiveObject(with: data)
+class ADKeyedUnarchiver: NSKeyedUnarchiver {
+
+	enum UnarchiverError: Error {
+		case keyNotFound(String)
+		case valueNotFound(Any.Type)
+
+		case general(String)
+
+		case generic
 	}
-	open override class func unarchiveObject(withFile path: String) -> Any? {
-		return super.unarchiveObject(withFile: path)
+
+	override class func unarchiveObject(with data: Data) -> Any? {
+		Swift.print("\(type(of: self)).\(#function)")
+
+		let unarchiver = ADKeyedUnarchiver(forReadingWith: data)
+
+		do {
+			let result = try unarchiver.decodeRootObject(withData: data)
+			Swift.print("result = \(String(describing: result))")
+            
+            return result
+		} catch {
+			Swift.print("error = \(String(describing: error))")
+
+			return super.unarchiveObject(with: data)
+		}
+		
+//		let unarchiver1 = NSKeyedUnarchiver()
+//		unarchiver1.decoded
+//		let unarchiver = ADKeyedUnarchiver(forReadingWith: data)
+//		let name = unarchiver.decodeObject(forKey: "ADClassName") as! String
+//		let decodedObjectData = unarchiver.decodeData()!
+//		let decodableType = NSClassFromString(name) as! Decodable.Type
+//		let result = try? decodableType.rootObject(decodedObjectData)
+//		return result
+//
+//
 	}
+
+	private let data: Data
+
 	public override init(forReadingWith data: Data) {
+		self.data = data
 		super.init(forReadingWith: data)
 	}
-	open override var delegate: NSKeyedUnarchiverDelegate? {
-		get {
-			return super.delegate
+
+
+	var decodedObject: Any? {
+		return try? self.decodeRootObject(withData: self.data)
+	}
+
+	func decodeRootObject(withData data: Data) throws -> Any {
+
+		//		let unarchiver = ADKeyedUnarchiver(forReadingWith: data)
+		//		let name = unarchiver.decodeObject(forKey: "ADClassName") as! String
+		//		let decodedObjectData = unarchiver.decodeData()!
+		//		let decodableType = NSClassFromString(name) as! Decodable.Type
+		//		let result = try? decodableType.rootObject(decodedObjectData)
+		//		return result
+
+		guard let name = self.decodeObject(forKey: "ADClassName") as? String else {
+			throw UnarchiverError.keyNotFound("ADClassName")
 		}
-		set {
-			super.delegate = newValue
+
+		guard let decodedObjectData = self.decodeData() else {
+			throw UnarchiverError.valueNotFound(Data.self)
+		}
+
+
+		return try self.decode(data: decodedObjectData, forClass: NSClassFromString(name)!)
+
+
+
+	}
+
+	func decode(data: Data, forClass aClass: Any.Type) throws -> Any {
+		switch aClass {
+			case is Decodable.Type:
+				let decodableType = aClass as! Decodable.Type
+				Swift.print("is Decodable")
+				return try decodableType.rootObject(data)
+			case is NSArrayController.Type:
+				Swift.print("is NSArrayController")
+
+				throw UnarchiverError.generic
+            
+			default : throw UnarchiverError.generic
+
 		}
 	}
-	open override func finishDecoding() {
+
+
+
+	override func finishDecoding() {
 		super.finishDecoding()
 	}
-	open override class func setClass(_ cls: AnyClass?, forClassName codedName: String) {
+	override class func setClass(_ cls: AnyClass?, forClassName codedName: String) {
 		super.setClass(cls, forClassName: codedName)
 	}
-	open override func setClass(_ cls: AnyClass?, forClassName codedName: String) {
+	override func setClass(_ cls: AnyClass?, forClassName codedName: String) {
 		super.setClass(cls, forClassName: codedName)
 	}
-	open override class func `class`(forClassName codedName: String) -> AnyClass? {
+	override class func `class`(forClassName codedName: String) -> AnyClass? {
 		return super.class(forClassName: codedName)
 	}
-	open override func `class`(forClassName codedName: String) -> AnyClass? {
+	override func `class`(forClassName codedName: String) -> AnyClass? {
 		return super.class(forClassName: codedName)
 	}
-	open override func containsValue(forKey key: String) -> Bool {
+	override func containsValue(forKey key: String) -> Bool {
 		return super.containsValue(forKey: key)
 	}
-	open override func decodeBool(forKey key: String) -> Bool {
+	override func decodeBool(forKey key: String) -> Bool {
 		return super.decodeBool(forKey: key)
 	}
-	open override func decodeInt32(forKey key: String) -> Int32 {
+	override func decodeInt32(forKey key: String) -> Int32 {
 		return super.decodeInt32(forKey: key)
 	}
-	open override func decodeInt64(forKey key: String) -> Int64 {
+	override func decodeInt64(forKey key: String) -> Int64 {
 		return super.decodeInt64(forKey: key)
 	}
-	open override func decodeFloat(forKey key: String) -> Float {
+	override func decodeFloat(forKey key: String) -> Float {
 		return super.decodeFloat(forKey: key)
 	}
-	open override func decodeDouble(forKey key: String) -> Double {
+	override func decodeDouble(forKey key: String) -> Double {
 		return super.decodeDouble(forKey: key)
 	}
-	open override func decodeData() -> Data? {
+	override func decodeData() -> Data? {
 		return super.decodeData()
 	}
+
 
 }
 
@@ -221,12 +285,13 @@ open class ADCustomArchiver: NSCoder {
 
 
 	open class func unarchiveObject(with data: Data) -> Any? {
-		let unarchiver = ADKeyedUnarchiver(forReadingWith: data)
-		let name = unarchiver.decodeObject(forKey: "ADClassName") as! String
-		let decodedObjectData = unarchiver.decodeData()!
-		let decodableType = NSClassFromString(name) as! Decodable.Type
-		let result = try? decodableType.rootObject(decodedObjectData)
-		return result
+		return ADKeyedUnarchiver.unarchiveObject(with: data)
+//		let unarchiver = ADKeyedUnarchiver(forReadingWith: data)
+//		let name = unarchiver.decodeObject(forKey: "ADClassName") as! String
+//		let decodedObjectData = unarchiver.decodeData()!
+//		let decodableType = NSClassFromString(name) as! Decodable.Type
+//		let result = try? decodableType.rootObject(decodedObjectData)
+//		return result
 	}
 
 	private class func unarchiveObject(_ data: Data, withName name: String) -> Any? {
