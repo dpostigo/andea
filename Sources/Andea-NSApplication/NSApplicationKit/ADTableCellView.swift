@@ -43,14 +43,12 @@ open class ADTableCellView: NSTableCellView {
 
         self.embed(self.contentView)
         self.contentView.embed(self.title)
-        Swift.print("self.title.wantsLayer = \(String(describing: self.title.wantsLayer))")
 
 
         //self.title.isHidden = true
         //        self.layout()
 
         self.frame.size.height = self.fittingSize.height
-        Swift.print("self.frame.size.height = \(String(describing: self.frame.size.height))")
 
     }
 

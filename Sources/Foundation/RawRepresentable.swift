@@ -6,6 +6,16 @@ import Foundation
 
 extension RawRepresentable {
     public var stringValue: String { return String(describing: self) }
+
+    public var stringRepresentation: String {
+        return type(of: self).string(describing: self)
+    }
+
+    private static func string(describing value: Self) -> String {
+        let string = String(describing: value)
+        guard string.contains("("), let index = string.index(of: "(") else { return string }
+        return string.substring(to: index)
+    }
 }
 
 

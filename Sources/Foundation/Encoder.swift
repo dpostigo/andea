@@ -4,6 +4,24 @@
 
 import Foundation
 
+extension Encodable {
+	public func encodedData() throws -> Data {
+		return try JSONEncoder.encode(self)
+	}
+}
+
+extension Decodable {
+	public static func rootObject(_ data: Data) throws -> Any {
+		return try JSONDecoder.decode(data) as Self
+	}
+}
+
+extension JSONEncoder {
+    open class func encode<T>(_ value: T) throws -> Data where T : Encodable {
+        return try JSONEncoder().encode(value)
+    }
+}
+
 extension JSONDecoder {
     open class func decode<T: Decodable>(_ data: Data) throws -> T {
         return try JSONDecoder().decode(T.self, from: data)
@@ -23,6 +41,8 @@ extension JSONDecoder {
         }
     }
 }
+
+
 
 
 
