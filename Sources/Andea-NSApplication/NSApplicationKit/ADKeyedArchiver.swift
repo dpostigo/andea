@@ -119,20 +119,6 @@ fileprivate class ADKeyedArchiver: NSKeyedArchiver {
 		catch {Swift.print("error = \(String(describing: error))")}
 	}
 
-    override func encode(_ data: Data) {
-		data
-		super.encode(data)
-	}
-
-    override func encodeRootObject(_ rootObject: Any) {
-		rootObject
-		super.encodeRootObject(rootObject)
-	}
-
-    override func encodeValue(ofObjCType type: UnsafePointer<Int8>, at addr: UnsafeRawPointer) {
-		type
-		super.encodeValue(ofObjCType: type, at: addr)
-	}
 
 }
 
@@ -335,4 +321,12 @@ fileprivate enum ADKeyedType: RawRepresentable {
 		case encodable
 		case decodable
 	}
+    
+    
+    var stringRepresentation: String {
+        return type(of: self).string(describing: self)
+    }
+    
+   
+    
 }

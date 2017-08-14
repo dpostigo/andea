@@ -10,8 +10,6 @@ open class ADTableCellView: NSTableCellView {
         return NSView(wantsLayer: self.wantsLayer)
     })()
 
-
-
     lazy open var title: NSTextField = ({
         var title = NSTextField(wantsLayer: true)
         //self.textField = title
@@ -39,8 +37,7 @@ open class ADTableCellView: NSTableCellView {
 
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
-        self.identifier = NSUserInterfaceItemIdentifier(rawValue: (type(of: self)).classIdentifier)
-
+        self.identifier = type(of: self).itemIdentifier
         self.embed(self.contentView)
         self.contentView.embed(self.title)
 

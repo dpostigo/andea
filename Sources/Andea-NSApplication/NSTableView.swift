@@ -5,17 +5,29 @@
 import Foundation
 import AppKit
 
-extension NSTableCellView {
+extension NSTableView {
+    public func make<T: NSTableCellView>(_ ref: T.Type, owner: Any? = nil) -> T {
+        let cell: T = self.makeView(withIdentifier: T.itemIdentifier, owner: owner) as? T ?? T()
+        cell.identifier = T.itemIdentifier
+        cell.wantsLayer = self.wantsLayer
+        return cell
+    }
+}
 
+extension NSTableCellView {
     public convenience init(identifier: String) {
         self.init(); self.identifier = NSUserInterfaceItemIdentifier(rawValue: identifier)
+    }
+    public convenience init(itemIdentifier: NSUserInterfaceItemIdentifier) {
+        self.init(); self.identifier = itemIdentifier
+    }
+    
+    public static var itemIdentifier: NSUserInterfaceItemIdentifier {
+        return NSUserInterfaceItemIdentifier(rawValue: String(describing: self))
     }
 }
 
 
-extension NSOutlineView {
-
-}
 extension NSTableView {
 
     public func dequeue<T: NSTableCellView>(forClass type: T.Type) -> T {

@@ -76,6 +76,23 @@ extension NSLayoutConstraint.Attribute {
 
 }
 
+extension NSView.AutoresizingMask: CustomDebugStringConvertible {
+    public var debugDescription: String {
+        guard self != .none else { return ".none" }
+        var ret = [String]()
+        switch true {
+        case self.contains(.minXMargin): ret.append("minXMargin")
+        case self.contains(.width): ret.append("width")
+        case self.contains(.maxXMargin): ret.append("maxXMargin")
+        case self.contains(.minYMargin): ret.append("minYMargin")
+        case self.contains(.height): ret.append("height")
+        case self.contains(.maxYMargin): ret.append("maxYMargin")
+        default: break
+        }
+        return (ret.map({ ".\($0)" })).joined(separator: ", ")
+    }
+}
+
 
 //extension NSLayoutAnchor {
 //    func constrain(_ anchor: NSLayoutAnchor<AnchorType>, constant: CGFloat, attribute: NSLayoutConstraint.Attribute, priority: NSLayoutConstraint.Priority = .required) -> NSLayoutConstraint {

@@ -31,7 +31,12 @@ extension UIEdgeInsets {
 #elseif os(OSX)
 import AppKit
 
-extension NSEdgeInsets {
+extension NSEdgeInsets: CustomDebugStringConvertible {
+    public static var zero: NSEdgeInsets = NSEdgeInsetsZero
+    public var debugDescription: String {
+        return "(top: \(self.top), left: \(self.left), bottom: \(self.bottom), right: \(self.right))"
+    }
+    
     public init(top: CGFloat, bottom: CGFloat) {
         self.init(top: top, left: 0, bottom: bottom, right: 0)
     }
@@ -48,4 +53,9 @@ extension NSEdgeInsets {
         self.init(top: value, left: value, bottom: value, right: value)
     }
 }
+
+public func ==(lhs: NSEdgeInsets, rhs: NSEdgeInsets) -> Bool {
+    return NSEdgeInsetsEqual(lhs, rhs)
+}
+
 #endif

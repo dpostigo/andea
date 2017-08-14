@@ -30,7 +30,7 @@ extension NSArrayController {
 
     // MARK: Init
 
-    public convenience init(automaticallyRearrangesObjects: Bool, selectsInsertedObjects: Bool = false, avoidsEmptySelection: Bool = true) {
+    public convenience init(automaticallyRearrangesObjects: Bool, avoidsEmptySelection: Bool = true, selectsInsertedObjects: Bool = false) {
         self.init()
         self.automaticallyRearrangesObjects = automaticallyRearrangesObjects
         self.selectsInsertedObjects = selectsInsertedObjects

@@ -76,6 +76,7 @@ Pod::Spec.new do |s|
   s.subspec 'Playgrounds' do |ss|
   	ss.source_files = 'Sources/Playgrounds/**/*'
     ss.dependency 'Andea/Core'
+    ss.frameworks = 'XCTest'
   end
 
 

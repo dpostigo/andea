@@ -5,12 +5,7 @@
 import Cocoa
 import Marshal
 
-extension NSUserDefaultsController {
-    public convenience init(playground: String, initialValues: [String: Any]? = nil) {
-        let userDefaults = UserDefaults(suiteName: "com.dpostigo.playgrounds.\(playground)")!
-        self.init(defaults: userDefaults, initialValues: initialValues)
-    }
-}
+
 
 extension NSArrayController {
     public var indexes: IndexSet {

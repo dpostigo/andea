@@ -18,7 +18,12 @@ extension NSMenu {
         self.init(title: tableView.autosaveName.map { $0.rawValue } ?? "Untitled", tableColumns: tableView.tableColumns, state: state)
     }
 
-    public convenience init(title: String, tableColumns columns: [NSTableColumn], state: Int = 0) {
+    
+    public func addItem(title: String, action: Selector? = nil, keyEquivalent: String = "") {
+        self.addItem(withTitle: title, action: action, keyEquivalent: keyEquivalent)
+    }
+    
+     public convenience init(title: String, tableColumns columns: [NSTableColumn], state: Int = 0) {
         self.init(title: title)
         let items: [NSMenuItem] = columns.map({ column in
             let item = NSMenuItem(title: column.title, action: #selector(NSMenuItem.toggleState(_:)), keyEquivalent: "")
@@ -36,6 +41,10 @@ extension NSMenu {
 }
 
 extension NSMenuItem {
+    
+    public convenience init(title: String, action: Selector? = nil, keyEquivalent: String = "") {
+        self.init(title: title, action: action, keyEquivalent: keyEquivalent)
+    }
     @objc public func toggleState(_ sender: AnyObject) {
         self.state = self.state == NSControl.StateValue.onState ? NSControl.StateValue.offState : NSControl.StateValue.onState
     }

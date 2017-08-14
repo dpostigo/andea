@@ -7,12 +7,12 @@ import AppKit
 extension NSUserDefaultsController {
 
     public subscript(value: String) -> Any? {
-        get {
-            return self.value(forKeyPath: "values.\(value)")
-        }
+        get { return self.value(forKeyPath: "values.\(value)") }
         set {
             guard let newValue = newValue else {self.defaults.removeObject(forKey: value); return}
             self.setValue(newValue, forKeyPath: "values.\(value)")
         }
     }
 }
+
+

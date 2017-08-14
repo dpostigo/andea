@@ -12,6 +12,11 @@ extension NSViewController {
     public convenience init(view: NSView) {
         self.init(); self.view = view
     }
+    
+    public convenience init(frame: CGRect = NSWindow.systemLayoutRect, color: NSColor) {
+        self.init(view: NSView(frame: frame, color: color));
+    }
+    
     public convenience init(title: String) {
         self.init(); self.title = title
     }
@@ -19,6 +24,8 @@ extension NSViewController {
     public convenience init(bounds: CGRect) {
         self.init(); self.view.bounds = bounds
     }
+    
+    
 
     public func remove(childViewController child: NSViewController?) {
         guard let child = child else { return }
