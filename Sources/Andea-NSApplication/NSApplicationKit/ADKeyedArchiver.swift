@@ -97,10 +97,6 @@ fileprivate class ADKeyedArchiver: NSKeyedArchiver {
 		return NSStringFromClass(ref)
 	}
 
-    override func encodeConditionalObject(_ object: Any?) {
-		object
-		super.encodeConditionalObject(object)
-	}
 
     override func encode(_ object: Any?) {
 		guard let kind = ADKeyedType(forObject: object), let value = object else {
