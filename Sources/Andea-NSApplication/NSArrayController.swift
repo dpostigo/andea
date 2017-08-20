@@ -40,7 +40,20 @@ extension NSArrayController {
     public convenience init(representation data: [String: Any]) {
         self.init(); self.set(data: data)
     }
+    
+    // MARK:
+    
+    open func select(_ object: Any?) {
+        guard let object = object else { return }
+        self.setSelectedObjects([object])
+    }
 
+    open func removeAll() {
+        guard let content = self.content as? [Any] else { return }
+        self.remove(contentsOf: content)
+    }
+    
+    
     func set(data: [String: Any]) {
         data.forEach({ element in
             guard let key = DictionaryKey(rawValue: element.key) else {
@@ -53,10 +66,7 @@ extension NSArrayController {
         })
     }
 
-    public func removeAll() {
-        guard let content = self.content as? [Any] else { return }
-        self.remove(contentsOf: content)
-    }
+  
 
     // MARK: Getters
 
