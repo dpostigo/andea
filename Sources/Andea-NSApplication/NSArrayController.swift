@@ -43,9 +43,13 @@ extension NSArrayController {
     
     // MARK:
     
-    open func select(_ object: Any?) {
+    open func select(_ object: Any?, append: Bool = false) {
         guard let object = object else { return }
-        self.setSelectedObjects([object])
+        if append {
+            self.addSelectedObjects([object])
+        } else {
+            self.setSelectedObjects([object])
+        }
     }
 
     open func removeAll() {
