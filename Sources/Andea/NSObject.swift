@@ -5,6 +5,13 @@
 import Foundation
 
 extension NSObject {
+    
+    // MARK: Bindings info
+    
+    open func info(_ binding: NSBindingName, forKey key: NSBindingInfoKey) -> Any? {
+        return self.infoForBinding(binding)?[key]
+    }
+
     open func array(forKeyPath keyPath: String) -> [Any]? {
         return self.value(forKeyPath: keyPath) as? [Any]
     }
@@ -23,21 +30,10 @@ extension Dictionary where Key == NSKeyValueChangeKey {
         return NSKeyValueChange(rawValue: kind)
     }
 
-    public var newValue: Any? {
-        return self[NSKeyValueChangeKey.newKey]
-    }
-
-    public var oldValue: Any? {
-        return self[NSKeyValueChangeKey.oldKey]
-    }
-
-    public var indexesValue: IndexSet? {
-        return self[NSKeyValueChangeKey.indexesKey] as? IndexSet
-    }
-
-    public var initialValue: Any? {
-        return self [NSKeyValueChangeKey.notificationIsPriorKey]
-    }
+    public var newValue: Any? { return self[NSKeyValueChangeKey.newKey] }
+    public var oldValue: Any? { return self[NSKeyValueChangeKey.oldKey] }
+    public var indexesValue: IndexSet? { return self[NSKeyValueChangeKey.indexesKey] as? IndexSet }
+    public var initialValue: Any? { return self [NSKeyValueChangeKey.notificationIsPriorKey] }
 }
 
 extension NSKeyValueChange {

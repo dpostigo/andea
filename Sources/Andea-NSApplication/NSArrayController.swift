@@ -18,6 +18,31 @@ extension NSObjectController {
     }
 
 }
+
+extension NSArrayController {
+    open func contains(_ object: Any) -> Bool {
+        guard let content = self.content as? [NSObject] else { return false }
+        guard let object = object as? NSObject else { return false }
+        return content.contains(object)
+    }
+    
+    open func select(_ object: Any?, append: Bool = false) {
+        guard let object = object else { return }
+        if append {
+            self.addSelectedObjects([object])
+        } else {
+            self.setSelectedObjects([object])
+        }
+    }
+    
+    open func removeAll() {
+        guard let content = self.content as? [Any] else { return }
+        self.remove(contentsOf: content)
+    }
+}
+
+
+
 extension NSArrayController {
 
     public var contentArray: [Any]? {
@@ -41,22 +66,7 @@ extension NSArrayController {
         self.init(); self.set(data: data)
     }
     
-    // MARK:
-    
-    open func select(_ object: Any?, append: Bool = false) {
-        guard let object = object else { return }
-        if append {
-            self.addSelectedObjects([object])
-        } else {
-            self.setSelectedObjects([object])
-        }
-    }
-
-    open func removeAll() {
-        guard let content = self.content as? [Any] else { return }
-        self.remove(contentsOf: content)
-    }
-    
+    // MARK: DictionaryKey
     
     func set(data: [String: Any]) {
         data.forEach({ element in
@@ -165,7 +175,9 @@ open class ArrayController: NSArrayController {
 }
 
 
+
 extension NSArrayController {
+    
     public enum DictionaryKey: String, KeyPathProvider {
         case arrangedObjects = "content"
         case automaticallyRearrangesObjects
