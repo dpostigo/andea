@@ -29,7 +29,9 @@ extension NSArrayController {
     open func select(_ object: Any?, append: Bool = false) {
         guard let object = object else { return }
         if append {
-            self.addSelectedObjects([object])
+            guard !self.selectsInsertedObjects else { self.addObject(object); return }
+            self.addObject(object)
+            self.setSelectedObjects([object])
         } else {
             self.setSelectedObjects([object])
         }
