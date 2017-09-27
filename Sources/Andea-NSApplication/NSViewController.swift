@@ -24,8 +24,6 @@ extension NSViewController {
     public convenience init(bounds: CGRect) {
         self.init(); self.view.bounds = bounds
     }
-    
-    
 
     public func remove(childViewController child: NSViewController?) {
         guard let child = child else { return }

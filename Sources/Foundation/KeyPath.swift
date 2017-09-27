@@ -2,8 +2,22 @@
 // Created by Daniela Postigo on 8/7/17.
 //
 
-import Foundation
+import Cocoa
 
+extension AnyKeyPath {
+    
+    open var itemIdentifier: NSUserInterfaceItemIdentifier? {
+        guard let kvcString = self.kvcString else { return nil }
+        return NSUserInterfaceItemIdentifier(rawValue: kvcString)
+    }
+    
+    open var kvcString: String? {
+        guard let value = self._kvcKeyPathString else { return nil }
+        return "\(self.rootString).\(value)"
+    }
+    
+    open var rootString: String { return String(describing: type(of: self).rootType) }
+}
 
 extension Sequence {
 	public subscript<T>(valueKeyPath value: KeyPath<Element, T>) -> [T] {

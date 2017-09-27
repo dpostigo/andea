@@ -16,7 +16,15 @@ extension NSObject {
         return self.value(forKeyPath: keyPath) as? [Any]
     }
 
-    open func dictionaryWithValues(forKeyPaths keyPaths: [String]) -> [String : Any] {
+    open func dictionaryWithValues(forKeyPaths keyPaths: String...) -> [String : Any] {
+        return self.dictionaryWithValues(forKeyPaths: keyPaths)
+    }
+    
+    open func stringWithValues(forKeyPaths keyPaths: String...) -> String {
+        return JSONSerialization.string(self.dictionaryWithValues(forKeyPaths: keyPaths))
+    }
+    
+    private func dictionaryWithValues(forKeyPaths keyPaths: [String]) -> [String : Any] {
         var ret = [String: Any]()
         keyPaths.forEach({ ret[$0] = self.value(forKeyPath: $0) })
         return ret

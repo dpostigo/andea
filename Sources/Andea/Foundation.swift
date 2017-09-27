@@ -92,3 +92,15 @@ extension Sequence {
 }
 
 
+extension NSMutableDictionary {
+    open func autocreate(keyPath: String) {
+        var index: Int = 1
+        var components = keyPath.components(separatedBy: ".")
+        
+        while index < components.count {
+            let component = components[0 ..< index].joined(separator: ".")
+            if self.value(forKeyPath: component) == nil { self.setValue(NSMutableDictionary(), forKeyPath: component)  }
+            index += 1
+        }
+    }
+}

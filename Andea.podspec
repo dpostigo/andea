@@ -73,6 +73,11 @@ Pod::Spec.new do |s|
     ss.dependency 'Andea/Core'
   end
 
+  s.subspec 'Experimental' do |ss|
+  	ss.source_files = 'Sources/Experimental/**/*'
+    ss.dependency 'Andea/Core'
+  end
+
   s.subspec 'Playgrounds' do |ss|
   	ss.source_files = 'Sources/Playgrounds/**/*'
     ss.dependency 'Andea/Core'

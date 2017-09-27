@@ -28,7 +28,7 @@ extension NSMenu {
         let items: [NSMenuItem] = columns.map({ column in
             let item = NSMenuItem(title: column.title, action: #selector(NSMenuItem.toggleState(_:)), keyEquivalent: "")
             item.target = item
-            item.state = column.isHidden ? NSControl.StateValue.offState : NSControl.StateValue.onState
+            item.state = column.isHidden ? NSControl.StateValue.off : NSControl.StateValue.on
             item.onStateImage = NSImage(named: NSImage.Name.menuOnStateTemplate)
             column.bind(NSBindingName.hidden, to: item, withKeyPath: "state", options: [
                     NSBindingOption.valueTransformer: ValueTransformer(forName: .negateBooleanTransformerName)!,
@@ -46,6 +46,6 @@ extension NSMenuItem {
         self.init(title: title, action: action, keyEquivalent: keyEquivalent)
     }
     @objc public func toggleState(_ sender: AnyObject) {
-        self.state = self.state == NSControl.StateValue.onState ? NSControl.StateValue.offState : NSControl.StateValue.onState
+        self.state = self.state == NSControl.StateValue.on ? NSControl.StateValue.off : NSControl.StateValue.on
     }
 }

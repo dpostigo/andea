@@ -4,6 +4,25 @@
 
 import Cocoa
 
+extension NSButton {
+    public convenience init(bezelStyle: NSButton.BezelStyle) {
+        self.init(); self.bezelStyle = bezelStyle
+    }
+
+    public convenience init(image: NSImage) {
+        self.init(image: image, target: nil, action: nil)
+    }
+
+    public convenience init(title: String) {
+        self.init(title: title, target: nil, action: nil)
+    }
+
+    public func toggleState(_ sender: Any? = nil) {
+        self.state = self.state == NSControl.StateValue.on ? NSControl.StateValue.off : NSControl.StateValue.on
+    }
+}
+
+
 extension NSControl {
 
     public func add(target: AnyObject?, for action: Selector? = nil) {

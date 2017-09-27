@@ -65,12 +65,13 @@ open class URLTransformer: ValueTransformer {
         return URL(string: value)
     }
     
-//    override class func allowsReverseTransformation() -> Bool {
-//        return false
-//    }
-//
-//    override func reverseTransformedValue(_ value: Any?) -> Any? {
-//        guard let url = value as? URL else { return nil }
-//        return url.absoluteString
-//    }
+    open override class func allowsReverseTransformation() -> Bool {
+        return true
+    }
+    
+    open override func reverseTransformedValue(_ value: Any?) -> Any? {
+        guard let url = value as? URL else { return nil }
+        return url.absoluteString
+    }
+    
 }

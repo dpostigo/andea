@@ -9,7 +9,9 @@ public protocol StringRepresentable {
     var stringRepresentation: String { get }
 }
 
-public protocol IntRepresentable: RawRepresentable where RawValue == Int { }
+public protocol IntRepresentable: RawRepresentable where RawValue == Int {
+    
+}
 
 public typealias Autorepresentable = StringRepresentable & IntRepresentable
 
