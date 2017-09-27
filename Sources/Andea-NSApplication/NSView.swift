@@ -31,8 +31,6 @@ extension NSView {
         self.addSubview(view)
     }
 
-
-
     public func embed(_ view: NSView, insets: NSEdgeInsets = NSEdgeInsets(), priority: NSLayoutConstraint.Priority = .required) {
         self.addView(view)
         self.topAnchor.constraint(equalTo: view.topAnchor, constant: -insets.top).priority(priority).isActive = true
@@ -81,13 +79,13 @@ extension NSView.AutoresizingMask: CustomDebugStringConvertible {
         guard self != .none else { return ".none" }
         var ret = [String]()
         switch true {
-        case self.contains(.minXMargin): ret.append("minXMargin")
-        case self.contains(.width): ret.append("width")
-        case self.contains(.maxXMargin): ret.append("maxXMargin")
-        case self.contains(.minYMargin): ret.append("minYMargin")
-        case self.contains(.height): ret.append("height")
-        case self.contains(.maxYMargin): ret.append("maxYMargin")
-        default: break
+            case self.contains(.minXMargin): ret.append("minXMargin")
+            case self.contains(.width): ret.append("width")
+            case self.contains(.maxXMargin): ret.append("maxXMargin")
+            case self.contains(.minYMargin): ret.append("minYMargin")
+            case self.contains(.height): ret.append("height")
+            case self.contains(.maxYMargin): ret.append("maxYMargin")
+            default: break
         }
         return (ret.map({ ".\($0)" })).joined(separator: ", ")
     }

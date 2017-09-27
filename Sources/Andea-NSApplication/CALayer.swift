@@ -2,8 +2,7 @@
 // Created by Daniela Postigo on 7/17/17.
 //
 
-import Foundation
-import AppKit
+import Cocoa
 import QuartzCore
 
 extension CALayer {
@@ -92,3 +91,46 @@ open class Background: NSView {
     }
 }
 
+
+class ShadowLayer: CALayer {
+
+    private let shadowLayer = CAShapeLayer()
+
+
+    override open var backgroundColor: CGColor? {
+        didSet {
+
+        }
+    }
+
+
+    override var shadowColor: CGColor? {
+        set {
+            self.shadowLayer.strokeColor = self.shadowColor
+            self.shadowLayer.shadowColor = self.shadowColor
+        }
+        get { return self.shadowLayer.shadowColor }
+    }
+
+    override var shadowRadius: CGFloat {
+        didSet {
+            self.shadowLayer.shadowRadius = self.shadowRadius
+            self.shadowLayer.shadowOffset = CGSize(width: 0, height: self.shadowRadius * 2)
+
+        }
+    }
+
+    override init(layer: Any) {
+        super.init(layer: layer)
+        Swift.print("\(type(of: self)).\(#function)")
+
+        self.masksToBounds = true
+
+        self.shadowLayer.shadowOpacity = 1
+        self.shadowLayer.fillColor = NSColor.clear.cgColor
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
