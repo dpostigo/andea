@@ -35,12 +35,6 @@ extension NSCollectionViewFlowLayout {
 	public convenience init(scrollDirection: NSCollectionView.ScrollDirection) {
 		self.init(); self.scrollDirection = scrollDirection
 	}
-	//
-	//    public convenience init(scrollDirection: NSCollectionViewScrollDirection, estimatedItemSize: NSSize) {
-	//        self.init()
-	//        self.scrollDirection = scrollDirection
-	//        self.estimatedItemSize = estimatedItemSize
-	//    }
 
 	public convenience init(scrollDirection: NSCollectionView.ScrollDirection, estimatedItemSize: NSSize = .zero, minimumLineSpacing: CGFloat = 10, minimumInteritemSpacing: CGFloat = 10) {
 		self.init()
@@ -55,6 +49,7 @@ extension NSTextView {
 	public func scrollView(forBounds bounds: CGRect? = nil) -> NSScrollView {
 		return self.configure(NSScrollView(frame: bounds ?? self.bounds))
 	}
+
 	@discardableResult public func configure(_ scrollView: NSScrollView) -> NSScrollView {
 		scrollView.contentView.documentView = self
 		self.isVerticallyResizable = true
