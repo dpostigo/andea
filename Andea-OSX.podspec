@@ -2,100 +2,74 @@ Pod::Spec.new do |s|
   s.name             = 'Andea-OSX'
   s.version          = '0.1.0'
   s.summary          = 'Extensions for Swift from the Andeas.'
-
-
   s.description      = 'Convenience initializers & other extensions.'
 
   s.homepage         = 'https://bitbucket.com/dpostigo/Andea'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Dani Postigo' => 'dani.postigo@gmail.com' }
   s.source           = { :git => 'https://bitbucket.com/dpostigo/Andea.git', :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/alsoyay'
 
-  s.ios.deployment_target = '10.0'
-  s.osx.deployment_target = '10.13'
+  s.platform = :osx, '10.13'
+  s.frameworks = 'Foundation'
 
-  s.osx.frameworks = 'Foundation'
-  s.ios.frameworks = 'Foundation'
-
-  s.module_name = "Andea"
+  s.module_name = 'Andea'
   s.default_subspec = 'Core'
 
 
   s.subspec 'Alias' do |ss| ; ss.source_files = 'Sources/Andea/Alias.swift' ; end
-  s.subspec 'Foundation' do |ss| ;  ss.source_files = 'Sources/Foundation/*' ; end
+  s.subspec 'Protocols' do |ss| ;  ss.source_files = 'Sources/Protocols/*' ; end
+  s.subspec 'Foundation' do |ss| ; ss.source_files = 'Sources/Foundation/*'; ss.dependency '%s/Protocols' % s.name ; end
 
   s.subspec 'Core' do |ss|
-    ss.osx.frameworks = 'AppKit'
-    ss.ios.frameworks = 'UIKit'
-    ss.source_files = 'Sources/{Andea,Protocols}/**/*'
-    ss.dependency 'Andea/Alias'
-    ss.dependency 'Andea/Foundation'
+    ss.frameworks = 'AppKit'
+    ss.source_files = 'Sources/Andea/**/*'
+    ss.dependency '%s/Alias' % s.name
+    ss.dependency '%s/Foundation' % s.name
+    ss.dependency '%s/Protocols' % s.name
   end
 
   s.subspec 'Libraries' do |ss|
     ss.subspec 'Alamofire' do |sss|
       sss.source_files = 'Sources/Libraries/Alamofire/**/*'
       sss.dependency 'Alamofire'
-      sss.dependency 'Andea/Alias'
+      sss.dependency '%s/Alias' % s.name
     end
     ss.subspec 'Marshal' do |sss|
       sss.source_files = 'Sources/Libraries/Marshal/**/*'
       sss.dependency 'Marshal'
-      sss.dependency 'Andea/Foundation'
+      sss.dependency '%s/Foundation' % s.name
     end
   end
 
   s.subspec 'NSApplication' do |ss|
     ss.osx.frameworks = 'Cocoa', 'AppKit', 'QuartzCore'
     ss.osx.source_files = 'Sources/Andea-NSApplication/*'
-    ss.dependency 'Andea/Core'
+    ss.dependency '%s/Core' % s.name
   end
 
   s.subspec 'NSApplicationKit' do |ss|
     ss.osx.frameworks = 'Cocoa', 'AppKit', 'QuartzCore'
     ss.osx.source_files = 'Sources/Andea-NSApplication/NSApplicationKit/*'
-    ss.dependency 'Andea/NSApplication'
-    ss.dependency 'Andea/Libraries/Marshal'
+    ss.dependency '%s/NSApplication' % s.name
+    ss.dependency '%s/Libraries/Marshal' % s.name
   end
 
   s.subspec 'UIApplication' do |ss|
     ss.ios.frameworks = 'UIKit'
     ss.ios.source_files = 'Sources/Andea-UIApplication/**/*'
-    ss.dependency 'Andea/Core'
+    ss.dependency '%s/Core' % s.name
   end
 
   s.subspec 'Experimental' do |ss|
-    ss.source_files = 'Sources/Experimental/**/*'
-    ss.dependency 'Andea/Core'
+    ss.source_files = 'andea-osx/Experimental/**/*'
+    ss.dependency '%s/Core' % s.name
   end
 
   s.subspec 'Playgrounds' do |ss|
-    ss.source_files = 'Sources/Playgrounds/**/*'
-    ss.dependency 'Andea/Core'
+    ss.source_files = 'andea-osx/Playgrounds/**/*'
+    ss.dependency '%s/Core' % s.name
     ss.frameworks = 'XCTest'
   end
-
-
-  # s.subspec 'Playgrounds' do |ss|
-  #   ss.ios.frameworks = 'XCTest'
-  #   ss.osx.frameworks = 'XCTest'
-  #   ss.ios.source_files = 'Sources/XCTest/*'
-  #   ss.osx.source_files = 'Sources/XCTest/*'
-  # end
-
-  # s.subspec 'Alamofire' do |ss|
-  #   ss.source_files = 'Sources/Libraries/Alamofire/**/*'
-  #   ss.dependency 'Alamofire'
-  #   ss.dependency 'Andea/Alias'
-  # end
-
-  # s.subspec 'Marshal' do |ss|
-  #   ss.source_files = 'Sources/Libraries/Marshal/**/*'
-  #   ss.dependency 'Marshal'
-  #   ss.dependency 'Andea/Foundation'
-  # end
-
 
   # s.subspec 'XCTest' do |ss|
   #   ss.ios.frameworks = 'XCTest'
