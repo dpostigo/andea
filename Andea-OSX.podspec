@@ -42,14 +42,14 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'NSApplication' do |ss|
-    ss.osx.frameworks = 'Cocoa', 'AppKit', 'QuartzCore'
-    ss.osx.source_files = 'Sources/Andea-NSApplication/*'
+    ss.frameworks = 'Cocoa', 'AppKit', 'QuartzCore'
+    ss.source_files = 'Sources/Andea-NSApplication/*'
     ss.dependency '%s/Core' % s.name
   end
 
   s.subspec 'NSApplicationKit' do |ss|
-    ss.osx.frameworks = 'Cocoa', 'AppKit', 'QuartzCore'
-    ss.osx.source_files = 'Sources/Andea-NSApplication/NSApplicationKit/*'
+    ss.frameworks = 'Cocoa', 'AppKit', 'QuartzCore'
+    ss.source_files = 'Sources/Andea-NSApplication/NSApplicationKit/*'
     ss.dependency '%s/NSApplication' % s.name
     ss.dependency '%s/Libraries/Marshal' % s.name
   end
@@ -77,8 +77,6 @@ Pod::Spec.new do |s|
   #   ss.ios.source_files = 'Sources/XCTest/*'
   #   ss.osx.source_files = 'Sources/XCTest/*'
   # end
-
-
 
   # s.subspec 'Extras' do |ss|
   #   ss.frameworks = 'Foundation'

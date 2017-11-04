@@ -49,8 +49,6 @@ Pod::Spec.new do |s|
     end
   end
 
-
-
   s.subspec 'UIApplication' do |ss|
   	ss.frameworks = 'UIKit'
   	ss.source_files = 'Sources/Andea-UIApplication/**/*'
