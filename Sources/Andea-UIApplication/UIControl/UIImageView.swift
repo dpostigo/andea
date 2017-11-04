@@ -6,8 +6,8 @@ import Foundation
 import UIKit
 
 extension UIImageView {
-    public convenience init(color: UIColor) {
-        self.init(); self.backgroundColor = color; self.isOpaque = false
+    public convenience init(backgroundColor: UIColor) {
+        self.init(); self.backgroundColor = backgroundColor; self.isOpaque = false
     }
     
     public convenience init(image: UIImage?, contentMode: UIViewContentMode) {

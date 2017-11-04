@@ -86,7 +86,7 @@ extension UIButton {
         set { self.setAttributedTitle(newValue, for: self.state) }
     }
     
-    public func replaceAttribute(_ attribute: String, value: AnyObject?) {
+    public func replaceAttribute(_ attribute: NSAttributedStringKey, value: AnyObject?) {
         guard let string = self.currentMutableAttributedTitle else { return }
         string.replaceAttribute(attribute, value: value)
         self.attributedTitle = string

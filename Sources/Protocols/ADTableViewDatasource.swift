@@ -5,6 +5,7 @@
 //  Created by Daniela Postigo on 8/6/17.
 //
 
+#if os(OSX)
 import Foundation
 
 public enum ADTableColumn: Int, Autorepresentable { case column }
@@ -24,3 +25,5 @@ extension ADTableViewDatasource {
 extension ADTableViewDatasource where Self.Columns: Autorepresentable {
     public var identifiers: [NSUserInterfaceItemIdentifier] { return Columns.itemIdentifiers }
 }
+
+#endif

@@ -8,9 +8,11 @@ extension NSObject {
     
     // MARK: Bindings info
     
+    #if os(OSX)
     open func info(_ binding: NSBindingName, forKey key: NSBindingInfoKey) -> Any? {
         return self.infoForBinding(binding)?[key]
     }
+    #endif
 
     open func array(forKeyPath keyPath: String) -> [Any]? {
         return self.value(forKeyPath: keyPath) as? [Any]

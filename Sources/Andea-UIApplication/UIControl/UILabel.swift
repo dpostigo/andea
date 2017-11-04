@@ -14,8 +14,9 @@ extension UILabel {
         self.init(); self.font = font; self.textColor = color
     }
     
-    public convenience init(color: UIColor) {
-        self.init(); self.textColor = color
+    
+    public convenience init(textColor: UIColor) {
+        self.init(); self.textColor = textColor
     }
     
     public convenience init(text: String) { self.init(title: text) }
@@ -31,10 +32,10 @@ extension UILabel {
         self.init(); self.attributedText = attributedText
     }
     
-    public convenience init(title: String, attributes: [String:AnyObject]) {
+    public convenience init(title: String, attributes: [NSAttributedStringKey : AnyObject]) {
         self.init(attributedText: NSAttributedString(string: title, attributes: attributes))
     }
-    public convenience init(attributes: [String:AnyObject]) {
+    public convenience init(attributes: [NSAttributedStringKey : AnyObject]) {
         self.init(attributedText: NSAttributedString(string: " ", attributes: attributes))
     }
     

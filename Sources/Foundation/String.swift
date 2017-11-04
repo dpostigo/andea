@@ -31,12 +31,12 @@ extension String {
     }
 
     public var capitalizedFirst: String {
-        let characters = self.characters.enumerated().map({ $0.offset == 0 ? String($0.element).capitalized : String($0.element) })
+        let characters = Array(self).enumerated().map({ $0.offset == 0 ? String($0.element).capitalized : String($0.element) })
         return characters.joined()
     }
 
     public var lowercasedFirst: String {
-        let characters = self.characters.enumerated().map({ $0.offset == 0 ? String($0.element).lowercased() : String($0.element) })
+        let characters = Array(self).enumerated().map({ $0.offset == 0 ? String($0.element).lowercased() : String($0.element) })
         return characters.joined()
     }
 }

@@ -2,14 +2,16 @@
 // Created by Daniela Postigo on 8/7/17.
 //
 
-import Cocoa
+import Foundation
 
 extension AnyKeyPath {
     
+    #if os(OSX)
     open var itemIdentifier: NSUserInterfaceItemIdentifier? {
         guard let kvcString = self.kvcString else { return nil }
         return NSUserInterfaceItemIdentifier(rawValue: kvcString)
     }
+    #endif
     
     open var kvcString: String? {
         guard let value = self._kvcKeyPathString else { return nil }
