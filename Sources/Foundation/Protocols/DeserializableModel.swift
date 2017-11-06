@@ -9,7 +9,7 @@ public protocol DeserializableModel { }
 extension DeserializableModel where Self: RawRepresentable, Self.RawValue == String {
     public init?(identifier: String) {
         guard let identifier = identifier.components(separatedBy: ".").first else { return nil }
-        guard let value = Self(rawValue: identifier.lowercasedFirst) else { return nil }
+        guard let value = Self.init(rawValue: identifier.lowercasedFirst) else { return nil }
         self = value
     }
 }

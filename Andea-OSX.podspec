@@ -1,3 +1,5 @@
+# pod 'Andea-OSX', :path => '~/pods/Andea'
+
 Pod::Spec.new do |s|
   s.name             = 'Andea-OSX'
   s.version          = '0.1.0'
@@ -9,16 +11,17 @@ Pod::Spec.new do |s|
   s.author           = { 'Dani Postigo' => 'dani.postigo@gmail.com' }
   s.source           = { :git => 'https://bitbucket.com/dpostigo/Andea.git', :tag => s.version.to_s }
 
-  s.platform = :osx, '10.13'
+  s.platform = :osx, '10.12'
   s.frameworks = 'Foundation'
 
   s.module_name = 'Andea'
-  s.default_subspec = 'Core'
+  # s.default_subspec = 'Core'
 
 
   s.subspec 'Alias' do |ss| ; ss.source_files = 'Sources/Andea/Alias.swift' ; end
   s.subspec 'Protocols' do |ss| ;  ss.source_files = 'Sources/Protocols/*' ; end
-  s.subspec 'Foundation' do |ss| ; ss.source_files = 'Sources/Foundation/*'; ss.dependency '%s/Protocols' % s.name ; end
+  s.subspec 'Foundation' do |ss| ; ss.source_files = 'Sources/Foundation/**/*'; ss.dependency '%s/Protocols' % s.name ; end
+
 
   s.subspec 'Core' do |ss|
     ss.frameworks = 'AppKit'
@@ -41,6 +44,8 @@ Pod::Spec.new do |s|
     end
   end
 
+  # OS X
+
   s.subspec 'NSApplication' do |ss|
     ss.frameworks = 'Cocoa', 'AppKit', 'QuartzCore'
     ss.source_files = 'Sources/Andea-NSApplication/*'
@@ -52,12 +57,6 @@ Pod::Spec.new do |s|
     ss.source_files = 'Sources/Andea-NSApplication/NSApplicationKit/*'
     ss.dependency '%s/NSApplication' % s.name
     ss.dependency '%s/Libraries/Marshal' % s.name
-  end
-
-  s.subspec 'UIApplication' do |ss|
-    ss.ios.frameworks = 'UIKit'
-    ss.ios.source_files = 'Sources/Andea-UIApplication/**/*'
-    ss.dependency '%s/Core' % s.name
   end
 
   s.subspec 'Experimental' do |ss|

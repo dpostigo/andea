@@ -1,10 +1,4 @@
-#
-# Be sure to run `pod lib lint Andea.podspec' to ensure this is a
-# valid spec before submitting.
-#
-# Any lines starting with a # are optional, but their use is encouraged
-# To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html
-#
+# pod 'Andea', :path => '~/pods/Andea'
 
 Pod::Spec.new do |s|
   s.name             = 'Andea'
@@ -23,6 +17,7 @@ Pod::Spec.new do |s|
   s.module_name = 'Andea'
   s.default_subspec = 'Core'
 
+
   s.subspec 'Alias' do |ss| ; ss.source_files = 'Sources/Andea/Alias.swift' ; end
   s.subspec 'Protocols' do |ss| ;  ss.source_files = 'Sources/Protocols/*' ; end
   s.subspec 'Foundation' do |ss| ; ss.source_files = 'Sources/Foundation/*'; ss.dependency '%s/Protocols' % s.name ; end
@@ -40,14 +35,16 @@ Pod::Spec.new do |s|
     ss.subspec 'Alamofire' do |sss|
       sss.source_files = 'Sources/Libraries/Alamofire/**/*'
       sss.dependency 'Alamofire'
-      sss.dependency 'Andea/Alias'
+      sss.dependency '%s/Alias' % s.name
     end
     ss.subspec 'Marshal' do |sss|
       sss.source_files = 'Sources/Libraries/Marshal/**/*'
       sss.dependency 'Marshal'
-      sss.dependency 'Andea/Foundation'
+      sss.dependency '%s/Foundation' % s.name
     end
   end
+
+  # iOS
 
   s.subspec 'UIApplication' do |ss|
   	ss.frameworks = 'UIKit'
