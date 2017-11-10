@@ -10,11 +10,11 @@ import Foundation
 import UIKit
 
 extension UIButton {
-    public convenience init(title: String) {
-        self.init(); self.setTitle(title, for: UIControlState())
+    public convenience init(type: UIButtonType = .system, title: String) {
+        self.init(type: type); self.setTitle(title, for: UIControlState())
     }
-    public convenience init(title: String, font: UIFont) {
-        self.init(title: title)
+    public convenience init(type: UIButtonType = .system, title: String, font: UIFont) {
+        self.init(type: type, title: title)
         self.titleLabel?.font = font
     }
     
@@ -99,5 +99,12 @@ extension UIButton {
     
     fileprivate var currentMutableAttributedTitle: NSMutableAttributedString? {
         return self.currentAttributedTitle?.mutableCopy() as? NSMutableAttributedString
+    }
+}
+
+
+extension UIPageControl {
+    public convenience init(numberOfPages: Int) {
+        self.init(); self.numberOfPages = numberOfPages
     }
 }

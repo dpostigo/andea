@@ -63,10 +63,26 @@ extension UIView {
 
     public func embed(_ view: UIView, insets: UIEdgeInsets = UIEdgeInsets()) {
         self.addView(view, frame: self.bounds)
-        view.topAnchor.constraint(equalTo: self.topAnchor, constant: insets.top).isActive = true
-        view.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -insets.bottom).isActive = true
-        view.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: insets.left).isActive = true
-        view.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -insets.right).isActive = true
+
+        if #available(iOS 11.0, *) {
+            NSLayoutConstraint.activate([
+
+                self.safeAreaLayoutGuide.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -insets.top),
+                self.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: insets.bottom),
+                self.safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: -insets.left),
+                self.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: insets.right),
+            ])
+
+
+
+        } else {
+            view.topAnchor.constraint(equalTo: self.topAnchor, constant: insets.top).isActive = true
+            view.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -insets.bottom).isActive = true
+            view.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: insets.left).isActive = true
+            view.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -insets.right).isActive = true
+
+        }
+        
     }
 
     // MARK: Autolayout

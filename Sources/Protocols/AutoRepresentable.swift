@@ -42,6 +42,11 @@ extension RawRepresentable where Self: Autorepresentable {
         guard let index = self.stringRepresentations.index(of: string) else { return nil }
         return Self(rawValue: index)
     }
+
+    public static func integer(for string: String) -> Int? {
+        guard let index = self.stringRepresentations.index(of: string) else { return nil }
+        return index
+    }
     
     // MARK: Representations
     
