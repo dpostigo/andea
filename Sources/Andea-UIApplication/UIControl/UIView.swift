@@ -66,15 +66,11 @@ extension UIView {
 
         if #available(iOS 11.0, *) {
             NSLayoutConstraint.activate([
-
                 self.safeAreaLayoutGuide.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -insets.top),
                 self.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: insets.bottom),
                 self.safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: -insets.left),
                 self.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: insets.right),
             ])
-
-
-
         } else {
             view.topAnchor.constraint(equalTo: self.topAnchor, constant: insets.top).isActive = true
             view.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -insets.bottom).isActive = true

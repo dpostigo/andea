@@ -40,19 +40,58 @@ extension UserDefaults {
         self.set(value, forKey: type.rawValue)
     }
 
-
-    public func set<T: RawRepresentable>(_ value: Any?, forKey type: T) where T.RawValue == String {
-        guard let value = value else { self.removeObjectForKey(type); return }
-        self.set(value, forKey: type.rawValue)
-    }
+//
+//    public func set<T: RawRepresentable>(_ value: Any?, forKey type: T) where T.RawValue == String {
+//        guard let value = value else { self.removeObjectForKey(type); return }
+//        self.set(value, forKey: type.rawValue)
+//    }
 
     public func objectForKey<T: RawRepresentable>(_ type: T) -> AnyObject? where T.RawValue == String {
         return self.object(forKey: type.rawValue) as AnyObject?
     }
 
-    public func removeObjectForKey<T: RawRepresentable>(_ type: T) where T.RawValue == String {
-        self.removeObject(forKey: type.rawValue)
-    }
+}
+
+
+
+extension UserDefaults {
+
+
+   open func object<V: RawRepresentable>(forKey defaultName: V) -> Any? where V.RawValue == String { return self.object(forKey: defaultName.rawValue) }
+
+   open func set<V: RawRepresentable>(_ value: Any?, forKey defaultName: V) where V.RawValue == String { guard let value = value else { self.removeObject(forKey: defaultName); return }; self.set(value, forKey: defaultName.rawValue) }
+
+   open func removeObject<V: RawRepresentable>(forKey defaultName: V) where V.RawValue == String { self.removeObject(forKey: defaultName.rawValue) }
+
+   open func string<V: RawRepresentable>(forKey defaultName: V) -> String? where V.RawValue == String { return self.string(forKey: defaultName.rawValue) }
+
+   open func array<V: RawRepresentable>(forKey defaultName: V) -> [Any]? where V.RawValue == String { return self.array(forKey: defaultName.rawValue) }
+
+   open func dictionary<V: RawRepresentable>(forKey defaultName: V) -> [String : Any]? where V.RawValue == String { return self.dictionary(forKey: defaultName.rawValue) }
+
+   open func data<V: RawRepresentable>(forKey defaultName: V) -> Data? where V.RawValue == String { return self.data(forKey: defaultName.rawValue) }
+
+   open func stringArray<V: RawRepresentable>(forKey defaultName: V) -> [String]? where V.RawValue == String { return self.stringArray(forKey: defaultName.rawValue) }
+
+   open func integer<V: RawRepresentable>(forKey defaultName: V) -> Int where V.RawValue == String { return self.integer(forKey: defaultName.rawValue) }
+
+   open func float<V: RawRepresentable>(forKey defaultName: V) -> Float where V.RawValue == String { return self.float(forKey: defaultName.rawValue) }
+
+   open func double<V: RawRepresentable>(forKey defaultName: V) -> Double where V.RawValue == String { return self.double(forKey: defaultName.rawValue) }
+
+   open func bool<V: RawRepresentable>(forKey defaultName: V) -> Bool where V.RawValue == String { return self.bool(forKey: defaultName.rawValue) }
+
+   open func url<V: RawRepresentable>(forKey defaultName: V) -> URL? where V.RawValue == String { return self.url(forKey: defaultName.rawValue) }
+
+   open func set<V: RawRepresentable>(_ value: Int, forKey defaultName: V) where V.RawValue == String { self.set(value, forKey: defaultName.rawValue) }
+
+   open func set<V: RawRepresentable>(_ value: Float, forKey defaultName: V) where V.RawValue == String { self.set(value, forKey: defaultName.rawValue) }
+
+   open func set<V: RawRepresentable>(_ value: Double, forKey defaultName: V) where V.RawValue == String { self.set(value, forKey: defaultName.rawValue) }
+
+   open func set<V: RawRepresentable>(_ value: Bool, forKey defaultName: V) where V.RawValue == String { self.set(value, forKey: defaultName.rawValue) }
+
+   open func set<V: RawRepresentable>(_ url: URL?, forKey defaultName: V) where V.RawValue == String { self.set(url, forKey: defaultName.rawValue) }
 }
 
 

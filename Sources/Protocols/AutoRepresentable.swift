@@ -68,7 +68,9 @@ extension RawRepresentable where Self: Autorepresentable {
     public static var representations: [Self] {
         return (0 ... self.autoterminatingRepresentation.rawValue).flatMap({ return Self(rawValue: $0) })
     }
-    
+
+    public static var all: [Self] { return self.representations }
+
     private static var autoterminatingRepresentation: Self {
         var ret = Self(rawValue: 0)!
         while let value = Self(rawValue: ret.rawValue + 1) {

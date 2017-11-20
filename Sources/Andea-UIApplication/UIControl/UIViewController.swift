@@ -14,16 +14,16 @@ extension UIViewController {
         self.init(); self.view.backgroundColor = color
     }
 
-    public convenience init(title: String) {
-        self.init(); self.title = title
+    public convenience init(viewControllerTitle: String) {
+        self.init(); self.title = viewControllerTitle
     }
 
-    public convenience init(title: String, color: UIColor) {
-        self.init(title: title); self.view.backgroundColor = color
+    public convenience init(viewControllerTitle: String, color: UIColor) {
+        self.init(viewControllerTitle: viewControllerTitle); self.view.backgroundColor = color
     }
 
     public convenience init(tabBarItemTitle title: String) {
-        self.init(title: title)
+        self.init(viewControllerTitle: title)
         self.tabBarItem = UITabBarItem(title: title)
     }
 
