@@ -26,3 +26,22 @@ import AppKit
 public let App = NSApplication.shared()
 
 #endif
+
+
+
+extension Decodable {
+
+    public static func from(bundleKey key: String) throws -> Self {
+        let json = Bundle.main.object(forInfoDictionaryKey: key)
+        return try self.from(json: json)
+    }
+
+    public static func from(json: Any) throws -> Self {
+        let data = try JSONSerialization.data(withJSONObject: json)
+        return try JSONDecoder.decode(data)
+    }
+    
+}
+public struct Config: Decodable {
+    public let root: String
+}
