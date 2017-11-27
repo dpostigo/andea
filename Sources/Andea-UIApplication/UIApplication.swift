@@ -33,7 +33,7 @@ extension Decodable {
 
     public static func from(bundleKey key: String) throws -> Self {
         let json = Bundle.main.object(forInfoDictionaryKey: key)
-        return try self.from(json: json)
+        return try self.from(json: json as Any)
     }
 
     public static func from(json: Any) throws -> Self {
