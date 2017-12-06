@@ -5,26 +5,22 @@
 import Foundation
 
 extension Encodable {
-	public func encodedData() throws -> Data {
-		return try JSONEncoder.encode(self)
-	}
+	public func encodedData() throws -> Data { return try JSONEncoder.encode(self) }
 }
 
 extension Decodable {
-	public static func rootObject(_ data: Data) throws -> Any {
-		return try JSONDecoder.decode(data) as Self
-	}
+	public static func rootObject(_ data: Data) throws -> Any { return try JSONDecoder.decode(data) as Self }
 }
 
 extension JSONEncoder {
-    open class func encode<T>(_ value: T) throws -> Data where T : Encodable {
-        return try JSONEncoder().encode(value)
-    }
+    open class func encode<T>(_ value: T) throws -> Data where T : Encodable { return try JSONEncoder().encode(value)}
 }
 
 extension JSONDecoder {
-    open class func decode<T: Decodable>(_ data: Data) throws -> T {
-        return try JSONDecoder().decode(T.self, from: data)
+    open class func decode<T: Decodable>(_ data: Data, dateDecodingStrategy: JSONDecoder.DateDecodingStrategy = .deferredToDate) throws -> T {
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = dateDecodingStrategy
+        return try decoder.decode(T.self, from: data)
     }
 
     open class func decode<T: Decodable>(_ data: Data, forType: T.Type) throws -> Any {

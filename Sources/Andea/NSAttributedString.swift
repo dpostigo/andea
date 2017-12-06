@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import UIKit
 
 extension NSMutableAttributedString {
     
@@ -24,6 +25,11 @@ extension NSMutableAttributedString {
 
 
 extension NSAttributedString {
+
+    public convenience init(string: String, font: UIFont) {
+        self.init(string: string, attributes: [.font : font])
+    }
+
     public func appending(_ s: NSAttributedString) -> NSAttributedString {
         let ret = self.mutableCopy() as! NSMutableAttributedString
         ret.append(s); return ret

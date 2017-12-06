@@ -10,4 +10,8 @@ extension UINavigationController {
         self.init(navigationBarClass: navigationBarClass, toolbarClass: nil)
         self.setViewControllers([rootViewController], animated: false)
     }
+
+    public var rootViewController: UIViewController? {
+        return self.viewControllers.first
+    }
 }

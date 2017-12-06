@@ -42,6 +42,17 @@ extension Decodable {
     }
     
 }
+
 public struct Config: Decodable {
     public let root: String
+    public let environment: Environment
+
+    public init(root: String, environment: Environment) {
+        self.root = root; self.environment = environment
+    }
+
+    public enum Environment: String, Codable {
+        case debug, production
+        case local
+    }
 }
