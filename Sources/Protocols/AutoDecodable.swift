@@ -11,6 +11,7 @@ extension String: AutoDecodable { }
 public enum AutoDecodableType: String {
 	case id
 	case title
+	case description
 	fileprivate func key<T: CodingKey>() -> T { return T(stringValue: self.rawValue)! }
 }
 
@@ -19,7 +20,8 @@ extension KeyedDecodingContainer {
 	public func decode<T: AutoDecodable>(_ decodableType: AutoDecodableType) throws -> T {
 		switch decodableType {
 			case .id: return try self.decode(Int.self, forKey: decodableType.key()) as! T
-			case .title: return try self.decode(String.self, forKey:  decodableType.key()) as! T
+            case .title: return try self.decode(String.self, forKey:  decodableType.key()) as! T
+            case .description: return try self.decode(String.self, forKey:  decodableType.key()) as! T
 		}
 	}
 
