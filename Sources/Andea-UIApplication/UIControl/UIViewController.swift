@@ -27,7 +27,7 @@ extension UIViewController {
         self.tabBarItem = UITabBarItem(title: title)
     }
 
-    public func dismiss(_ sender: AnyObject? = nil) {
+    @objc public func dismiss(_ sender: AnyObject? = nil) {
         self.dismiss(animated: true)
     }
 

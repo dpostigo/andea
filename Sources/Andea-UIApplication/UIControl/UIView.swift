@@ -14,17 +14,17 @@ extension UIView {
         return String(describing: self)
     }
 
-    
+    public var stackView: UIStackView? {
+        return self.superview as? UIStackView
+    }
+
     public var width: CGFloat { return self.bounds.size.width }
     public var height: CGFloat { return self.bounds.size.height }
 
-    public convenience init(color: UIColor) {
-        self.init(); self.backgroundColor = color
-    }
+    public convenience init(color: UIColor) { self.init(); self.backgroundColor = color }
 
-    public convenience init(frame: CGRect, color: UIColor) {
-        self.init(frame: frame); self.backgroundColor = color
-    }
+    public convenience init(frame: CGRect, color: UIColor) { self.init(frame: frame); self.backgroundColor = color }
+
 
     // MARK: Methods
 
@@ -36,10 +36,7 @@ extension UIView {
 
     public func addSubviews(_ views: [UIView]) { views.forEach({ self.addView($0) }) }
     public func removeAllSubviews() { self.subviews.forEach({ $0.removeFromSuperview() }) }
-
-    public func constraintWithIdentifier(_ identifier: String) -> NSLayoutConstraint? {
-        return self.constraints.with(identifier: identifier)
-    }
+    public func constraintWithIdentifier(_ identifier: String) -> NSLayoutConstraint? { return self.constraints.with(identifier: identifier) }
 
     // MARK: Animations
 
@@ -109,4 +106,37 @@ extension UIView {
             self.removeGestureRecognizer(gesture)
         }
     }
+}
+
+
+public class LineBackgroundView: UIView  {
+
+
+    public var strokeColor: UIColor = UIColor.darkGray
+    public var lineWidth: CGFloat = 1 / UIScreen.main.scale
+
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.backgroundColor = UIColor.clear
+        self.isOpaque = false
+        self.preservesSuperviewLayoutMargins = true
+    }
+    
+    public required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    public override func draw(_ rect: CGRect) {
+        super.draw(rect)
+
+        let marginsArea = self.layoutMarginsGuide.layoutFrame
+
+        guard let context = UIGraphicsGetCurrentContext() else { return }
+        context.setLineWidth(self.lineWidth)
+        context.setStrokeColor(self.strokeColor.cgColor)
+        context.move(to: CGPoint(x: marginsArea.minX, y: self.bounds.maxY))
+        context.addLine(to: CGPoint(x: marginsArea.maxX, y: self.bounds.maxY))
+        context.strokePath()
+    }
+
 }

@@ -6,6 +6,7 @@
 import Foundation
 import Alamofire
 
+
 extension Alamofire.DataRequest {
 
     @discardableResult public func response(json completion: ((JSON) -> Void)? = nil, failure: ((Error) -> Void)? = nil) -> Self {

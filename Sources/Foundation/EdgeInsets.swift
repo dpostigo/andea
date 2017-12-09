@@ -8,6 +8,11 @@ import Foundation
 import UIKit
 
 extension UIEdgeInsets {
+
+    public init(_ value: CGFloat) {
+        self.init(value: value)
+    }
+
     public init(value: CGFloat) {
         self.init(top: value, left: value, bottom: value, right: value)
     }

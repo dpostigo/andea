@@ -8,6 +8,11 @@
 
 import Foundation
 
+extension CGFloat {
+
+    public static var zero: CGFloat { return 0 }
+}
+
 extension CGSize {
     public init(value: CGFloat) {
         self.init(width: value, height: value)
