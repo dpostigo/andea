@@ -19,6 +19,13 @@ extension RawRepresentable where Self: Autorepresentable {
     
     public var stringValue: String { return String(describing: self) }
     public var stringRepresentation: String { return type(of: self).string(describing: self) }
+
+    public static var last: Self {
+        return self.autoterminatingRepresentation
+    }
+    public static var count: Int {
+        return self.last.rawValue + 1
+    }
     
     private static func string(describing value: Self) -> String {
         let string = String(describing: value)

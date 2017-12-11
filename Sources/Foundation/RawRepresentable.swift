@@ -40,3 +40,19 @@ extension Sequence where Self.Iterator.Element: RawRepresentable {
         return self.map({ $0.rawValue })
     }
 }
+
+
+extension Array {
+    public subscript<T: RawRepresentable>(representable: T) -> Element where T.RawValue == Int {
+        get { return self[representable.rawValue] }
+        set { self[representable.rawValue] = newValue }
+    }
+}
+
+
+extension IndexPath {
+    public init<T: RawRepresentable>(row: Int, section: T) where T.RawValue == Int {
+        self.init(row: row, section: section.rawValue)
+
+    }
+}

@@ -31,3 +31,19 @@ public protocol Routable {
 public protocol HostnameProvider {
 	static var hostname: String { get }
 }
+
+
+public protocol Namespaced {
+	static var namespace: String { get }
+}
+
+
+public protocol Entity {
+	static var name: String { get }
+	static var entity: String { get }
+}
+
+extension Routable where Self: Entity & Namespaced {
+	public static var route: String { return self.entity.lowercased() }
+}
+

@@ -11,6 +11,14 @@ class Box<A> {
     }
 }
 
+
+extension Array where Element : Equatable {
+    public mutating func remove(_ element: Iterator.Element) -> Element {
+        let index = self.index(of: element)
+        return self.remove(at: index!)
+    }
+}
+
 extension Dictionary {
     @discardableResult public func appending(_ value: Value?, forKey key: Key) -> Dictionary<Key, Value> {
         var ret = self
@@ -48,14 +56,3 @@ extension Sequence {
     }
 }
 
-extension Sequence {
-    public func take(_ find: (Self.Iterator.Element) -> Bool) -> Self.Iterator.Element? {
-        var generator = self.makeIterator()
-        while let elem = generator.next() {
-            if (find(elem)) {
-                return elem
-            }
-        }
-        return nil
-    }
-}
