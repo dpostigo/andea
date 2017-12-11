@@ -18,8 +18,8 @@ extension UIStackView {
         self.alignment = alignment
         self.distribution = distribution
         self.addArrangedSubviews(views)
-        self.preservesSuperviewLayoutMargins = true
-        self.isLayoutMarginsRelativeArrangement = true
+        // self.preservesSuperviewLayoutMargins = true
+       //  self.isLayoutMarginsRelativeArrangement = true
     }
 
     public func addArrangedSubviews(_ views: [UIView]) {
