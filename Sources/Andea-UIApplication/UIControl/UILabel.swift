@@ -20,12 +20,20 @@ extension UILabel {
     }
     
     public convenience init(text: String) { self.init(title: text) }
-    
-    public convenience init(title: String, font: UIFont? = nil, color: UIColor? = nil) {
+
+    public convenience init(
+        title: String,
+        font: UIFont? = nil,
+        color: UIColor? = nil,
+        textAlignment: NSTextAlignment = .left,
+        numberOfLines: Int = 1
+    ) {
         self.init()
         self.text = title
         self.font = font
         self.textColor = color
+        self.textAlignment = textAlignment
+        self.numberOfLines = numberOfLines
     }
   
     public convenience init(attributedText: NSAttributedString) {

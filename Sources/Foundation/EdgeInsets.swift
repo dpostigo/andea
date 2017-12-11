@@ -9,13 +9,11 @@ import UIKit
 
 extension UIEdgeInsets {
 
-    public init(_ value: CGFloat) {
-        self.init(value: value)
-    }
+    public init(_ value: CGFloat) { self.init(value: value) }
 
-    public init(value: CGFloat) {
-        self.init(top: value, left: value, bottom: value, right: value)
-    }
+    public init(buttonInsets value: CGFloat, _ vertical: CGFloat = 0.8, _ horizontal: CGFloat = 1.0) { self.init(top: value * vertical, left: value * horizontal, bottom: value * vertical, right: value * horizontal) }
+
+    public init(value: CGFloat) { self.init(top: value, left: value, bottom: value, right: value) }
 
     public init(top: CGFloat) {
         self.init(top: top, left: 0, bottom: 0, right: 0)
