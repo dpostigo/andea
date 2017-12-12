@@ -24,6 +24,7 @@ extension UIView {
     public convenience init(color: UIColor) { self.init(); self.backgroundColor = color }
 
     public convenience init(frame: CGRect, color: UIColor) { self.init(frame: frame); self.backgroundColor = color }
+    public convenience init(height: CGFloat) { self.init(); self.frame.size.height = height }
 
 
     // MARK: Methods

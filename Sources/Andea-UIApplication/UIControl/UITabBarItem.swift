@@ -10,3 +10,9 @@ extension UITabBarItem {
         self.init(title: title, image: UIImage(), selectedImage: UIImage())
     }
 }
+
+extension UITabBarController {
+    public convenience init(viewControllers: [UIViewController]) {
+        self.init(); self.viewControllers = viewControllers
+    }
+}
