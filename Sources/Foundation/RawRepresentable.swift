@@ -5,6 +5,11 @@
 import Foundation
 
 extension RawRepresentable {
+    public var mirrorDescription: String {
+        let mirror = Mirror(reflecting: self)
+        return mirror.children.isEmpty ? String(describing: self) : String(describing: mirror.children.first!.label!)
+    }
+
     public static func string(describing value: Self) -> String {
         let string = String(describing: value)
         guard string.contains("("), let index = string.index(of: "(") else { return string }
@@ -13,6 +18,30 @@ extension RawRepresentable {
     }
 }
 
+
+extension Dictionary where Key: RawRepresentable, Key.RawValue == Int {
+    public subscript (index: Int) -> Value? {
+        get {
+            guard let key = Key(rawValue: index) else { return nil }
+            return self[key]
+        }
+        set {
+            guard let key = Key(rawValue: index) else { return }
+            self[key] = newValue
+        }
+    }
+}
+
+//extension Dictionary where Key: RawRepresentable, Key.RawValue == Int, Value : Sequence {
+//
+//    public subscript (row indexPath: IndexPath) -> Value.Element? {
+//        let value: Value = self[indexPath.section]
+//        return value[indexPath.row]
+//    }
+//    public subscript (item indexPath: IndexPath) -> Value.Element? {
+//        return self[indexPath.section]?[indexPath.item]
+//    }
+//}
 
 extension RawRepresentable where RawValue == Int {
     public static func allCases(from: Self = Self(rawValue: 0)!, to last: Self) -> [Self] {
@@ -56,3 +85,5 @@ extension IndexPath {
 
     }
 }
+
+

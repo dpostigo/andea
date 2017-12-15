@@ -15,6 +15,16 @@ extension UIFont {
             let names = UIFont.fontNames(forFamilyName: familyName )
             Swift.print("Font Names = [\(names)]")
         }
+
     }
-    
+
+
+    public class var bold: UIFont { return self.bold(UIFont.systemFontSize) }
+    public class var boldSmall: UIFont { return self.bold(UIFont.smallSystemFontSize) }
+
+    public class func bold(_ size: CGFloat) -> UIFont { return UIFont.boldSystemFont(ofSize: size) }
+
+
+    public class var size10: UIFont { return UIFont.systemFont(ofSize: 10.0) }
+    public class var small: UIFont       { return UIFont.systemFont(ofSize: UIFont.smallSystemFontSize) }
 }

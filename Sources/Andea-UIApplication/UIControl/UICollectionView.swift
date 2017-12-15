@@ -7,8 +7,26 @@
 //
 
 import Foundation
+import UIKit
+
 
 extension UICollectionView {
+
+    public enum ElementKind: String {
+        case header
+        case footer
+
+        public var rawValue: String {
+            switch self {
+                case .header: return UICollectionElementKindSectionHeader
+                case .footer: return UICollectionElementKindSectionFooter
+            }
+        }
+    }
+
+    public func register(_ viewClass: Swift.AnyClass?, forSupplementaryViewOfKind kind: ElementKind, withReuseIdentifier identifier: String) {
+        self.register(viewClass, forSupplementaryViewOfKind: kind.rawValue, withReuseIdentifier: identifier)
+    }
 
     public func scrollToItemAtIndexPath(_ indexPath: IndexPath, atScrollPosition scrollPosition: UICollectionViewScrollPosition, completion: ((Bool) -> Void)? = nil) {
         if let cell = self.cellForItem(at: indexPath) {
@@ -30,6 +48,9 @@ extension UICollectionView {
     }
 }
 
+extension UICollectionViewController {
+	var collection: UICollectionView { return self.collectionView! }
+}
 
 extension UICollectionViewFlowLayout {
     public convenience init(scrollDirection: UICollectionViewScrollDirection) {

@@ -61,7 +61,15 @@ extension JSONSerialization {
     public class func json(with data: Data, options opt: JSONSerialization.ReadingOptions = []) throws -> [String: Any] {
         do {
             let value = try JSONSerialization.jsonObject(with: data, options: opt)
-            guard let json = value as? JSON else { throw JSONError.typeMismatch(expected: [String: Any].self, actual: type(of: value)) }
+            guard let json = value as? JSON else { throw JSONError.typeMismatch(expected: JSON.self, actual: type(of: value)) }
+            return json
+        } catch { throw error }
+    }
+
+    public class func json(with data: Data, options opt: JSONSerialization.ReadingOptions = []) throws -> [JSON] {
+        do {
+            let value = try JSONSerialization.jsonObject(with: data, options: opt)
+            guard let json = value as? [JSON] else { throw JSONError.typeMismatch(expected: [JSON].self, actual: type(of: value)) }
             return json
         } catch { throw error }
     }
@@ -69,8 +77,12 @@ extension JSONSerialization {
 
 extension RangeReplaceableCollection {
     public func appending(_ item: Self.Iterator.Element) -> Self {
+        return self.appending([item])
+    }
+
+    public func appending(_ item: [Self.Iterator.Element]) -> Self {
         var ret = Array(self) as! Self
-        ret.append(item)
+        ret.append(contentsOf: ret)
         return ret
     }
 }

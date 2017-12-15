@@ -8,6 +8,7 @@
 import Foundation
 
 extension JSONSerialization {
+
     open class func string(_ obj: Any, options opt: JSONSerialization.WritingOptions = .prettyPrinted) -> String {
         do {
             let data = try JSONSerialization.data(withJSONObject: obj, options: opt)
@@ -15,4 +16,13 @@ extension JSONSerialization {
         }
         catch { return String(describing: error) }
     }
+}
+
+
+extension Dictionary where Key == String {
+
+    public var prettyPrinted: String {
+        return JSONSerialization.string(self)
+    }
+
 }

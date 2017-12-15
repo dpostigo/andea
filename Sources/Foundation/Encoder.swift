@@ -6,6 +6,18 @@ import Foundation
 
 extension Encodable {
 	public func encodedData() throws -> Data { return try JSONEncoder.encode(self) }
+
+    public func json() throws -> [String: Any] {
+        let encoded: Data = try self.encodedData()
+        return try JSONSerialization.json(with: encoded)
+    }
+
+    public func json() throws -> [JSON] {
+        let encoded: Data = try self.encodedData()
+        return try JSONSerialization.json(with: encoded)
+    }
+
+
 }
 
 extension Decodable {

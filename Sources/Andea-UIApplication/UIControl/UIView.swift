@@ -14,15 +14,37 @@ extension UIView {
         return String(describing: self)
     }
 
-    public var stackView: UIStackView? {
-        return self.superview as? UIStackView
-    }
+	// MARK: Convenience properties
 
     public var width: CGFloat { return self.bounds.size.width }
     public var height: CGFloat { return self.bounds.size.height }
+	public var stackView: UIStackView? { return self.superview as? UIStackView }
+
+	public var hideSubviews: Bool {
+		get { return false }
+		set { self.subviews.forEach({ $0.isHidden = newValue }) }
+	}
+
+    // MARK: Convenience methods
+
+    public func addSubviews(_ views: [UIView]) {
+        views.forEach({ self.addView($0) })
+    }
+    public func removeAllSubviews() {
+        self.subviews.forEach({ $0.removeFromSuperview() })
+    }
+
+	// MARK: Convenience / Autolayout
+
+	public var verticalResistancePriority: UILayoutPriority {
+		get { return self.contentCompressionResistancePriority(for: .vertical) }
+		set { self.setContentCompressionResistancePriority(newValue, for: .vertical)}
+	}
+
+
+	// MARK: Init
 
     public convenience init(color: UIColor) { self.init(); self.backgroundColor = color }
-
     public convenience init(frame: CGRect, color: UIColor) { self.init(frame: frame); self.backgroundColor = color }
     public convenience init(height: CGFloat) { self.init(); self.frame.size.height = height }
 
@@ -35,9 +57,7 @@ extension UIView {
         self.addSubview(view)
     }
 
-    public func addSubviews(_ views: [UIView]) { views.forEach({ self.addView($0) }) }
-    public func removeAllSubviews() { self.subviews.forEach({ $0.removeFromSuperview() }) }
-    public func constraintWithIdentifier(_ identifier: String) -> NSLayoutConstraint? { return self.constraints.with(identifier: identifier) }
+   public func constraintWithIdentifier(_ identifier: String) -> NSLayoutConstraint? { return self.constraints.with(identifier: identifier) }
 
     // MARK: Animations
 
@@ -88,7 +108,7 @@ extension UIView {
     }
 
     public func embed(_ view: UIView, from: UILayoutGuide, to: UILayoutGuide) {
-        self.addView(view, frame: self.bounds)
+        self.addView(view, frame: from.layoutFrame)
 
         NSLayoutConstraint.activate([
             from.topAnchor.constraint(equalTo: to.topAnchor),
@@ -100,10 +120,6 @@ extension UIView {
 
     // MARK: Autolayout
 
-    public var verticalResistancePriority: UILayoutPriority {
-        get { return self.contentCompressionResistancePriority(for: .vertical) }
-        set { self.setContentCompressionResistancePriority(newValue, for: .vertical)}
-    }
 
     public func setResistancePriority(_ priority: UILayoutPriority, forAxis: UILayoutConstraintAxis) {
         self.setContentCompressionResistancePriority(priority, for: forAxis)
@@ -130,10 +146,18 @@ extension UIView {
 
 
 public class LineBackgroundView: UIView  {
-
-
     public var strokeColor: UIColor = UIColor.darkGray
     public var lineWidth: CGFloat = 1 / UIScreen.main.scale
+
+
+    public var edge: UIRectEdge = .bottom
+
+    public var usesSafeAreaInsets = false
+
+
+    public convenience init(edge: UIRectEdge = .bottom, color: UIColor, usesSafeAreaInsets: Bool = false) {
+        self.init(); self.edge = edge; self.strokeColor = color; self.usesSafeAreaInsets = usesSafeAreaInsets
+    }
 
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -149,14 +173,43 @@ public class LineBackgroundView: UIView  {
     public override func draw(_ rect: CGRect) {
         super.draw(rect)
 
-        let marginsArea = self.layoutMarginsGuide.layoutFrame
+        let marginsArea = (self.usesSafeAreaInsets ? self.safeAreaLayoutGuide : self.layoutMarginsGuide).layoutFrame
 
         guard let context = UIGraphicsGetCurrentContext() else { return }
         context.setLineWidth(self.lineWidth)
         context.setStrokeColor(self.strokeColor.cgColor)
-        context.move(to: CGPoint(x: marginsArea.minX, y: self.bounds.maxY))
-        context.addLine(to: CGPoint(x: marginsArea.maxX, y: self.bounds.maxY))
+
+        switch true {
+            case self.edge.contains(.bottom):
+                context.move(to: CGPoint(x: marginsArea.minX, y: self.bounds.maxY))
+                context.addLine(to: CGPoint(x: marginsArea.maxX, y: self.bounds.maxY))
+
+            case self.edge.contains(.top):
+                context.move(to: CGPoint(x: marginsArea.minX, y: marginsArea.minY))
+                context.addLine(to: CGPoint(x: marginsArea.maxX, y: marginsArea.minY))
+
+            default: break
+        }
         context.strokePath()
+    }
+
+}
+
+
+
+extension CGContext {
+
+
+    public func line(edge: UIRectEdge, rect: CGRect) {
+        switch true {
+            case edge.contains(.top):
+                self.move(to: CGPoint(x: rect.minX, y: rect.minY))
+                self.addLine(to: CGPoint(x: rect.maxX, y: rect.minY))
+            case edge.contains(.bottom):
+                self.move(to: CGPoint(x: rect.minX, y: rect.maxY))
+                self.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
+            default: break
+        }
     }
 
 }
