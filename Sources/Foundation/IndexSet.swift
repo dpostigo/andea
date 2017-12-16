@@ -4,6 +4,13 @@
 
 import Foundation
 
+extension IndexPath {
+    public func next() -> IndexPath {
+        return IndexPath(row: self.row + 1, section: self.section)
+    }
+}
+
+
 extension IndexSet {
     public var arrayRepresentation: [Int] {
         get {  return Array(self) }

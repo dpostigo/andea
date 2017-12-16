@@ -16,25 +16,22 @@ extension UIFont {
         }
     }
 
-    public class var bold: UIFont {
-        return self.boldSystemFont(ofSize: UIFont.systemFontSize)
-    }
 
-	public var system: UIFont {
-		return UIFont.systemFont(ofSize: UIFont.systemFontSize)
-	}
 
-	public var small: UIFont {
-		return UIFont(name: self.fontName, size: UIFont.smallSystemFontSize)!
-	}
+	public var small: UIFont { return UIFont(name: self.fontName, size: UIFont.smallSystemFontSize)! }
+	public var point10: UIFont { return self.point(10) }
+	public func point(_ size: CGFloat) -> UIFont { return UIFont(name: self.fontName, size: size)! }
 
-	public var point10: UIFont {
-		return self.size(10)
-	}
-
-	public  func size(_ size: CGFloat) -> UIFont {
-		return UIFont(name: self.fontName, size: size)!
-	}
+	public class var small: UIFont { return UIFont.systemFont(ofSize: UIFont.smallSystemFontSize) }
+	public class var system: UIFont { return UIFont.systemFont(ofSize: UIFont.systemFontSize) }
+	public class var ultraLight: UIFont { return UIFont.systemFont(ofSize: UIFont.systemFontSize, weight: .ultraLight) }
+	public class var thin: UIFont { return UIFont.systemFont(ofSize: UIFont.systemFontSize, weight: .thin) }
+	public class var light: UIFont { return UIFont.systemFont(ofSize: UIFont.systemFontSize, weight: .light) }
+	public class var medium: UIFont { return UIFont.systemFont(ofSize: UIFont.systemFontSize, weight: .medium)}
+	public class var semibold: UIFont { return UIFont.systemFont(ofSize: UIFont.systemFontSize, weight: .semibold) }
+	public class var bold: UIFont { return UIFont.systemFont(ofSize: UIFont.systemFontSize, weight: .bold)}
+	public class var heavy: UIFont { return UIFont.systemFont(ofSize: UIFont.systemFontSize, weight: .heavy)}
+	public class var black: UIFont { return UIFont.systemFont(ofSize: UIFont.systemFontSize, weight: .black)}
 
 }
 
