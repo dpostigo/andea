@@ -13,17 +13,13 @@ public protocol Itemable: class {
 }
 
 
-//extension Itemable where Row: Equatable {
-//
-//    public func indexPath(of: Row) -> IndexPath {
-//
-//    }
-//}
 
-
+enum ItemableError: Swift.Error {
+    case elementNotFound(Int)
+}
 
 extension Itemable {
-	public typealias Item = (section: Self.Section, rows: [Self.Row])
+	public typealias Item = (section: Section, rows: [Row])
 
 	public subscript (section: Section) -> [Row]? {
 		get { return self.item(at: section)?.rows }
@@ -35,10 +31,11 @@ extension Itemable {
 	}
 
 	public func set(_ row: Row, at indexPath: IndexPath) {
-		guard var item = self.item(at: indexPath) else { return }
+        var item = self.item(at: indexPath)
 		item.rows[indexPath.row] = row
 		self.set(item.rows, for: item.section)
 	}
+    
 	public func set(_ rows: [Row], for section: Section) {
 		if self.item(at: section) == nil {
 			self.content.append((section: section, rows: rows) )
@@ -46,8 +43,7 @@ extension Itemable {
 		}
 		var item: Item = self.item(at: section)!
 		item.rows = rows
-		let index = self.index(of: section)
-		self.content[index] = item
+		self.content[self.index(of: section)] = item
 	}
 
 
@@ -71,9 +67,10 @@ extension Itemable {
 		return self.content[index].section
 	}
 
-	public func item(at indexPath: IndexPath) -> (section: Section, rows: [Row])? {
+	public func item(at indexPath: IndexPath) -> (section: Section, rows: [Row]) {
 		return self.content[indexPath.section]
 	}
+	
 	public func item(at index: Int) -> (section: Section, rows: [Row])? {
 		return self.content[index]
 	}
