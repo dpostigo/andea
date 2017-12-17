@@ -35,3 +35,14 @@ extension UIStackView {
         views.forEach(removeArrangedSubview)
     }
 }
+
+
+extension UISegmentedControl {
+    public var titles: [String] {
+        get { return (0 ..< self.numberOfSegments).flatMap({ self.titleForSegment(at: $0) }) }
+        set {
+            self.removeAllSegments()
+            newValue.reversed().forEach({ self.insertSegment(withTitle: $0, at: 0, animated: false)  })
+        }
+    }
+}

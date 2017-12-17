@@ -5,9 +5,16 @@
 import Foundation
 import UIKit
 
-extension UITableViewCell {
 
-//    public static var identifier: String {
-//        return String(describing: self)
-//    }
+
+extension UITableViewCell {
+	open class Subtitle: UITableViewCell {
+
+		public required init?(coder aDecoder: NSCoder) {
+			fatalError("init(coder:) has not been implemented")
+		}
+		override public init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+			super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
+		}
+	}
 }

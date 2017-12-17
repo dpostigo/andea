@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import QuartzCore
 
 extension UIView {
     @nonobjc public static var identifier: String {
@@ -25,6 +26,23 @@ extension UIView {
 		set { self.subviews.forEach({ $0.isHidden = newValue }) }
 	}
 
+    public var borderColor: UIColor? {
+        get  { return self.layer.borderColor == nil ? nil : UIColor(cgColor: self.layer.borderColor!) }
+        set {
+            self.layer.borderColor = newValue?.cgColor
+            self.layer.borderWidth = 1 / UIScreen.main.scale
+        }
+    }
+
+    public var borderWidth: CGFloat {
+        get { return self.layer.borderWidth }
+        set { self.layer.borderWidth = newValue }
+    }
+
+    public var border: (UIColor?, CGFloat) {
+        get { return (self.borderColor, self.borderWidth) }
+        set { self.borderColor = newValue.0; self.borderWidth = newValue.1 }
+    }
     // MARK: Convenience methods
 
     public func addSubviews(_ views: [UIView]) {

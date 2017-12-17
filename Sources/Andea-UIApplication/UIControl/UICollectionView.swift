@@ -9,9 +9,7 @@
 import Foundation
 import UIKit
 
-
 extension UICollectionView {
-
     public enum ElementKind: String {
         case header
         case footer
@@ -50,6 +48,16 @@ extension UICollectionView {
 
 extension UICollectionViewController {
 	var collection: UICollectionView { return self.collectionView! }
+
+    public var flow: UICollectionViewFlowLayout? {
+        return self.collectionViewLayout as? UICollectionViewFlowLayout
+    }
+}
+
+extension UICollectionView {
+    public var flow: UICollectionViewFlowLayout? {
+        return self.collectionViewLayout as? UICollectionViewFlowLayout
+    }
 }
 
 extension UICollectionViewFlowLayout {
@@ -61,5 +69,15 @@ extension UICollectionViewFlowLayout {
         self.init()
         self.scrollDirection = scrollDirection
         self.estimatedItemSize = estimatedItemSize
+    }
+}
+
+
+extension UICollectionViewLayout {
+    public var numberOfSections: Int? { return self.collectionView?.numberOfSections }
+    public func number(ofItems section: Int) -> Int? { return self.collectionView?.numberOfItems(inSection: section) }
+
+    public func indexPaths(in section: Int) -> [IndexPath] {
+        return (0 ..< self.number(ofItems: section)!).map({ IndexPath(item: $0, section: section) })
     }
 }
