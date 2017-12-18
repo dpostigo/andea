@@ -125,15 +125,25 @@ extension UIView {
         self.embed(view, from: from, to: view.safeAreaLayoutGuide)
     }
 
-    public func embed(_ view: UIView, from: UILayoutGuide, to: UILayoutGuide) {
+    public func embed(_ view: UIView, from: UILayoutGuide, to: UILayoutGuide, priority: (top: Float, left: Float, bottom: Float, right: Float)? = nil) {
         self.addView(view, frame: from.layoutFrame)
 
-        NSLayoutConstraint.activate([
-            from.topAnchor.constraint(equalTo: to.topAnchor),
-            from.bottomAnchor.constraint(equalTo: to.bottomAnchor),
-            from.leadingAnchor.constraint(equalTo: to.leadingAnchor),
-            from.trailingAnchor.constraint(equalTo: to.trailingAnchor),
-        ])
+        if let priority = priority {
+            NSLayoutConstraint.activate([
+                from.topAnchor.constraint(equalTo: to.topAnchor).priority(priority.top),
+                from.bottomAnchor.constraint(equalTo: to.bottomAnchor).priority(priority.bottom),
+                from.leadingAnchor.constraint(equalTo: to.leadingAnchor).priority(priority.left),
+                from.trailingAnchor.constraint(equalTo: to.trailingAnchor).priority(priority.right),
+            ])
+        } else {
+            NSLayoutConstraint.activate([
+                from.topAnchor.constraint(equalTo: to.topAnchor),
+                from.bottomAnchor.constraint(equalTo: to.bottomAnchor),
+                from.leadingAnchor.constraint(equalTo: to.leadingAnchor),
+                from.trailingAnchor.constraint(equalTo: to.trailingAnchor),
+            ])
+        }
+
     }
 
     // MARK: Autolayout

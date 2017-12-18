@@ -15,6 +15,10 @@ extension NSLayoutConstraint {
     }
 
     #if os(iOS)
+    public func priority(_ priority: Float) -> Self {
+        self.priority = UILayoutPriority(rawValue: priority)
+        return self
+    }
     public func priority(_ priority: UILayoutPriority) -> Self {
         self.priority = priority
         return self

@@ -18,3 +18,7 @@ extension UITableViewCell {
 		}
 	}
 }
+
+extension UITableViewController {
+	public var table: UITableView { return self.tableView! }
+}

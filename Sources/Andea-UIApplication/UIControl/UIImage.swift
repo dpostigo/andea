@@ -21,4 +21,7 @@ public extension UIImage {
     }
 
 
+    public var template: UIImage {
+        return self.withRenderingMode(.alwaysTemplate)
+    }
 }

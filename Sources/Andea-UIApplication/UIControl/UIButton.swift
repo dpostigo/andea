@@ -10,8 +10,10 @@ import Foundation
 import UIKit
 
 extension UIButton {
-    public convenience init(type: UIButtonType = .system, title: String) {
-        self.init(type: type); self.setTitle(title, for: UIControlState())
+    public convenience init(type: UIButtonType = .system, title: String, isUserInteractionEnabled: Bool = true) {
+        self.init(type: type)
+        self.setTitle(title, for: UIControlState())
+        self.isUserInteractionEnabled = isUserInteractionEnabled
     }
     public convenience init(type: UIButtonType = .system, title: String, font: UIFont) {
         self.init(type: type, title: title)
@@ -46,20 +48,15 @@ extension UIButton {
         self.setAttributedTitle(attributedTitle, for: UIControlState())
     }
     
-    public convenience init(image: UIImage?) {
-        self.init()
-        self.setImage(image, for: UIControlState())
-    }
-    
-    public convenience init(image: UIImage?, selectedImage: UIImage?) {
-        self.init(image: image); self.setImage(selectedImage, for: .selected)
-    }
-    
-    public convenience init(image: UIImage?, contentEdgeInsets: UIEdgeInsets) {
-        self.init(image: image)
+    public convenience init(type: UIButtonType = .custom, image: UIImage?, selectedImage: UIImage? = nil, contentEdgeInsets: UIEdgeInsets = .zero, isUserInteractionEnabled: Bool = true) {
+        self.init(type: .custom)
+        self.setImage(image, for: .normal)
+        self.setImage(selectedImage, for: .selected)
         self.contentEdgeInsets = contentEdgeInsets
+	    self.isUserInteractionEnabled = isUserInteractionEnabled
     }
     
+
     public convenience init(userInteractionEnabled: Bool) {
         self.init()
         self.isUserInteractionEnabled = userInteractionEnabled

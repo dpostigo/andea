@@ -47,7 +47,7 @@ extension UICollectionView {
 }
 
 extension UICollectionViewController {
-	var collection: UICollectionView { return self.collectionView! }
+	public var collection: UICollectionView { return self.collectionView! }
 
     public var flow: UICollectionViewFlowLayout? {
         return self.collectionViewLayout as? UICollectionViewFlowLayout
