@@ -117,13 +117,36 @@ extension UIView {
         }
     }
 
-    public func embed(_ view: UIView) {
-        self.embed(view, from: self.layoutMarginsGuide, to: view.safeAreaLayoutGuide)
+    @discardableResult public func embed(_ view: UIView) -> [NSLayoutConstraint] {
+        return self.embed(view, from: self.layoutMarginsGuide, to: view.safeAreaLayoutGuide)
     }
 
-    public func embed(_ view: UIView, from: UILayoutGuide) {
-        self.embed(view, from: from, to: view.safeAreaLayoutGuide)
+    @discardableResult public func embed(_ view: UIView, from: UILayoutGuide) -> [NSLayoutConstraint] {
+        return self.embed(view, from: from, to: view.safeAreaLayoutGuide)
     }
+
+
+    @discardableResult public func embed(_ view: UIView, from: UILayoutGuide, to: UILayoutGuide) -> [NSLayoutConstraint] {
+        let constraints = self.constraints(view, from: from, to: to)
+        NSLayoutConstraint.activate(constraints)
+        return constraints
+    }
+
+    @discardableResult public func constraints(_ view: UIView, from: UILayoutGuide) -> [NSLayoutConstraint] {
+        return self.constraints(view, from: from, to: view.safeAreaLayoutGuide)
+    }
+
+    @discardableResult public func constraints(_ view: UIView, from: UILayoutGuide, to: UILayoutGuide) -> [NSLayoutConstraint] {
+        self.addView(view, frame: from.layoutFrame)
+        let constraints = [
+            from.topAnchor.constraint(equalTo: to.topAnchor),
+            from.bottomAnchor.constraint(equalTo: to.bottomAnchor),
+            from.leadingAnchor.constraint(equalTo: to.leadingAnchor),
+            from.trailingAnchor.constraint(equalTo: to.trailingAnchor),
+        ]
+        return constraints
+    }
+
 
     public func embed(_ view: UIView, from: UILayoutGuide, to: UILayoutGuide, priority: (top: Float, left: Float, bottom: Float, right: Float)? = nil) {
         self.addView(view, frame: from.layoutFrame)
