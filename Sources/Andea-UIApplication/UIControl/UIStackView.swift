@@ -11,8 +11,10 @@ import UIKit
 
 extension UIStackView {
 
-    public convenience init(axis: UILayoutConstraintAxis, spacing: CGFloat = UIStackView.spacingUseSystem, views: [UIView] = [],
+    public convenience init(axis: UILayoutConstraintAxis,
+        spacing: CGFloat = UIStackView.spacingUseSystem,
         alignment: UIStackViewAlignment = UIStackViewAlignment(rawValue: 0)!,
+        views: [UIView] = [],
         distribution: UIStackViewDistribution = UIStackViewDistribution(rawValue: 0)!,
         preservesSuperviewLayoutMargins: Bool = false,
         isLayoutMarginsRelativeArrangement: Bool = false
@@ -37,12 +39,3 @@ extension UIStackView {
 }
 
 
-extension UISegmentedControl {
-    public var titles: [String] {
-        get { return (0 ..< self.numberOfSegments).flatMap({ self.titleForSegment(at: $0) }) }
-        set {
-            self.removeAllSegments()
-            newValue.reversed().forEach({ self.insertSegment(withTitle: $0, at: 0, animated: false)  })
-        }
-    }
-}

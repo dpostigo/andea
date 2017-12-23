@@ -4,23 +4,32 @@
 
 import Foundation
 
+
 public enum Lorem {
-    
-    static let minSentence = 4
-    static let maxSentence = 16
 
-    public static func sentences( _ count: Int = 1) -> String {
-	    let sentences = (0 ..< count).map({ _ in self.string(Int.random(self.minSentence, self.maxSentence)).capitalizedFirst + "." })
-	    return sentences.joined(separator: " ")
-    }
+	static let minSentence = 4
+	static let maxSentence = 16
 
+	public static func sentences( _ count: Int = 1) -> String {
+		let sentences = (0 ..< count).map({ _ in "\(self.phrase(Int.random(self.minSentence, self.maxSentence)))." })
+		return sentences.joined(separator: " ")
+	}
+
+	public static func phrase(_ wordCount: Int = 1) -> String {
+		return self.string(wordCount).capitalizedFirst
+	}
 
 	public static func string(_ count: Int = 1) -> String {
 		return self.words(count).joined(separator: " ")
 	}
 
+	public static func length(_ min: Int, _ max: Int) -> String {
+		return self.string(Int.random(min, max))
+	}
+
+
 	public static func words(_ count: Int = 1) -> [String] {
-		return Array(self.words[0 ..< count])
+		return (0 ..< count).map({ _ in self.word })
 	}
 
 	public static var word: String {

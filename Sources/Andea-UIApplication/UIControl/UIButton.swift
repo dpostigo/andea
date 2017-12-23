@@ -10,19 +10,18 @@ import Foundation
 import UIKit
 
 extension UIButton {
-    public convenience init(type: UIButtonType = .system, title: String, isUserInteractionEnabled: Bool = true) {
+    public convenience init(
+        type: UIButtonType = .system,
+        title: String,
+        font: UIFont? = nil,
+        color: UIColor? = nil,
+        isUserInteractionEnabled: Bool = true
+    ) {
         self.init(type: type)
-        self.setTitle(title, for: UIControlState())
-        self.isUserInteractionEnabled = isUserInteractionEnabled
-    }
-    public convenience init(type: UIButtonType = .system, title: String, font: UIFont) {
-        self.init(type: type, title: title)
-        self.titleLabel?.font = font
-    }
-    
-    public convenience init(title: String, font: UIFont, color: UIColor) {
-        self.init(title: title, font: font)
+        self.setTitle(title, for: .normal)
         self.setTitleColor(color, for: .normal)
+        self.titleLabel?.font = font
+        self.isUserInteractionEnabled = isUserInteractionEnabled
     }
     
     public convenience init(title: String, backgroundColor: UIColor) {

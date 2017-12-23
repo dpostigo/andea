@@ -35,6 +35,25 @@ extension UIFont {
 
 }
 
+
+extension UIFont {
+
+	open class var largeTitle: UIFont { return UIFont.preferredFont(forTextStyle: .largeTitle) }
+	open class var title1: UIFont { return UIFont.preferredFont(forTextStyle: .title1) }
+	open class var title2: UIFont { return UIFont.preferredFont(forTextStyle: .title2) }
+	open class var title3: UIFont { return UIFont.preferredFont(forTextStyle: .title3) }
+	open class var headline: UIFont { return UIFont.preferredFont(forTextStyle: .headline) }
+	open class var subheadline: UIFont { return UIFont.preferredFont(forTextStyle: .subheadline) }
+
+	open class var body: UIFont { return UIFont.preferredFont(forTextStyle: .body) }
+	open class var callout: UIFont { return UIFont.preferredFont(forTextStyle: .callout) }
+	open class var footnote: UIFont { return UIFont.preferredFont(forTextStyle: .footnote) }
+	open class var caption1: UIFont { return UIFont.preferredFont(forTextStyle: .caption1) }
+	open class var caption2: UIFont { return UIFont.preferredFont(forTextStyle: .caption2) }
+
+}
+
+
 extension UIFont {
 	public class var damascus: UIFont.Family { return Family.damascus }
 	public class var helveticaNeue: UIFont.Family { return Family.helveticaNeue }
@@ -100,5 +119,25 @@ extension UIFont {
 		var name: String {
 			return self.rawValue.capitalizedFirst
 		}
+	}
+}
+
+
+extension UIFontTextStyle {
+
+	public static var all: [UIFontTextStyle] {
+		return [
+			.largeTitle,
+			.title1,
+			.title2,
+			.title3,
+			.headline,
+			.subheadline,
+			.body,
+			.callout,
+			.footnote,
+			.caption1,
+			.caption2,
+		]
 	}
 }

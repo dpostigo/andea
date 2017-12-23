@@ -75,7 +75,7 @@ extension JSONSerialization {
     }
 }
 
-extension RangeReplaceableCollection {
+extension RangeReplaceableCollection  {
     public func appending(_ item: Self.Iterator.Element) -> Self {
         return self.appending([item])
     }
@@ -85,6 +85,13 @@ extension RangeReplaceableCollection {
         ret.append(contentsOf: ret)
         return ret
     }
+}
+
+extension Array {
+	public mutating func removingLast() -> Array {
+        self.removeLast()
+        return self
+	}
 }
 
 extension Array {

@@ -9,22 +9,22 @@
 import Foundation
 
 extension NSLayoutConstraint {
-    public func identifier(_ identifier: String) -> Self {
+    @discardableResult public func identifier(_ identifier: String) -> Self {
         self.identifier = identifier
         return self
     }
 
     #if os(iOS)
-    public func priority(_ priority: Float) -> Self {
+    @discardableResult public func priority(_ priority: Float) -> Self {
         self.priority = UILayoutPriority(rawValue: priority)
         return self
     }
-    public func priority(_ priority: UILayoutPriority) -> Self {
+    @discardableResult public func priority(_ priority: UILayoutPriority) -> Self {
         self.priority = priority
         return self
     }
     #elseif os(OSX)
-    public func priority(_ priority: NSLayoutConstraint.Priority) -> Self {
+    @discardableResult public func priority(_ priority: NSLayoutConstraint.Priority) -> Self {
         self.priority = priority
         return self
     }

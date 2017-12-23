@@ -264,3 +264,12 @@ extension CGContext {
     }
 
 }
+
+
+extension UIVisualEffectView {
+
+    public convenience init(effect: UIVisualEffect, alpha: CGFloat) {
+        self.init(effect: effect)
+        self.alpha = alpha
+    }
+}
