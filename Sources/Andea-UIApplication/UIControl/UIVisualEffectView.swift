@@ -5,13 +5,18 @@
 import Foundation
 import UIKit
 
-
 extension UIVisualEffectView {
 	public convenience init(blur style: UIBlurEffectStyle, alpha: CGFloat = 1.0) {
 		self.init(effect: UIBlurEffect(style: style), alpha: alpha)
 	}
+
 	public convenience init(vibrancy style: UIBlurEffectStyle, alpha: CGFloat = 1.0) {
 		self.init(effect: UIVibrancyEffect(style: style), alpha: alpha)
+	}
+
+	public convenience init(effect: UIVisualEffect, alpha: CGFloat) {
+		self.init(effect: effect)
+		self.alpha = alpha
 	}
 }
 

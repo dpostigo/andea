@@ -48,7 +48,7 @@ Pod::Spec.new do |s|
 
   s.subspec 'UIApplication' do |ss|
   	ss.frameworks = 'UIKit'
-  	ss.source_files = 'Sources/Andea-UIApplication/**/*'
+  	ss.source_files = 'Sources/Andea-UIApplication/**/*', 'Sources/AndeaKit/**/*'
     ss.dependency 'Andea/Core'
   end
 

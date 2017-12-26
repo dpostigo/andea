@@ -43,6 +43,15 @@ extension UIView {
         get { return (self.borderColor, self.borderWidth) }
         set { self.borderColor = newValue.0; self.borderWidth = newValue.1 }
     }
+
+	public var shouldRasterize: Bool {
+		get { return self.layer.shouldRasterize }
+		set {
+			self.layer.rasterizationScale = UIScreen.main.nativeScale
+			self.layer.shouldRasterize = newValue
+		}
+	}
+
     // MARK: Convenience methods
 
     public func addSubviews(_ views: [UIView]) {
@@ -58,6 +67,15 @@ extension UIView {
 		get { return self.contentCompressionResistancePriority(for: .vertical) }
 		set { self.setContentCompressionResistancePriority(newValue, for: .vertical)}
 	}
+
+
+    public func setResistancePriority(_ priority: UILayoutPriority, forAxis: UILayoutConstraintAxis) {
+        self.setContentCompressionResistancePriority(priority, for: forAxis)
+    }
+
+    public func systemLayoutHeight(_ size: CGSize) -> CGFloat {
+        return self.systemLayoutSizeFitting(size, withHorizontalFittingPriority: .required, verticalFittingPriority: .fittingSizeLevel).height
+    }
 
 
 	// MARK: Init
@@ -169,14 +187,7 @@ extension UIView {
 
     }
 
-    // MARK: Autolayout
-
-
-    public func setResistancePriority(_ priority: UILayoutPriority, forAxis: UILayoutConstraintAxis) {
-        self.setContentCompressionResistancePriority(priority, for: forAxis)
-    }
-
-    // MARK:
+    // MARK: Gestures
 
     func set(gesture: UIGestureRecognizer, active: Bool) {
         if active { self.addGesture(gesture) } else { self.removeGesture(gesture) }
@@ -246,30 +257,3 @@ public class LineBackgroundView: UIView  {
 
 }
 
-
-
-extension CGContext {
-
-
-    public func line(edge: UIRectEdge, rect: CGRect) {
-        switch true {
-            case edge.contains(.top):
-                self.move(to: CGPoint(x: rect.minX, y: rect.minY))
-                self.addLine(to: CGPoint(x: rect.maxX, y: rect.minY))
-            case edge.contains(.bottom):
-                self.move(to: CGPoint(x: rect.minX, y: rect.maxY))
-                self.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
-            default: break
-        }
-    }
-
-}
-
-
-extension UIVisualEffectView {
-
-    public convenience init(effect: UIVisualEffect, alpha: CGFloat) {
-        self.init(effect: effect)
-        self.alpha = alpha
-    }
-}

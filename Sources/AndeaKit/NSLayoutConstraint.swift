@@ -7,6 +7,12 @@
 //
 
 import Foundation
+	
+#if os(iOS)
+	import UIKit
+	#elseif os(macOS)
+	import AppKit
+#endif
 
 extension NSLayoutConstraint {
     @discardableResult public func identifier(_ identifier: String) -> Self {
@@ -36,3 +42,5 @@ extension Array where Element: NSLayoutConstraint {
         return self.select({ $0.identifier == identifier })
     }
 }
+
+

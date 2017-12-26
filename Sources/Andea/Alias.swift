@@ -10,3 +10,11 @@ public typealias Block = () -> Void
 public typealias Completion = () -> Void
 public typealias Failure = (Error) -> Void
 
+
+
+#if os(iOS)
+	import UIKit
+#elseif os(macOS)
+	import AppKit
+#endif
+

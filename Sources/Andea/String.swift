@@ -64,6 +64,3 @@ extension Sequence where Self.Iterator.Element == String {
 
 }
 
-extension NSObject {
-
-}

@@ -11,6 +11,7 @@ import Foundation
 extension CGFloat {
 
     public static var zero: CGFloat { return 0 }
+    public static var max: CGFloat { return CGFloat(Int.max) }
 }
 
 extension CGSize {

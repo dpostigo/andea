@@ -2,8 +2,16 @@
 // Created by Dani Postigo on 12/15/16.
 //
 
+#if os(iOS) || os(tvOS) || os(macOs)
 import Foundation
+
+#if os(iOS)
 import UIKit
+#elseif os(macOS)
+import AppKit
+#endif
+
+
 
 extension NSMutableAttributedString {
     
@@ -52,3 +60,5 @@ extension NSAttributedString {
 }
 
 
+
+#endif

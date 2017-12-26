@@ -9,14 +9,6 @@ import Foundation
 #if os(iOS)
 import UIKit
 
-extension UIStoryboard {
-    // public class var main: UIStoryboard { return UIStoryboard(name: UIStoryboard.Name(rawValue: "Main"), bundle: nil) }
-//    public func viewController<T: UIViewController>(forClass type: T.Type) -> T? {
-//        guard let identifier = String(describing: Swift.type(of: type)).components(separatedBy: ".").first else { return nil }
-//        return self.instantiateController(withIdentifier: UIStoryboard.SceneIdentifier(rawValue: identifier)) as? T
-//    }
-}
-
 
 #elseif os(macOS)
 import AppKit
