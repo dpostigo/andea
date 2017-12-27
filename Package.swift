@@ -6,7 +6,7 @@ let package = Package(
     products: [
 	    .library(name: "Andea", targets: ["Andea"]),
 //	    .library(name: "AndeaKit", targets: ["AndeaKit"]),
-	    .library(name: "AndeaLibraries", targets: ["Libraries"])
+	    .library(name: "AndeaLibraries", targets: ["AndeaLibraries"])
     ],
     dependencies: [
 //	    .Package(url: "https://github.com/utahiosmac/Marshal.git", majorVersion: 1, minor: 2),
@@ -25,7 +25,7 @@ let package = Package(
 //		    ]
 //	    )
 	    .target(
-		    name: "Libraries",
+		    name: "AndeaLibraries",
 		    dependencies: [
 			    "Andea",
 			    "Alamofire"
