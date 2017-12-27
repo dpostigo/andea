@@ -2,7 +2,7 @@
 // Created by Dani Postigo on 12/15/16.
 //
 
-#if os(iOS) || os(tvOS) || os(macOs)
+#if os(iOS) || os(tvOS) || os(macOS)
 import Foundation
 
 #if os(iOS)
