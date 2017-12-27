@@ -5,11 +5,11 @@ let package = Package(
     name: "Andea",
     products: [
 	    .library(name: "Andea", targets: ["Andea"]),
-//	    .library(name: "AndeaKit", targets: ["AndeaKit"]),
+	    // .library(name: "AndeaKit", targets: ["AndeaKit"]),
 	    .library(name: "AndeaLibraries", targets: ["AndeaLibraries"])
     ],
     dependencies: [
-//	    .Package(url: "https://github.com/utahiosmac/Marshal.git", majorVersion: 1, minor: 2),
+	    // .Package(url: "https://github.com/utahiosmac/Marshal.git", majorVersion: 1, minor: 2),
         .package(url: "https://github.com/alamofire/alamofire.git", from: "4.6.0"),
     ],
     targets: [
@@ -19,11 +19,6 @@ let package = Package(
 
             ]
         ),
-//	    .target(
-//		    name: "AndeaKit",
-//		    dependencies: [
-//		    ]
-//	    )
 	    .target(
 		    name: "AndeaLibraries",
 		    dependencies: [
@@ -34,18 +29,3 @@ let package = Package(
 
     ]
 )
-
-
-//let package = Package(
-//    name: "Andea",
-//    targets: [
-//        Target(name: "Andea"),
-//        Target(name: "AndeaExtras", dependencies: ["Andea"])
-//    ],
-//    dependencies: [
-//        .Package(url: "https://github.com/utahiosmac/Marshal.git", majorVersion: 1, minor: 2),
-//        //                .Package(url: "https://github.com/apple/swift-package-manager.git", majorVersion: 3, minor: 1)
-//    ],
-//    exclude: ["Sources/AndeaUIKit"]
-//)
-//
