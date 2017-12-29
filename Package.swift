@@ -16,7 +16,8 @@ let package = Package(
     targets: [
         .target(
             name: "Andea",
-            dependencies: [ ]
+
+	        path: "Sources/Andea"
         ),
 	    .target(
 		    name: "AndeaAlamofire",
@@ -24,7 +25,8 @@ let package = Package(
 	    ),
 	    .target(
 		    name: "AndeaBits",
-		    dependencies: ["Andea"]
+		    dependencies: ["Andea"],
+		    path: "Sources/AndeaBits"
 	    ),
 	    .target(
 		    name: "AndeaFoundation",
