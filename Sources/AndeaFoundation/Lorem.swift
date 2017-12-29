@@ -42,17 +42,3 @@ public enum Lorem {
 	}
 }
 
-
-extension Int {
-
-	public static func random(_ start: Int = 0, _ end: Int) -> Int {
-		var a = start
-		var b = end
-		if a > b { swap(&a, &b) } // swap to prevent negative integer crashes
-		return Int(arc4random_uniform(UInt32(b - a + 1))) + a
-	}
-
-	public static func range(_ start: Int = 0, _ end: Int) -> CountableRange<Int> {
-		return (start ..< Int.random(start, end))
-	}
-}

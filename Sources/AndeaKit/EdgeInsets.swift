@@ -4,6 +4,30 @@
 //
 
 import Foundation
+
+#if os(iOS)
+import UIKit
+public typealias EdgeInsets = UIEdgeInsets
+#elseif os(macOS)
+import AppKit
+public typealias EdgeInsets = NSEdgeInsets
+#endif
+
+
+extension CGRect {
+    public func insetBy(insets: EdgeInsets) -> CGRect {
+        var rect = self.offsetBy(dx: insets.left, dy: insets.top)
+        rect.size.width -= (insets.right - insets.left)
+        rect.size.height -= (insets.top - insets.bottom)
+        return rect
+    }
+    public func insetBy(amount: CGFloat) -> CGRect {
+        return self.insetBy(insets: EdgeInsets(value: amount))
+    }
+}
+
+
+
 #if os(iOS)
 import UIKit
 
@@ -33,6 +57,18 @@ extension UIEdgeInsets {
         self.init(top: 0, left: left, bottom: 0, right: right)
     }
 }
+
+extension UIEdgeInsets: ExpressibleByArrayLiteral {
+    public typealias ArrayLiteralElement = CGFloat
+
+    public init(arrayLiteral elements: ArrayLiteralElement...) {
+        switch elements.count {
+            case 2: self.init(left: elements[0], right: elements[1])
+            default: self.init(top: elements[2], left: elements[0], bottom: elements[3], right: elements[1])
+        }
+    }
+}
+
 #elseif os(OSX)
 import AppKit
 

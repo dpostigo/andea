@@ -26,12 +26,14 @@ extension DateFormatter {
         return formatter
     }()
 
-    public class var iso8601: ISO8601DateFormatter {
+	@available(OSX 10.12, *)
+	public class var iso8601: ISO8601DateFormatter {
         return ISO8601DateFormatter(timeZone: TimeZone.autoupdatingCurrent)
     }
 
 }
 
+@available(OSX 10.12, *)
 extension ISO8601DateFormatter {
     public convenience init(timeZone: TimeZone) {
         self.init(); self.timeZone = timeZone

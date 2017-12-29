@@ -13,16 +13,31 @@ Pod::Spec.new do |s|
 
   s.platform = :ios, '11.0'
   s.frameworks = 'Foundation'
-
   s.module_name = 'Andea'
   s.default_subspec = 'Core'
 
+  # iOS
 
-  s.subspec 'Alias' do |ss| ; ss.source_files = 'Sources/Andea/Alias.swift' ; end
-  s.subspec 'Protocols' do |ss| ;  ss.source_files = 'Sources/Protocols/*' ; end
+  s.subspec 'UIApplication' do |ss|
+  	ss.frameworks = 'UIKit'
+  	ss.source_files = 'Sources/Andea-UIApplication/**/*', 'Sources/AndeaKit/**/*'
+    ss.dependency 'Andea/Core'
+    ss.dependency 'Andea/Alamofire'
+    ss.dependency 'Andea/AndeaSwiftGeometry'
+  end
 
-  s.subspec 'Foundation' do |ss| ;
-    ss.source_files = 'Sources/AndeaFoundation/*'
+  # Dependencies
+
+  s.subspec 'Alias' do |ss|
+    ss.source_files = 'Sources/Andea/Alias.swift'
+   end
+
+  s.subspec 'Protocols' do |ss|
+    ss.source_files = 'Sources/Protocols/*'
+  end
+
+  s.subspec 'AndeaFoundation' do |ss|
+    ss.source_files = 'Sources/AndeaFoundation/**/*'
     ss.dependency '%s/Protocols' % s.name
   end
 
@@ -31,7 +46,7 @@ Pod::Spec.new do |s|
     ss.frameworks = 'UIKit'
     ss.source_files = 'Sources/{Andea,Protocols}/**/*'
     ss.dependency '%s/Alias' % s.name
-    ss.dependency '%s/Foundation' % s.name
+    ss.dependency '%s/AndeaFoundation' % s.name
     ss.dependency '%s/Protocols' % s.name
   end
 
@@ -40,7 +55,7 @@ Pod::Spec.new do |s|
     ss.dependency 'Alamofire'
     ss.dependency 'Andea/Bits'
     ss.dependency '%s/Alias' % s.name
-    # ss.dependency '%s/Foundation' % s.name
+    # ss.dependency '%s/AndeaFoundation' % s.name
   end
 
 
@@ -54,17 +69,6 @@ Pod::Spec.new do |s|
   s.subspec 'AndeaSwiftGeometry' do |ss|
     ss.source_files = 'Sources/AndeaSwiftGeometry/**/*'
   end
-
-  # iOS
-
-  s.subspec 'UIApplication' do |ss|
-  	ss.frameworks = 'UIKit'
-  	ss.source_files = 'Sources/Andea-UIApplication/**/*', 'Sources/AndeaKit/**/*'
-    ss.dependency 'Andea/Core'
-    ss.dependency 'Andea/Alamofire'
-    ss.dependency 'Andea/AndeaSwiftGeometry'
-  end
-
 
 
 

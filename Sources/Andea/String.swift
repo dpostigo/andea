@@ -39,6 +39,10 @@ extension String {
         let characters = Array(self).enumerated().map({ $0.offset == 0 ? String($0.element).lowercased() : String($0.element) })
         return characters.joined()
     }
+
+    public var kebabName: String {
+        return self.replacingOccurrences(of: "_", with: "-")
+    }
 }
 
 

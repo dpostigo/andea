@@ -87,11 +87,5 @@ extension Array {
 }
 
 
-extension IndexPath {
-    public init<T: RawRepresentable>(row: Int, section: T) where T.RawValue == Int {
-        self.init(row: row, section: section.rawValue)
-
-    }
-}
 
 

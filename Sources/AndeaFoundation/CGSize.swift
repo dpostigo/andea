@@ -31,14 +31,3 @@ extension CGRect: ExpressibleByArrayLiteral {
 	}
 }
 
-extension UIEdgeInsets: ExpressibleByArrayLiteral {
-	public typealias ArrayLiteralElement = CGFloat
-
-	public init(arrayLiteral elements: ArrayLiteralElement...) {
-		switch elements.count {
-			case 2: self.init(left: elements[0], right: elements[1])
-			default: self.init(top: elements[2], left: elements[0], bottom: elements[3], right: elements[1])
-		}
-	}
-
-}

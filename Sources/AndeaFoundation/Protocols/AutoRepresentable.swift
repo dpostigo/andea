@@ -64,11 +64,7 @@ extension RawRepresentable where Self: Autorepresentable {
     public static var stringRepresentations: [String] {
         return self.representations.map({ $0.stringRepresentation })
     }
-    #if os(OSX)
-    public static var itemIdentifiers: [NSUserInterfaceItemIdentifier] {
-        return self.stringRepresentations.map({ NSUserInterfaceItemIdentifier(rawValue: $0) })
-    }
-    #endif
+
     
     // MARK: Raw representations
     

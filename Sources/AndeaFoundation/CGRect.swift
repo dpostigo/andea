@@ -24,22 +24,3 @@ extension CGRect {
     }
 
 }
-
-
-
-#if os(OSX)
-extension CGRect {
-    public func insetBy(insets: NSEdgeInsets) -> CGRect {
-        var rect = self.offsetBy(dx: insets.left, dy: insets.top)
-        rect.size.width -= (insets.right - insets.left)
-        rect.size.height -= (insets.top - insets.bottom)
-        return rect
-    }
-    public func insetBy(amount: CGFloat) -> CGRect {
-        return self.insetBy(insets: NSEdgeInsets(value: amount))
-    }
-}
-#endif
-
-
-

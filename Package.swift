@@ -7,8 +7,9 @@ let package = Package(
 	    .library(name: "Andea", targets: ["Andea"]),
 	    .library(name: "AndeaAlamofire", targets: ["AndeaAlamofire"]),
 	    .library(name: "AndeaBits", targets: ["AndeaBits"]),
-	    .library(name: "AndeaFoundation", targets: ["AndeaFoundation"])
-	    // .library(name: "AndeaKit", targets: ["AndeaKit"]),
+	    .library(name: "AndeaFoundation", targets: ["AndeaFoundation"]),
+	    .library(name: "AndeaKit", targets: ["AndeaKit"]),
+	    .library(name: "NSAndea", targets: ["NSAndea"]),
     ],
     dependencies: [
         .package(url: "https://github.com/alamofire/alamofire.git", from: "4.6.0"),
@@ -20,7 +21,8 @@ let package = Package(
         ),
 	    .target(
 		    name: "AndeaAlamofire",
-		    dependencies: ["Andea", "Alamofire"]
+		    dependencies: ["Andea", "Alamofire"],
+		    path: "Sources/AndeaAlamofire"
 	    ),
 	    .target(
 		    name: "AndeaBits",
@@ -29,7 +31,17 @@ let package = Package(
 	    ),
 	    .target(
 		    name: "AndeaFoundation",
-		    dependencies: ["Andea"]
+		    dependencies: ["Andea"],
+		    path: "Sources/AndeaFoundation"
+	    ),
+	    .target(
+		    name: "AndeaKit",
+		    dependencies: ["Andea"],
+		    path: "Sources/AndeaKit"
+	    ),
+	    .target(
+		    name: "NSAndea",
+		    path: "Sources/NSAndea"
 	    )
 
     ]
