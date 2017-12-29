@@ -260,7 +260,7 @@ public class LineBackgroundView: UIView  {
 
 extension UIActivityIndicatorView {
 
-	public convenience init(frame: CGRect, isAnimating: Bool) {
+	public convenience init(frame: CGRect = .zero, isAnimating: Bool) {
 		self.init(frame: frame)
 		guard isAnimating else { return }
 		self.startAnimating()

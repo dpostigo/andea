@@ -47,3 +47,8 @@ extension Routable where Self: Entity & Namespaced {
 	public static var route: String { return self.entity.lowercased() }
 }
 
+
+
+
+
+

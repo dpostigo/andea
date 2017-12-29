@@ -10,20 +10,8 @@ import Foundation
 import UIKit
 
 extension UICollectionView {
-    public enum ElementKind: String {
-        case header
-        case footer
-
-        public var rawValue: String {
-            switch self {
-                case .header: return UICollectionElementKindSectionHeader
-                case .footer: return UICollectionElementKindSectionFooter
-            }
-        }
-    }
-
-    public func register(_ viewClass: Swift.AnyClass?, forSupplementaryViewOfKind kind: ElementKind, withReuseIdentifier identifier: String) {
-        self.register(viewClass, forSupplementaryViewOfKind: kind.rawValue, withReuseIdentifier: identifier)
+    public var flow: UICollectionViewFlowLayout? {
+        return self.collectionViewLayout as? UICollectionViewFlowLayout
     }
 
     public func scrollToItemAtIndexPath(_ indexPath: IndexPath, atScrollPosition scrollPosition: UICollectionViewScrollPosition, completion: ((Bool) -> Void)? = nil) {
@@ -46,38 +34,43 @@ extension UICollectionView {
     }
 }
 
+extension UICollectionView {
+    public enum ElementKind: String {
+        case header
+        case footer
+
+        public var rawValue: String {
+            switch self {
+                case .header: return UICollectionElementKindSectionHeader
+                case .footer: return UICollectionElementKindSectionFooter
+            }
+        }
+    }
+
+    public func register(_ viewClass: Swift.AnyClass?, forSupplementaryViewOfKind kind: ElementKind, withReuseIdentifier identifier: String) {
+        self.register(viewClass, forSupplementaryViewOfKind: kind.rawValue, withReuseIdentifier: identifier)
+    }
+}
+
 extension UICollectionViewController {
 	public var collection: UICollectionView { return self.collectionView! }
 
     public var flow: UICollectionViewFlowLayout? {
         return self.collectionViewLayout as? UICollectionViewFlowLayout
     }
-}
 
-extension UICollectionView {
-    public var flow: UICollectionViewFlowLayout? {
-        return self.collectionViewLayout as? UICollectionViewFlowLayout
+    public func collectionViewLayout<T: UICollectionViewLayout>(ofClass layoutClass: T.Type = T.self) -> T? {
+        return self.collectionViewLayout as? T
     }
-}
 
-extension UICollectionViewFlowLayout {
-    public convenience init(scrollDirection: UICollectionViewScrollDirection) {
-        self.init()
-        self.scrollDirection = scrollDirection
-    }
-    public convenience init(scrollDirection: UICollectionViewScrollDirection, estimatedItemSize: CGSize) {
-        self.init()
-        self.scrollDirection = scrollDirection
-        self.estimatedItemSize = estimatedItemSize
-    }
 }
 
 
-extension UICollectionViewLayout {
-    public var numberOfSections: Int? { return self.collectionView?.numberOfSections }
-    public func number(ofItems section: Int) -> Int? { return self.collectionView?.numberOfItems(inSection: section) }
 
-    public func indexPaths(in section: Int) -> [IndexPath] {
-        return (0 ..< self.number(ofItems: section)!).map({ IndexPath(item: $0, section: section) })
+
+extension UICollectionReusableView {
+
+    public static func preferred(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
+        return self.init().preferredLayoutAttributesFitting(layoutAttributes)
     }
 }

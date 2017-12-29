@@ -7,15 +7,15 @@ import Foundation
 
 public enum Lorem {
 
-	static let minSentence = 4
-	static let maxSentence = 16
+	public static let minSentence = 4
+	public static let maxSentence = 16
 
 	public static func sentences( _ count: Int = 1) -> String {
 		let sentences = (0 ..< count).map({ _ in "\(self.phrase(Int.random(self.minSentence, self.maxSentence)))." })
 		return sentences.joined(separator: " ")
 	}
 
-	public static func phrase(_ wordCount: Int = 1) -> String {
+	public static func phrase(_ wordCount: Int) -> String {
 		return self.string(wordCount).capitalizedFirst
 	}
 
@@ -50,5 +50,9 @@ extension Int {
 		var b = end
 		if a > b { swap(&a, &b) } // swap to prevent negative integer crashes
 		return Int(arc4random_uniform(UInt32(b - a + 1))) + a
+	}
+
+	public static func range(_ start: Int = 0, _ end: Int) -> CountableRange<Int> {
+		return (start ..< Int.random(start, end))
 	}
 }
