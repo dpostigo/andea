@@ -16,7 +16,6 @@ let package = Package(
     targets: [
         .target(
             name: "Andea",
-
 	        path: "Sources/Andea"
         ),
 	    .target(
