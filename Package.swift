@@ -2,35 +2,33 @@
 import PackageDescription
 
 let package = Package(
-    name: "Andea",
-    products: [
-	    .library(name: "Andea", targets: ["Andea"]),
-	    .library(name: "AndeaBits", targets: ["AndeaBits"]),
-	    .library(name: "AndeaFoundation", targets: ["AndeaFoundation"]),
-	    .library(name: "NSAndea", targets: ["NSAndea"]),
-    ],
-    dependencies: [
-        .package(url: "https://github.com/alamofire/alamofire.git", from: "4.6.0"),
-    ],
-    targets: [
-        .target(
-            name: "Andea",
-	        path: "Sources/Andea"
-        ),
-	    .target(
-		    name: "AndeaBits",
-		    dependencies: ["Andea"],
-		    path: "Sources/AndeaBits"
-	    ),
-	    .target(
-		    name: "AndeaFoundation",
-		    dependencies: ["Andea"],
-		    path: "Sources/AndeaFoundation"
-	    ),
-	    .target(
-		    name: "NSAndea",
-		    path: "Sources/NSAndea"
-	    )
-
-    ]
+	name: "Andea",
+	products: [
+		.library(name: "Andea", targets: ["Andea"]),
+		.library(name: "AndeaBits", targets: ["AndeaBits"]),
+		.library(name: "AndeaFoundation", targets: ["AndeaFoundation"]),
+	],
+	dependencies: [
+		.package(url: "https://github.com/alamofire/alamofire.git", from: "4.6.0"),
+	],
+	targets: [
+		.target(
+			name: "libc"
+		),
+		.target(
+			name: "Andea"
+		),
+		.target(
+			name: "AndeaBits",
+			dependencies: ["Andea"]
+		),
+		.target(
+			name: "AndeaFoundation",
+			dependencies: ["Andea"]
+		),
+		.target(
+			name: "NSAndea"
+		)
+	]
 )
+
