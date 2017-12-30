@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Andea
 
 
 public protocol IndexedOptionSet: OptionSet where RawValue == Int {
