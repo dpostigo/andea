@@ -16,7 +16,8 @@ let package = Package(
 			name: "libc"
 		),
 		.target(
-			name: "Andea"
+			name: "Andea",
+			dependencies: ["libc"]
 		),
 		.target(
 			name: "AndeaBits",
