@@ -25,9 +25,6 @@ let package = Package(
 		.target(
 			name: "AndeaFoundation",
 			dependencies: ["Andea"]
-		),
-		.target(
-			name: "NSAndea"
 		)
 	]
 )
