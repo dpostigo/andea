@@ -2,11 +2,9 @@
 import PackageDescription
 
 let package = Package(
-    name: "Andea",
+    name: "AndeaSwift",
     targets: [
-        Target(name: "Andea", dependencies: ["libc"]),
+        Target(name: "AndeaSwift", dependencies: ["libc"]),
         Target(name: "libc")
-    ],
-    dependencies: [
     ]
 )
