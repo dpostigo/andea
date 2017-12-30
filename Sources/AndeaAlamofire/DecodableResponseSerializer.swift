@@ -4,6 +4,7 @@
 
 import Foundation
 import Alamofire
+import Andea
 
 public struct CustomDataResponseSerializer<T: Decodable> : DataResponseSerializerProtocol {
 	public typealias SerializedObject = T

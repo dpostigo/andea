@@ -5,10 +5,8 @@ let package = Package(
     name: "Andea",
     products: [
 	    .library(name: "Andea", targets: ["Andea"]),
-	    .library(name: "AndeaAlamofire", targets: ["AndeaAlamofire"]),
 	    .library(name: "AndeaBits", targets: ["AndeaBits"]),
 	    .library(name: "AndeaFoundation", targets: ["AndeaFoundation"]),
-	    .library(name: "AndeaKit", targets: ["AndeaKit"]),
 	    .library(name: "NSAndea", targets: ["NSAndea"]),
     ],
     dependencies: [
@@ -20,11 +18,6 @@ let package = Package(
 	        path: "Sources/Andea"
         ),
 	    .target(
-		    name: "AndeaAlamofire",
-		    dependencies: ["Andea", "Alamofire"],
-		    path: "Sources/AndeaAlamofire"
-	    ),
-	    .target(
 		    name: "AndeaBits",
 		    dependencies: ["Andea"],
 		    path: "Sources/AndeaBits"
@@ -33,11 +26,6 @@ let package = Package(
 		    name: "AndeaFoundation",
 		    dependencies: ["Andea"],
 		    path: "Sources/AndeaFoundation"
-	    ),
-	    .target(
-		    name: "AndeaKit",
-		    dependencies: ["Andea"],
-		    path: "Sources/AndeaKit"
 	    ),
 	    .target(
 		    name: "NSAndea",

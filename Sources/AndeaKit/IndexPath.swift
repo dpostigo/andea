@@ -11,7 +11,8 @@ import AppKit
 
 extension IndexPath {
 	public func next() -> IndexPath {
-		return IndexPath(row: self.row + 1, section: self.section)
+		return [self.section, self.row + 1]
+		// return IndexPath(row: self.row + 1, section: self.section)
 	}
 
 
