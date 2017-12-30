@@ -4,19 +4,23 @@ import PackageDescription
 let package = Package(
 	name: "Andea",
 	products: [
-//		.library(name: "Andea", targets: ["Andea"]),
-//		.library(name: "AndeaBits", targets: ["AndeaBits"]),
-	],
-	dependencies: [
-		.package(url: "https://github.com/alamofire/alamofire.git", from: "4.6.0"),
+		.library(name: "libc", targets: ["libc"]),
+		.library(name: "AndeaSwift", targets: ["AndeaSwift"]),
+		// .library(name: "AndeaBits", targets: ["AndeaBits"]),
 	],
 	targets: [
 		.target(
-			name: "AndeaSwift"
+			name: "AndeaSwift",
+			dependencies: ["libc"],
+			path: "Sources/AndeaSwift/"
 		),
 		.target(
-			name: "AndeaBits"
-		)
+			name: "libc",
+			path: "Sources/libc"
+		),
+//		.target(
+//			name: "AndeaBits"
+//		)
 	]
 )
 
