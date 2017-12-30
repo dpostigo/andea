@@ -9,7 +9,7 @@ extension UserDefaults {
     public convenience init(suiteName: String, initialValues: [String: Any]?) {
         self.init(suiteName: suiteName)!
         guard !self.initialized, let values = initialValues else { return }
-        self.setValuesForKeys(values)
+		self.setValuesForKeys(values)
         self.initialized = true
     }
 
@@ -45,8 +45,8 @@ extension UserDefaults {
 //        self.set(value, forKey: type.rawValue)
 //    }
 
-    public func objectForKey<T: RawRepresentable>(_ type: T) -> AnyObject? where T.RawValue == String {
-        return self.object(forKey: type.rawValue) as AnyObject?
+    public func objectForKey<T: RawRepresentable>(_ type: T) -> Any? where T.RawValue == String {
+        return self.object(forKey: type.rawValue)
     }
 
 }

@@ -24,19 +24,19 @@ extension Bundle {
     }
 
 
-    public func load(plist name: String) throws -> JSON? {
-        do {
-            let data = try self.load(resource: name, ext: "plist")
-            do {
-                let plist = try PropertyListSerialization.propertyList(from: data, options: .mutableContainers, format: nil)
-                return plist as? JSON
-            } catch {
-                throw error
-            }
-
-
-        } catch { throw error }
-    }
+//    public func load(plist name: String) throws -> JSON? {
+//        do {
+//            let data = try self.load(resource: name, ext: "plist")
+//            do {
+//                let plist = try PropertyListSerialization.propertyList(from: data, options: .mutableContainers, format: nil)
+//                return plist as? JSON
+//            } catch {
+//                throw error
+//            }
+//
+//
+//        } catch { throw error }
+//    }
 
 
     public func load(json jsonName: String, options opt: JSONSerialization.ReadingOptions = []) throws -> JSON {
