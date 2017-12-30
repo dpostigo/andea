@@ -3,7 +3,6 @@
 //
 
 import Foundation
-import libc
 
 #if os(Linux)
 import Glibc

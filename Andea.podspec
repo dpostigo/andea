@@ -36,6 +36,11 @@ Pod::Spec.new do |s|
     ss.source_files = 'Sources/Protocols/*'
   end
 
+  s.subspec 'AndeaSwift' do |ss|
+    ss.source_files = 'Sources/AndeaSwift/**/*'
+    ss.dependency '%s/libc' % s.name
+  end
+
   s.subspec 'AndeaFoundation' do |ss|
     ss.source_files = 'Sources/AndeaFoundation/**/*'
     ss.dependency '%s/Protocols' % s.name
@@ -47,6 +52,7 @@ Pod::Spec.new do |s|
     ss.source_files = 'Sources/{Andea,Protocols}/**/*'
     ss.dependency '%s/Alias' % s.name
     ss.dependency '%s/AndeaFoundation' % s.name
+    ss.dependency '%s/AndeaSwift' % s.name
     ss.dependency '%s/Protocols' % s.name
   end
 
