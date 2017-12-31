@@ -32,10 +32,10 @@ Pod::Spec.new do |s|
     ss.source_files = 'Sources/Andea/Alias.swift'
    end
 
-  # s.subspec 'Protocols' do |ss|
-  #   ss.source_files = 'Sources/Protocols/*'
-  #   ss.dependency '%s/Alias' % s.name
-  # end
+  s.subspec 'Protocols' do |ss|
+    ss.source_files = 'Sources/Protocols/*'
+    ss.dependency '%s/Alias' % s.name
+  end
 
   s.subspec 'AndeaSwift' do |ss|
     ss.source_files = 'Sources/AndeaSwift/**/*'
@@ -44,7 +44,7 @@ Pod::Spec.new do |s|
   s.subspec 'AndeaFoundation' do |ss|
     ss.source_files = 'Sources/AndeaFoundation/**/*'
     ss.dependency '%s/Alias' % s.name
-    # ss.dependency '%s/Protocols' % s.name
+    ss.dependency '%s/Protocols' % s.name
     ss.dependency '%s/AndeaSwift' % s.name
   end
 
@@ -55,7 +55,7 @@ Pod::Spec.new do |s|
     ss.dependency '%s/Alias' % s.name
     ss.dependency '%s/AndeaFoundation' % s.name
     ss.dependency '%s/AndeaSwift' % s.name
-    # ss.dependency '%s/Protocols' % s.name
+    ss.dependency '%s/Protocols' % s.name
   end
 
   s.subspec 'Alamofire' do |ss|
@@ -63,7 +63,7 @@ Pod::Spec.new do |s|
     ss.dependency 'Alamofire'
     ss.dependency 'Andea/Bits'
     ss.dependency '%s/Alias' % s.name
-    # ss.dependency '%s/AndeaFoundation' % s.name
+    ss.dependency '%s/AndeaFoundation' % s.name
   end
 
 

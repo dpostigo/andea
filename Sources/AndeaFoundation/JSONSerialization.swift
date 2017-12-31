@@ -32,3 +32,26 @@ extension Dictionary where Key == String {
     }
 
 }
+
+extension JSONSerialization {
+    public enum JSONError: Error {
+        case typeMismatch(expected: Any, actual: Any)
+    }
+
+    public class func json(with data: Data, options opt: JSONSerialization.ReadingOptions = []) throws -> [String: Any] {
+        do {
+            let value = try JSONSerialization.jsonObject(with: data, options: opt)
+            guard let json = value as? JSON else { throw JSONError.typeMismatch(expected: JSON.self, actual: type(of: value)) }
+            return json
+        } catch { throw error }
+    }
+
+    public class func json(with data: Data, options opt: JSONSerialization.ReadingOptions = []) throws -> [JSON] {
+        do {
+            let value = try JSONSerialization.jsonObject(with: data, options: opt)
+            guard let json = value as? [JSON] else { throw JSONError.typeMismatch(expected: [JSON].self, actual: type(of: value)) }
+            return json
+        } catch { throw error }
+    }
+}
+
