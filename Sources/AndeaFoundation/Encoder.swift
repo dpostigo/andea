@@ -3,7 +3,6 @@
 //
 
 import Foundation
-import Andea
 
 extension Encodable {
 	public func encodedData() throws -> Data { return try JSONEncoder.encode(self) }
