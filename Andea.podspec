@@ -23,7 +23,6 @@ Pod::Spec.new do |s|
   	ss.source_files = 'Sources/Andea-UIApplication/**/*', 'Sources/AndeaKit/**/*'
     ss.dependency 'Andea/Core'
     ss.dependency 'Andea/Alamofire'
-    ss.dependency 'Andea/AndeaSwiftGeometry'
   end
 
   # Dependencies
