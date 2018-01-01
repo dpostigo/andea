@@ -1,83 +1,84 @@
-# pod 'Andea', :path => '~/pods/Andea'
-
 Pod::Spec.new do |s|
+
+  # ―――  Spec Metadata  ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   s.name             = 'Andea'
-  s.version          = '0.1.4'
+  s.version          = '0.1.5'
   s.summary          = 'Extensions for Swift from the Andeas.'
   s.description      = 'Convenience initializers & other extensions.'
 
   s.homepage         = 'https://bitbucket.com/dpostigo/Andea'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
+
+  # ――― Author Metadata  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   s.author           = { 'Dani Postigo' => 'dani.postigo@gmail.com' }
+
+  # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   s.source           = { :git => 'https://bitbucket.com/dpostigo/Andea.git', :tag => s.version.to_s }
 
-  s.platform = :ios, '11.0'
+  # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
+  s.ios.deployment_target = '11.0'
+  s.osx.deployment_target = '10.12'
+
+  # ――― Project Linking ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
+  s.default_subspec = 'AndeaKit'
   s.frameworks = 'Foundation'
   s.module_name = 'Andea'
-  s.default_subspec = 'Core'
 
-  # iOS
+  # ――― Default ––––––––―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
-  s.subspec 'UIApplication' do |ss|
-  	ss.frameworks = 'UIKit'
-  	ss.source_files = 'Sources/Andea-UIApplication/**/*', 'Sources/AndeaKit/**/*'
-    ss.dependency 'Andea/Core'
+  s.subspec 'AndeaKit' do |ss|
     ss.dependency 'Andea/Alamofire'
+    ss.dependency 'Andea/CoreGraphics'
+    ss.dependency 'Andea/Foundation'
+    ss.dependency 'Andea/Lorem'
+
+  	ss.ios.frameworks = 'UIKit'
+  	ss.ios.source_files = 'Sources/AndeaKit/{shared,ios}/*'
+
+    ss.osx.frameworks = 'AppKit'
+  	ss.osx.source_files = 'Sources/AndeaKit/{shared,macos}/*'
   end
 
-  # Dependencies
+  # ――― Subspecs –––––––―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
   s.subspec 'Alias' do |ss|
-    ss.source_files = 'Sources/Andea/Alias.swift'
-   end
-
-  s.subspec 'Protocols' do |ss|
-    ss.source_files = 'Sources/Protocols/*'
-    ss.dependency '%s/Alias' % s.name
+    ss.source_files = 'Sources/Swift/Alias.swift'
   end
 
-  s.subspec 'AndeaSwift' do |ss|
-    ss.source_files = 'Sources/AndeaSwift/**/*'
+  s.subspec 'Swift' do |ss|
+    ss.source_files = 'Sources/Swift/*'
   end
 
-  s.subspec 'AndeaFoundation' do |ss|
-    ss.source_files = 'Sources/AndeaFoundation/**/*'
-    ss.dependency '%s/Alias' % s.name
-    ss.dependency '%s/Protocols' % s.name
-    ss.dependency '%s/AndeaSwift' % s.name
+  s.subspec 'CoreGraphics' do |ss|
+    ss.frameworks = 'CoreGraphics'
+    ss.source_files = 'Sources/CoreGraphics'
   end
 
-
-  s.subspec 'Core' do |ss|
-    ss.frameworks = 'UIKit'
-    ss.source_files = 'Sources/{Andea,Protocols}/**/*'
-    ss.dependency '%s/Alias' % s.name
-    ss.dependency '%s/AndeaFoundation' % s.name
-    ss.dependency '%s/AndeaSwift' % s.name
-    ss.dependency '%s/Protocols' % s.name
+  s.subspec 'Foundation' do |ss|
+    ss.source_files = 'Sources/Foundation/*'
+    ss.dependency 'Andea/Swift'
   end
+
+  # ――― Dependencies –––––––――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
   s.subspec 'Alamofire' do |ss|
-    ss.source_files = 'Sources/AndeaAlamofire/**/*'
     ss.dependency 'Alamofire'
     ss.dependency 'Andea/Bits'
-    ss.dependency '%s/Alias' % s.name
-    ss.dependency '%s/AndeaFoundation' % s.name
+    ss.dependency 'Andea/Foundation'
+    ss.dependency 'Andea/Swift'
+    ss.source_files = 'Sources/Alamofire'
   end
-
 
   # 3rd party
 
   s.subspec 'Bits' do |ss|
-    ss.source_files = 'Sources/AndeaBits/**/*'
+    ss.source_files = 'Sources/Alamofire/Bits/*'
   end
 
-
-  s.subspec 'AndeaSwiftGeometry' do |ss|
-    ss.source_files = 'Sources/AndeaSwiftGeometry/**/*'
+  s.subspec 'Lorem' do |ss|
+    ss.source_files = 'Sources/Lorem/*'
+    ss.dependency 'Andea/Swift'
   end
-
-
 
 
 end
