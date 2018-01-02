@@ -36,14 +36,27 @@ extension UICollectionView {
 
 extension UICollectionView {
     public enum ElementKind: String {
+        case cell
         case header
         case footer
 
         public var rawValue: String {
             switch self {
+				case .cell: return ""
                 case .header: return UICollectionElementKindSectionHeader
                 case .footer: return UICollectionElementKindSectionFooter
             }
+        }
+    }
+
+    public func register<T: UICollectionViewCell>(_ viewClass: T.Type) {
+        self.register(viewClass, forCellWithReuseIdentifier: viewClass.identifier)
+    }
+
+    public func register<T: UICollectionReusableView>(_ viewClass: T.Type, forElementKind kind: ElementKind) {
+        switch kind {
+            case .cell: self.register(viewClass, forCellWithReuseIdentifier: viewClass.identifier)
+            case .header, .footer: self.register(viewClass, forSupplementaryViewOfKind: kind.rawValue, withReuseIdentifier: T.identifier)
         }
     }
 

@@ -14,6 +14,17 @@ extension CGSize {
 	}
 }
 
+
+extension CGPoint: ExpressibleByArrayLiteral {
+	public typealias ArrayLiteralElement = CGFloat
+
+	public init(arrayLiteral elements: ArrayLiteralElement...) {
+		precondition(elements.count == 2)
+		self.init(x: elements.first!, y: elements.last!)
+	}
+}
+
+
 extension CGSize: ExpressibleByArrayLiteral {
 	public typealias ArrayLiteralElement = CGFloat
 

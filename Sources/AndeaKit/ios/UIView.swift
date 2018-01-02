@@ -52,6 +52,12 @@ extension UIView {
 		}
 	}
 
+    public var cornerRadius: CGFloat {
+        get { return self.layer.cornerRadius }
+        set { self.layer.cornerRadius = newValue }
+    }
+
+
     // MARK: Convenience methods
 
     public func addSubviews(_ views: [UIView]) {
@@ -80,9 +86,19 @@ extension UIView {
 
 	// MARK: Init
 
-    public convenience init(color: UIColor) { self.init(); self.backgroundColor = color }
-    public convenience init(frame: CGRect, color: UIColor) { self.init(frame: frame); self.backgroundColor = color }
-    public convenience init(height: CGFloat) { self.init(); self.frame.size.height = height }
+    public convenience init(color: UIColor) {
+        self.init(); self.backgroundColor = color
+    }
+    public convenience init(tintColor: UIColor) {
+        self.init(); self.tintColor = tintColor
+    }
+
+    public convenience init(frame: CGRect, color: UIColor) {
+        self.init(frame: frame); self.backgroundColor = color
+    }
+    public convenience init(height: CGFloat) {
+        self.init(); self.frame.size.height = height
+    }
 
 
     // MARK: Methods
