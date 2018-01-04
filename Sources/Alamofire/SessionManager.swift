@@ -12,12 +12,4 @@ extension SessionManager {
 		request.responseEntity(completion, failure: failure)
 		return request
 	}
-
-	//    @discardableResult func request<T: Decodable>(_ endpoint: CTEndpoint, _ type: T.Type = T.self, completion: ((T) -> Void)? = nil, failure: Failure? = nil) -> Alamofire.DataRequest {
-	//        return self.request(endpoint).responseEntity(completion, failure: failure)//.responseLog()
-	//    }
-	//
-	//    @discardableResult func request<T: Decodable>(_ resource: CTResourceEndpoint<T>, _ type: T.Type = T.self, completion: ((T) -> Void)? = nil, failure: Failure? = nil) -> Alamofire.DataRequest {
-	//        return self.request(resource).responseEntity(completion, failure: failure)// .responseLog()
-	//    }
 }

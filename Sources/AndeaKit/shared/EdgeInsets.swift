@@ -5,6 +5,19 @@
 
 import Foundation
 
+extension UIEdgeInsets: ExpressibleByArrayLiteral {
+    public typealias ArrayLiteralElement = CGFloat
+
+    public init(arrayLiteral elements: ArrayLiteralElement...) {
+        switch elements.count {
+            case 2: self.init(left: elements[0], right: elements[1])
+            default:
+	            precondition(elements.count == 4)
+	            self.init(top: elements[2], left: elements[0], bottom: elements[3], right: elements[1])
+        }
+    }
+}
+
 extension CGRect {
     public func insetBy(insets: EdgeInsets) -> CGRect {
         var rect = self.offsetBy(dx: insets.left, dy: insets.top)
@@ -49,16 +62,7 @@ extension UIEdgeInsets {
     }
 }
 
-extension UIEdgeInsets: ExpressibleByArrayLiteral {
-    public typealias ArrayLiteralElement = CGFloat
 
-    public init(arrayLiteral elements: ArrayLiteralElement...) {
-        switch elements.count {
-            case 2: self.init(left: elements[0], right: elements[1])
-            default: self.init(top: elements[2], left: elements[0], bottom: elements[3], right: elements[1])
-        }
-    }
-}
 
 #elseif os(OSX)
 import AppKit

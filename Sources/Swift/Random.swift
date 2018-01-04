@@ -101,3 +101,14 @@ public extension URL {
 		return URL(string: urlList.random)!
 	}
 }
+
+public extension UIColor {
+	/// SwiftRandom extension
+	public static func random(_ randomAlpha: Bool = false) -> UIColor {
+		let randomRed = CGFloat.random()
+		let randomGreen = CGFloat.random()
+		let randomBlue = CGFloat.random()
+		let alpha = randomAlpha ? CGFloat.random() : 1.0
+		return UIColor(red: randomRed, green: randomGreen, blue: randomBlue, alpha: alpha)
+	}
+}

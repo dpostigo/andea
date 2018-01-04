@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
 
   # ―――  Spec Metadata  ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   s.name             = 'Andea'
-  s.version          = '0.1.5'
+  s.version          = '0.1.6'
   s.summary          = 'Extensions for Swift from the Andeas.'
   s.description      = 'Convenience initializers & other extensions.'
 
@@ -28,6 +28,7 @@ Pod::Spec.new do |s|
 
   s.subspec 'AndeaKit' do |ss|
     ss.dependency 'Andea/Alamofire'
+    ss.dependency 'Andea/ActionKit'
     ss.dependency 'Andea/CoreGraphics'
     ss.dependency 'Andea/Foundation'
     ss.dependency 'Andea/Lorem'
@@ -66,7 +67,12 @@ Pod::Spec.new do |s|
     ss.dependency 'Andea/Bits'
     ss.dependency 'Andea/Foundation'
     ss.dependency 'Andea/Swift'
-    ss.source_files = 'Sources/Alamofire'
+    ss.source_files = 'Sources/Alamofire/*'
+  end
+
+  s.subspec 'ActionKit' do |ss|
+    ss.dependency 'ActionKit'
+    ss.source_files = 'Sources/ActionKit/*'
   end
 
   # 3rd party

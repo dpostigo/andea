@@ -12,6 +12,11 @@ extension CGSize {
 	public func scaledBy(_ valueX: CGFloat, _ valueY: CGFloat) -> CGSize {
 		return self.applying(CGAffineTransform(scaleX: valueX, y: valueY))
 	}
+
+	public static func *=(lhs: inout CGSize, right: CGFloat) {
+		lhs.width *= right
+		lhs.height *= right
+	}
 }
 
 

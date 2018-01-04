@@ -22,6 +22,17 @@ extension UITableViewController {
 }
 
 extension UITableView {
+
+	open func register<T: UITableViewCell>(_ cellClass: T.Type = T.self) {
+		self.register(cellClass, forCellReuseIdentifier: cellClass.identifier)
+	}
+
+	open func register<T: UITableViewHeaderFooterView>(_ cellClass: T.Type = T.self) {
+		self.register(cellClass, forHeaderFooterViewReuseIdentifier: cellClass.identifier)
+	}
+
+	// MARK: Reload
+
 	public func reloadSections( _ indexSet: IndexSet, with animation: UITableViewRowAnimation, completion: Completion?) {
 		self.performBatchUpdates({ self.reloadSections(indexSet, with: animation) }, completion: { _ in completion?() })
 	}
