@@ -5,16 +5,22 @@
 
 import Foundation
 
-extension UIEdgeInsets: ExpressibleByArrayLiteral {
+extension EdgeInsets: ExpressibleByArrayLiteral {
     public typealias ArrayLiteralElement = CGFloat
 
     public init(arrayLiteral elements: ArrayLiteralElement...) {
-        switch elements.count {
-            case 2: self.init(left: elements[0], right: elements[1])
-            default:
-	            precondition(elements.count == 4)
-	            self.init(top: elements[2], left: elements[0], bottom: elements[3], right: elements[1])
-        }
+	    switch elements.count {
+		    // top/bottom
+		    case 1: self.init(top: elements[0], left: 0, bottom: elements[0], right: 0)
+		    // top/bottom, left/right
+		    case 2: self.init(top: elements[0], left: elements[1], bottom: elements[0], right: elements[1])
+		    // top, left/right, bottom
+		    case 3: self.init(top: elements[0], left: elements[1], bottom: elements[2], right: elements[1])
+		    // top, left, bottom, right
+		    default:
+			    precondition(elements.count == 4)
+			    self.init(top: elements[0], left: elements[1], bottom: elements[2], right: elements[3])
+	    }
     }
 }
 
@@ -31,19 +37,17 @@ extension CGRect {
 }
 
 
-
-#if os(iOS)
-import UIKit
-
-extension UIEdgeInsets {
+extension EdgeInsets {
 
     public init(_ value: CGFloat) { self.init(value: value) }
+	public init(value: CGFloat) {
+		self.init(top: value, left: value, bottom: value, right: value)
+	}
 
-    public init(percentageOf value: CGFloat, vertical: CGFloat = 0.8, horizontal: CGFloat = 1.0) {
+	public init(percentageOf value: CGFloat, vertical: CGFloat = 0.8, horizontal: CGFloat = 1.0) {
         self.init(top: value * vertical, left: value * horizontal, bottom: value * vertical, right: value * horizontal)
     }
 
-    public init(value: CGFloat) { self.init(top: value, left: value, bottom: value, right: value) }
 
     public init(top: CGFloat) {
         self.init(top: top, left: 0, bottom: 0, right: 0)
@@ -60,11 +64,24 @@ extension UIEdgeInsets {
     public init(left: CGFloat, right: CGFloat) {
         self.init(top: 0, left: left, bottom: 0, right: right)
     }
+
+
 }
 
+//extension EdgeInsets {
+//
+//	func test(lhs: EdgeInsets, rhs: EdgeInsets) {
+//        lhs == rhs
+//	}
+////	public static func ==(lhs: EdgeInsets, rhs: EdgeInsets) -> Bool {
+//////		return UIEdgeInsetsEqualToEdgeInsets(<#T##insets1: UIEdgeInsets##UIKit.UIEdgeInsets#>, <#T##insets2: UIEdgeInsets##UIKit.UIEdgeInsets#>)
+//////		return NSEdgeInsetsEqual(lhs, rhs)
+////	}
+//}
+//
 
 
-#elseif os(OSX)
+#if os(macOS)
 import AppKit
 
 extension NSEdgeInsets: CustomDebugStringConvertible {
@@ -73,25 +90,12 @@ extension NSEdgeInsets: CustomDebugStringConvertible {
         return "(top: \(self.top), left: \(self.left), bottom: \(self.bottom), right: \(self.right))"
     }
     
-    public init(top: CGFloat, bottom: CGFloat) {
-        self.init(top: top, left: 0, bottom: bottom, right: 0)
-    }
-
-    public init(left: CGFloat, right: CGFloat) {
-        self.init(top: 0, left: left, bottom: 0, right: right)
-    }
-
     public init(top: CGFloat, left: CGFloat) {
         self.init(top: top, left: left, bottom: 0, right: 0)
     }
 
-    public init(value: CGFloat) {
-        self.init(top: value, left: value, bottom: value, right: value)
-    }
 }
 
-public func ==(lhs: NSEdgeInsets, rhs: NSEdgeInsets) -> Bool {
-    return NSEdgeInsetsEqual(lhs, rhs)
-}
+
 
 #endif

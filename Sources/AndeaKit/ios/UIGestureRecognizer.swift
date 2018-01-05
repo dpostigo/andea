@@ -4,13 +4,3 @@
 
 import Foundation
 import UIKit
-
-public enum UIGestureRecognizerKind: Int, Autorepresentable {
-	case tap
-	case pinch
-	case rotation
-	case swipe
-	case pan
-	case screenEdge
-	case longPress
-}

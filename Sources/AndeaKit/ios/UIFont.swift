@@ -16,12 +16,13 @@ extension UIFont {
         }
     }
 
-
-
 	public var small: UIFont { return UIFont(name: self.fontName, size: UIFont.smallSystemFontSize)! }
+
 	public var point10: UIFont { return self.point(10) }
 	public func point(_ size: CGFloat) -> UIFont { return UIFont(name: self.fontName, size: size)! }
 
+
+	public class var point10: UIFont { return UIFont.systemFont(ofSize: 10) }
 	public class var small: UIFont { return UIFont.systemFont(ofSize: UIFont.smallSystemFontSize) }
 	public class var system: UIFont { return UIFont.systemFont(ofSize: UIFont.systemFontSize) }
 	public class var ultraLight: UIFont { return UIFont.systemFont(ofSize: UIFont.systemFontSize, weight: .ultraLight) }

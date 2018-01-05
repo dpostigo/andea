@@ -102,6 +102,7 @@ public extension URL {
 	}
 }
 
+#if os(iOS)
 public extension UIColor {
 	/// SwiftRandom extension
 	public static func random(_ randomAlpha: Bool = false) -> UIColor {
@@ -112,3 +113,4 @@ public extension UIColor {
 		return UIColor(red: randomRed, green: randomGreen, blue: randomBlue, alpha: alpha)
 	}
 }
+#endif

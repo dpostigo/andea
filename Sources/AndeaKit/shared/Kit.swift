@@ -5,9 +5,14 @@
 import Foundation
 
 #if os(iOS)
+
 import UIKit
 public typealias EdgeInsets = UIEdgeInsets
+
+
 #elseif os(macOS)
+
 import AppKit
 public typealias EdgeInsets = NSEdgeInsets
+
 #endif

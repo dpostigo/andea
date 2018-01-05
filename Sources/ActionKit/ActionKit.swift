@@ -5,6 +5,16 @@
 import UIKit
 import ActionKit
 
+public enum UIGestureRecognizerKind: Int, Autorepresentable {
+	case tap
+	case pinch
+	case rotation
+	case swipe
+	case pan
+	case screenEdge
+	case longPress
+}
+
 extension UIGestureRecognizerKind {
 	public func gestureRecognizer(closure: @escaping ActionKitGestureClosure) -> UIGestureRecognizer {
 		switch self {

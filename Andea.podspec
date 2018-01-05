@@ -24,14 +24,15 @@ Pod::Spec.new do |s|
   s.frameworks = 'Foundation'
   s.module_name = 'Andea'
 
-  # ――― Default ––––––––―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
+  # ――― AndeaKit –––––––―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
   s.subspec 'AndeaKit' do |ss|
     ss.dependency 'Andea/Alamofire'
-    ss.dependency 'Andea/ActionKit'
     ss.dependency 'Andea/CoreGraphics'
     ss.dependency 'Andea/Foundation'
     ss.dependency 'Andea/Lorem'
+    ss.ios.dependency 'Andea/ActionKit'
+    ss.ios.dependency 'Andea/PlaygroundKit'
 
   	ss.ios.frameworks = 'UIKit'
   	ss.ios.source_files = 'Sources/AndeaKit/{shared,ios}/*'
@@ -39,6 +40,15 @@ Pod::Spec.new do |s|
     ss.osx.frameworks = 'AppKit'
   	ss.osx.source_files = 'Sources/AndeaKit/{shared,macos}/*'
   end
+
+  # ――― PlaygroundKit –––――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
+
+  s.subspec 'PlaygroundKit' do |ss|
+    ss.ios.deployment_target = '11.0'
+  	ss.frameworks = 'UIKit'
+    ss.source_files = 'Sources/PlaygroundKit/ios/*'
+  end
+
 
   # ――― Subspecs –––––––―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
@@ -62,6 +72,14 @@ Pod::Spec.new do |s|
 
   # ――― Dependencies –––––––――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
+  s.subspec 'ActionKit' do |ss|
+    ss.ios.deployment_target = '11.0'
+    ss.frameworks = 'UIKit'
+    ss.dependency 'ActionKit'
+    ss.dependency 'Andea/Foundation'
+    ss.source_files = 'Sources/ActionKit/*'
+  end
+
   s.subspec 'Alamofire' do |ss|
     ss.dependency 'Alamofire'
     ss.dependency 'Andea/Bits'
@@ -69,13 +87,6 @@ Pod::Spec.new do |s|
     ss.dependency 'Andea/Swift'
     ss.source_files = 'Sources/Alamofire/*'
   end
-
-  s.subspec 'ActionKit' do |ss|
-    ss.dependency 'ActionKit'
-    ss.source_files = 'Sources/ActionKit/*'
-  end
-
-  # 3rd party
 
   s.subspec 'Bits' do |ss|
     ss.source_files = 'Sources/Alamofire/Bits/*'
