@@ -23,13 +23,41 @@ extension UITableViewController {
 
 extension UITableView {
 
-	open func register<T: UITableViewCell>(_ cellClass: T.Type = T.self) {
-		self.register(cellClass, forCellReuseIdentifier: cellClass.identifier)
+	open func register(_ views: UIView.Type...) {
+		self.register(views.flatMap { $0 as? UITableViewCell.Type })
+		self.register(views.flatMap { $0 as? UITableViewHeaderFooterView.Type })
 	}
 
-	open func register<T: UITableViewHeaderFooterView>(_ cellClass: T.Type = T.self) {
-		self.register(cellClass, forHeaderFooterViewReuseIdentifier: cellClass.identifier)
+	open func register(_ cells: UITableViewCell.Type...) {
+		self.register(cells)
 	}
+	
+	open func register(_ headers: UITableViewHeaderFooterView.Type...) {
+		self.register(headers)
+	}
+
+	open func register(_ cells: [UITableViewCell.Type]) {
+		cells.forEach { self.register($0, forCellReuseIdentifier: $0.identifier) }
+	}
+	open func register(_ headers: [UITableViewHeaderFooterView.Type]) {
+		headers.forEach { self.register($0, forHeaderFooterViewReuseIdentifier: $0.identifier) }
+	}
+
+	// MARK: Dequeue
+
+	open func dequeueReusableHeaderFooterView<HeaderFooter: UITableViewHeaderFooterView>(_ viewClass: HeaderFooter.Type = HeaderFooter.self) -> HeaderFooter {
+		return self.dequeueReusableHeaderFooterView(withIdentifier: viewClass.identifier) as! HeaderFooter
+	}
+
+	open func dequeueReusableCell<Cell: UITableViewCell>(_ cellClass: Cell.Type = Cell.self, _ indexPath: IndexPath) -> Cell {
+		return self.dequeueReusableCell(cellClass, for: indexPath)
+	}
+
+	open func dequeueReusableCell<Cell: UITableViewCell>(_ cellClass: Cell.Type = Cell.self, for indexPath: IndexPath) -> Cell {
+		return self.dequeueReusableCell(withIdentifier: cellClass.identifier, for: indexPath) as! Cell
+	}
+
+
 
 	// MARK: Reload
 

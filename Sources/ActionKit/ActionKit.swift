@@ -16,6 +16,21 @@ public enum UIGestureRecognizerKind: Int, Autorepresentable {
 }
 
 extension UIGestureRecognizerKind {
+
+	var gestureClass: UIGestureRecognizer.Type {
+		switch self {
+			case .tap:			return UITapGestureRecognizer.self
+			case .pinch:        return UIPinchGestureRecognizer.self
+			case .rotation:     return UIRotationGestureRecognizer.self
+			case .swipe:        return UITapGestureRecognizer.self
+			case .pan:          return UIPanGestureRecognizer.self
+			case .screenEdge:   return UIScreenEdgePanGestureRecognizer.self
+			case .longPress:    return UILongPressGestureRecognizer.self
+		}
+	}
+}
+
+extension UIGestureRecognizerKind {
 	public func gestureRecognizer(closure: @escaping ActionKitGestureClosure) -> UIGestureRecognizer {
 		switch self {
 			case .tap:			return UITapGestureRecognizer(self.stringValue, closure)
@@ -30,6 +45,10 @@ extension UIGestureRecognizerKind {
 }
 
 extension UIView {
+	public func addGestureRecognizer(_ kind: UIGestureRecognizerKind, target: Any? = nil, action: Selector? = nil) {
+		self.addGesture(kind.gestureClass.init(target: target, action: action))
+
+	}
 	public func addGestureRecognizer(_ kind: UIGestureRecognizerKind, closure: @escaping ActionKitGestureClosure) {
 		self.addGestureRecognizer(kind.gestureRecognizer(closure: closure))
 	}

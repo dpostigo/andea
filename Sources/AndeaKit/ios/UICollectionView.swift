@@ -10,6 +10,35 @@ import Foundation
 import UIKit
 
 extension UICollectionView {
+
+    open func register(_ cells: UICollectionViewCell.Type...) {
+        self.register(cells)
+    }
+
+    open func register(_ cells: [UICollectionViewCell.Type]) {
+        cells.forEach { self.register($0, forCellWithReuseIdentifier: $0.identifier) }
+    }
+
+    open func dequeueReusableCell<C: UICollectionViewCell>(_ cellClass: C.Type = C.self, for indexPath: IndexPath) -> C {
+        return self.dequeueReusableCell(withReuseIdentifier: cellClass.identifier, for: indexPath) as! C
+    }
+
+    open func register(_ elementKind: String, _ headers: UICollectionReusableView.Type...) {
+        self.register(elementKind, headers)
+    }
+
+    open func register(_ elementKind: String, _ headers: [UICollectionReusableView.Type]) {
+        headers.forEach { self.register($0, forSupplementaryViewOfKind: elementKind, withReuseIdentifier: $0.identifier) }
+    }
+
+//    open func register(_ headers: UITableViewHeaderFooterView.Type...) {
+//        self.register(headers)
+//    }
+
+
+}
+
+extension UICollectionView {
     public var flow: UICollectionViewFlowLayout? {
         return self.collectionViewLayout as? UICollectionViewFlowLayout
     }
@@ -47,10 +76,6 @@ extension UICollectionView {
                 case .footer: return UICollectionElementKindSectionFooter
             }
         }
-    }
-
-    public func register<T: UICollectionViewCell>(_ viewClass: T.Type) {
-        self.register(viewClass, forCellWithReuseIdentifier: viewClass.identifier)
     }
 
     public func register<T: UICollectionReusableView>(_ viewClass: T.Type, forElementKind kind: ElementKind) {
