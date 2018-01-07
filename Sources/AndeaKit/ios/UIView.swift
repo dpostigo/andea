@@ -46,10 +46,7 @@ extension UIView {
 
 	public var shouldRasterize: Bool {
 		get { return self.layer.shouldRasterize }
-		set {
-			self.layer.rasterizationScale = UIScreen.main.nativeScale
-			self.layer.shouldRasterize = newValue
-		}
+		set { self.layer.rasterizationScale = UIScreen.main.nativeScale; self.layer.shouldRasterize = newValue }
 	}
 
     public var cornerRadius: CGFloat {
@@ -58,32 +55,71 @@ extension UIView {
     }
 
 
-    // MARK: Convenience methods
+    // MARK: View hierarchy
 
     public func addSubviews(_ views: [UIView]) {
         views.forEach({ self.addView($0) })
     }
+
     public func removeAllSubviews() {
         self.subviews.forEach({ $0.removeFromSuperview() })
     }
 
-	// MARK: Convenience / Autolayout
+    // MARK: Autolayout / Autolayout priority helpers
 
-	public var verticalResistancePriority: UILayoutPriority {
-		get { return self.contentCompressionResistancePriority(for: .vertical) }
-		set { self.setContentCompressionResistancePriority(newValue, for: .vertical)}
-	}
+    public var verticalResistancePriority: UILayoutPriority {
+        get { return self.contentCompressionResistancePriority(for: .vertical) }
+        set { self.setContentCompressionResistancePriority(newValue, for: .vertical)}
+    }
 
     public var verticalContentHuggingPriority: UILayoutPriority {
         get { return self.contentHuggingPriority(for: .vertical) }
         set { self.setContentHuggingPriority(newValue, for: .vertical)}
     }
 
+    // MARK: Autolayout / Priority items
 
+    public typealias UILayoutPriorityItem = (UIViewContentLayoutPriority, UILayoutConstraintAxis, UILayoutPriority)
 
-    public func setResistancePriority(_ priority: UILayoutPriority, forAxis: UILayoutConstraintAxis) {
-        self.setContentCompressionResistancePriority(priority, for: forAxis)
+    public enum UIViewContentLayoutPriority {
+        case compression, hugging
     }
+
+    public var priorities: [UILayoutPriorityItem]? {
+        get { return nil }
+        set { self.update(priorities: newValue) }
+    }
+
+    public func setPriorityItems(_ priorities: UILayoutPriorityItem...) {
+        self.priorities = priorities
+    }
+
+    private func update(priorities: [UILayoutPriorityItem]?) {
+        guard let items = priorities else { return }
+        items.forEach({
+            switch $0.0 {
+                case .compression: self.setContentCompressionResistancePriority($0.2, for: $0.1)
+                case .hugging: self.setContentHuggingPriority($0.2, for: $0.1)
+            }
+        })
+    }
+
+    // TODO:
+    var compression: [UILayoutConstraintAxis: UILayoutPriority]? {
+        get { return nil }
+        set { self.update(compression: newValue) }
+    }
+    // TODO:
+    private func update(compression: [UILayoutConstraintAxis: UILayoutPriority]?) {
+        guard let compression = compression else { return }
+        compression.forEach({ self.setContentCompressionResistancePriority($0.value, for: $0.key) })
+    }
+    // TODO:
+    public func setCompression( _ items: (UILayoutConstraintAxis, UILayoutPriority)...) {
+        self.compression = Dictionary(uniqueKeysWithValues: items)
+    }
+
+    // MARK: Autolayout / Autolayout helpers
 
     public func systemLayoutHeight(_ frame: CGRect) -> CGFloat {
         return self.systemLayoutHeight(frame.size)
@@ -94,7 +130,7 @@ extension UIView {
     }
 
 
-    // MARK: Init
+    // MARK: Initializers
 
     public convenience init(color: UIColor) {
         self.init(); self.backgroundColor = color
@@ -231,6 +267,7 @@ extension UIView {
         }
     }
 }
+
 
 
 public class LineBackgroundView: UIView  {
