@@ -14,8 +14,8 @@ extension UIStackView {
     public convenience init(axis: UILayoutConstraintAxis,
         spacing: CGFloat = UIStackView.spacingUseSystem,
         alignment: UIStackViewAlignment = UIStackViewAlignment(rawValue: 0)!,
-        views: [UIView] = [],
         distribution: UIStackViewDistribution = UIStackViewDistribution(rawValue: 0)!,
+        views: [UIView] = [],
         preservesSuperviewLayoutMargins: Bool = false,
         isLayoutMarginsRelativeArrangement: Bool = false
     ) {

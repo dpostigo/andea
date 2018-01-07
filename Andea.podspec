@@ -46,7 +46,7 @@ Pod::Spec.new do |s|
   s.subspec 'PlaygroundKit' do |ss|
     ss.ios.deployment_target = '11.0'
   	ss.frameworks = 'UIKit'
-    ss.source_files = 'Sources/PlaygroundKit/ios/*'
+    ss.source_files = 'Sources/PlaygroundKit/ios/**/*'
   end
 
 

@@ -74,9 +74,19 @@ extension UIView {
 		set { self.setContentCompressionResistancePriority(newValue, for: .vertical)}
 	}
 
+    public var verticalContentHuggingPriority: UILayoutPriority {
+        get { return self.contentHuggingPriority(for: .vertical) }
+        set { self.setContentHuggingPriority(newValue, for: .vertical)}
+    }
+
+
 
     public func setResistancePriority(_ priority: UILayoutPriority, forAxis: UILayoutConstraintAxis) {
         self.setContentCompressionResistancePriority(priority, for: forAxis)
+    }
+
+    public func systemLayoutHeight(_ frame: CGRect) -> CGFloat {
+        return self.systemLayoutHeight(frame.size)
     }
 
     public func systemLayoutHeight(_ size: CGSize) -> CGFloat {
@@ -84,7 +94,7 @@ extension UIView {
     }
 
 
-	// MARK: Init
+    // MARK: Init
 
     public convenience init(color: UIColor) {
         self.init(); self.backgroundColor = color

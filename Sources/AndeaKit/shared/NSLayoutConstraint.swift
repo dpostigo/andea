@@ -15,6 +15,12 @@ import Foundation
 #endif
 
 extension NSLayoutConstraint {
+
+    open class func activate(_ constraints: NSLayoutConstraint...) {
+        self.activate(constraints)
+    }
+
+
     @discardableResult public func identifier(_ identifier: String) -> Self {
         self.identifier = identifier
         return self

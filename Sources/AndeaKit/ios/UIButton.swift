@@ -66,9 +66,16 @@ extension UIButton {
     public convenience init(title: String, color: UIColor) {
         self.init(title: title, titleColor: color)
     }
-    
+
+    // MARK: Actions
+
+	open var imageSpacing: CGFloat {
+		get { return 0 }
+		set { self.imageEdgeInsets = [0, -newValue * 2, 0, -newValue] }
+	}
+
     // MARK: Attributed strings
-    
+
     public var attributes: [NSAttributedStringKey: Any]? {
         set {
             guard let newValue = newValue, let current = self.attributedTitle else { return }
