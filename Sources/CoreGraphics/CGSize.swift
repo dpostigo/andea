@@ -39,11 +39,3 @@ extension CGSize: ExpressibleByArrayLiteral {
 }
 
 
-extension CGRect: ExpressibleByArrayLiteral {
-	public typealias ArrayLiteralElement = CGFloat
-
-	public init(arrayLiteral elements: ArrayLiteralElement...) {
-		self.init(x: elements[0], y: elements[1], width: elements[2], height: elements[3])
-	}
-}
-

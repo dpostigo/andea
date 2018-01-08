@@ -23,15 +23,32 @@ extension UICollectionView {
         return self.dequeueReusableCell(withReuseIdentifier: cellClass.identifier, for: indexPath) as! C
     }
 
-    open func register(_ elementKind: String, _ headers: UICollectionReusableView.Type...) {
-        self.register(elementKind, headers)
-    }
+    // MARK: Supplementary views
 
-    open func register(_ elementKind: String, _ headers: [UICollectionReusableView.Type]) {
-        headers.forEach { self.register($0, forSupplementaryViewOfKind: elementKind, withReuseIdentifier: $0.identifier) }
-    }
 
-//    open func register(_ headers: UITableViewHeaderFooterView.Type...) {
+//    open func register(_ elementKind: String, _ headers: [UICollectionReusableView.Type]) {
+//        headers.forEach { self.register($0, forSupplementaryViewOfKind: elementKind, withReuseIdentifier: $0.identifier) }
+//    }
+
+//	open func register(_ elementKind: String = UICollectionElementKindSectionHeader, _ headers: UICollectionReusableView.Type...) {
+//		self.register(elementKind, headers)
+//	}
+
+    open func register<C: UICollectionReusableView>(
+        _ viewClass: C.Type = C.self,
+        forElementKind elementKind: String = UICollectionElementKindSectionHeader
+    ) {
+        self.register(
+            viewClass,
+            forSupplementaryViewOfKind: elementKind,
+            withReuseIdentifier: viewClass.identifier
+        )
+    }
+	
+    open func dequeueReusableSupplementaryView<C: UICollectionReusableView>(_ viewClass: C.Type = C.self, for indexPath: IndexPath, elementKind: String = UICollectionElementKindSectionHeader) -> C {
+        return self.dequeueReusableSupplementaryView(ofKind: elementKind, withReuseIdentifier: viewClass.identifier, for: indexPath) as! C
+    }
+    //    open func register(_ headers: UITableViewHeaderFooterView.Type...) {
 //        self.register(headers)
 //    }
 
