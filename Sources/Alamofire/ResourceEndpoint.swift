@@ -5,9 +5,6 @@
 import Foundation
 import Alamofire
 
-extension ResourceEndpoint {
-	public typealias nested = NestedResourceEndpoint
-}
 public enum ResourceEndpoint<Resource: ResourceProtocol>: Equatable, URLRequestConvertible, ResourceConvertibleProtocol {
 	case index
 	case get(Resource.Identifier)

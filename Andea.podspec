@@ -85,7 +85,7 @@ Pod::Spec.new do |s|
     ss.dependency 'Andea/Bits'
     ss.dependency 'Andea/Foundation'
     ss.dependency 'Andea/Swift'
-    ss.source_files = 'Sources/Alamofire/*'
+    ss.source_files = 'Sources/Alamofire/{*,ResponseSerializers/*}'
   end
 
   s.subspec 'Bits' do |ss|
