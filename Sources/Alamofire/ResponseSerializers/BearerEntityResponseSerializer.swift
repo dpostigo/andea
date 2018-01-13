@@ -12,10 +12,10 @@ public struct BearerEntityResponseSerializer<Resource: Decodable>: CustomErrorRe
 
 	public init() {
 		self.serializeResponse = {
-			let result = BearerResponseSerializer.serializeResponseData(response: $1, data: $2, error: $3)
+			let result = BearerResponseSerializer.serializeResponseData(request: $0, response: $1, data: $2, error: $3)
 			switch result {
 				case .success(let token, let decodableData):
-					let result = EntityResponseSerializer<Resource>.serializeResponseData(response: $1, data: decodableData, error: $3)
+					let result = EntityResponseSerializer<Resource>.serializeResponseData(request: $0, response: $1, data: decodableData, error: $3)
 					switch result {
 						case .success(let value): return .success((bearer: token, entity: value))
 						case .failure(let error): return .failure(error)

@@ -10,8 +10,11 @@ public protocol CustomResponseSerializer: Alamofire.DataResponseSerializerProtoc
 }
 
 extension CustomResponseSerializer {
-	public static func serializeResponseData(response: HTTPURLResponse?, data: Data?, error: Error?) -> Result<SerializedObject> {
-		return self.init().serializeResponse(nil, response, data, error)
+	public static func serialize(_ request: URLRequest?, _ response: HTTPURLResponse?, _ data: Data?, _ error: Error?) -> Result<SerializedObject> {
+		return self.serializeResponseData(request: request, response: response, data: data, error: error)
+	}
+	public static func serializeResponseData(request: URLRequest?, response: HTTPURLResponse?, data: Data?, error: Error?) -> Result<SerializedObject> {
+		return self.init().serializeResponse(request, response, data, error)
 	}
 }
 

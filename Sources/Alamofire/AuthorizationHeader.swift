@@ -29,6 +29,10 @@ public struct Password {
         self.username = username
         self.password = password
     }
+    public init(_ username: String, _ password: String) {
+        self.username = username
+        self.password = password
+    }
 }
 
 public protocol Credentials { }
