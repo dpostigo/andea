@@ -26,11 +26,9 @@ extension JSONSerialization {
 
 
 extension Dictionary where Key == String {
-
     public var prettyPrinted: String {
         return JSONSerialization.string(self)
     }
-
 }
 
 extension JSONSerialization {

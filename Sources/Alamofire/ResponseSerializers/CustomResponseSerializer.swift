@@ -38,11 +38,11 @@ extension Alamofire.DataRequest {
 
 	// MARK: CustomResponseSerializer
 
-	@discardableResult func response<T: CustomResponseSerializer>(queue: DispatchQueue? = nil, serializer: T.Type = T.self, completion: ((T.SerializedObject) -> Void)? = nil, failure: Failure? = nil) -> Self {
-		return self.response(queue: queue, serializer: T.init(), completion: completion, failure: failure)
+	@discardableResult public func response<T: CustomResponseSerializer>(queue: DispatchQueue? = nil, serializer: T.Type = T.self, completion: ((T.SerializedObject) -> Void)? = nil, failure: Failure? = nil) -> Self {
+		return self.response(queue: queue, serializer: serializer.init(), completion: completion, failure: failure)
 	}
 
-	@discardableResult func response<T: CustomResponseSerializer>(queue: DispatchQueue? = nil, serializer: T, completion: ((T.SerializedObject) -> Void)? = nil, failure: Failure? = nil) -> Self {
+	@discardableResult public func response<T: CustomResponseSerializer>(queue: DispatchQueue? = nil, serializer: T, completion: ((T.SerializedObject) -> Void)? = nil, failure: Failure? = nil) -> Self {
 		return self.response(queue: queue, responseSerializer: serializer) { response in
 			switch response.result {
 				case .success(let value): completion?(value)

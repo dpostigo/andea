@@ -52,7 +52,8 @@ public struct Config: Decodable {
     }
 
     public enum Environment: String, Codable {
-        case debug, production
+        case debug
+        case production
         case local
     }
 }
