@@ -170,11 +170,15 @@ extension UIView {
 
     // MARK: Methods
 
-    public func addView(_ view: UIView, frame: CGRect = CGRect.null) {
-        view.frame = frame == CGRect.null ? (view.frame == CGRect.zero ? self.bounds : view.frame) : self.bounds
-        view.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(view)
-    }
+	public func addView(_ view: UIView, frame: CGRect = CGRect.null) {
+		view.frame = frame == CGRect.null ? (view.frame == CGRect.zero ? self.bounds : view.frame) : self.bounds
+		view.translatesAutoresizingMaskIntoConstraints = false
+		self.addSubview(view)
+	}
+
+	public func addViews(_ views: UIView...) {
+		views.forEach{ self.addView($0) }
+	}
 
    public func constraintWithIdentifier(_ identifier: String) -> NSLayoutConstraint? { return self.constraints.with(identifier: identifier) }
 

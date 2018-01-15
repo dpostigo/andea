@@ -55,17 +55,69 @@ precedencegroup LeftAssociativePrecedence {
     associativity: left
 }
 
+
+// infix operator &= : LeftAssociativePrecedence    // constraint(equalTo:)
+infix operator &=+ : LeftAssociativePrecedence      // constraint(equalTo:constant:)
+infix operator &=* : LeftAssociativePrecedence      // constraint(equalTo:multiplier:)
+infix operator &~= : LeftAssociativePrecedence      // constraint(equalTo:) with priority
+
+extension NSLayoutXAxisAnchor {
+	public static func &=(lhs: NSLayoutXAxisAnchor, rhs: NSLayoutXAxisAnchor) -> NSLayoutConstraint {
+		return lhs.constraint(equalTo: rhs)
+	}
+	public static func &~=(lhs: NSLayoutXAxisAnchor, rhs: (NSLayoutXAxisAnchor, Float)) -> NSLayoutConstraint {
+		let ret = lhs.constraint(equalTo: rhs.0); ret.priority = LayoutPriority(rhs.1); return ret
+	}
+	public static func &=+(lhs: NSLayoutXAxisAnchor, rhs: (NSLayoutXAxisAnchor, CGFloat)) -> NSLayoutConstraint {
+		return lhs.constraint(equalTo: rhs.0, constant: rhs.1)
+	}
+}
+
+extension NSLayoutYAxisAnchor {
+	public static func &=(lhs: NSLayoutYAxisAnchor, rhs: NSLayoutYAxisAnchor) -> NSLayoutConstraint {
+		return lhs.constraint(equalTo: rhs)
+	}
+	public static func &=+(lhs: NSLayoutYAxisAnchor, rhs: (NSLayoutYAxisAnchor, CGFloat)) -> NSLayoutConstraint {
+		return lhs.constraint(equalTo: rhs.0, constant: rhs.1)
+	}
+}
+
+
+extension NSLayoutDimension {
+	public static func &=(lhs: NSLayoutDimension, rhs: NSLayoutDimension) -> NSLayoutConstraint {
+		return lhs.constraint(equalTo: rhs)
+	}
+	public static func &=*(lhs: NSLayoutDimension, rhs: (NSLayoutDimension, CGFloat)) -> NSLayoutConstraint {
+		return lhs.constraint(equalTo: rhs.0, multiplier: rhs.1)
+	}
+
+}
+
+
 infix operator &=< : LeftAssociativePrecedence // leading
 infix operator &=> : LeftAssociativePrecedence // trailing
 infix operator &^= : LeftAssociativePrecedence // top
 infix operator &=^ : LeftAssociativePrecedence // bottom
 infix operator &=- : LeftAssociativePrecedence // centerY
-infix operator &~= : LeftAssociativePrecedence // priority
 infix operator &<> : LeftAssociativePrecedence // leading + trailing
 //infix operator &= : LeftAssociativePrecedence
 
 
 extension LayoutGuide {
+
+	// MARK: Convenience getters 
+	
+	open var leading: NSLayoutXAxisAnchor   { return self.leadingAnchor }
+	open var trailing: NSLayoutXAxisAnchor  { return self.trailingAnchor }
+	open var centerX: NSLayoutXAxisAnchor   { return self.centerXAnchor }
+	open var top: NSLayoutYAxisAnchor       { return self.topAnchor }
+	open var bottom: NSLayoutYAxisAnchor    { return self.bottomAnchor }
+	open var centerY: NSLayoutYAxisAnchor   { return self.centerYAnchor }
+	open var width: NSLayoutDimension       { return self.widthAnchor }
+	open var height: NSLayoutDimension      { return self.heightAnchor }
+
+	// MARK: Operators
+	
 	public static func &=<(lhs:LayoutGuide, rhs: LayoutGuide) -> NSLayoutConstraint {
 		return lhs.leadingAnchor.constraint(equalTo: rhs.leadingAnchor)
 	}
@@ -89,42 +141,10 @@ extension LayoutGuide {
 	public static func &<>(lhs:LayoutGuide, rhs: LayoutGuide) -> [NSLayoutConstraint] {
         return [lhs &=< rhs, lhs &=> rhs]
 	}
-
-
-
 }
 //↔ ↹ ⇄ ⇆ ⇹ ⇿ ⇼ ⍇ ⟷ ⟺ ⃡ ⇅ ↕︎↔︎⬄ ⇔ ⬌ ⟷ ⤄
 // ⥃ ⥂⥄ ⇵ ↕︎ ⇅ ⇕↕︎ ↨ ⬍⇕ ⫩⟛⟚≕⟝⟞
 
-extension NSLayoutXAxisAnchor {
-
-	public static func &=(lhs: NSLayoutXAxisAnchor, rhs: NSLayoutXAxisAnchor) -> NSLayoutConstraint {
-		return lhs.constraint(equalTo: rhs)
-	}
-
-    public static func &~=(lhs: NSLayoutXAxisAnchor, rhs: (NSLayoutXAxisAnchor, Float)) -> NSLayoutConstraint {
-        let ret = lhs.constraint(equalTo: rhs.0)
-		ret.priority = LayoutPriority(rhs.1)
-		return ret
-    }
-}
-
-extension NSLayoutYAxisAnchor {
-	public static func &=(lhs: NSLayoutYAxisAnchor, rhs: NSLayoutYAxisAnchor) -> NSLayoutConstraint {
-		return lhs.constraint(equalTo: rhs)
-	}
-}
-
-
-extension NSLayoutDimension {
-    public static func &=(lhs: NSLayoutDimension, rhs: NSLayoutDimension) -> NSLayoutConstraint {
-        return lhs.constraint(equalTo: rhs)
-    }
-
-    public static func *(lhs: NSLayoutDimension, rhs: (NSLayoutDimension, CGFloat)) -> NSLayoutConstraint {
-        return lhs.constraint(equalTo: rhs.0, multiplier: rhs.1)
-    }
-}
 
 extension Array where Iterator.Element == NSLayoutConstraint {
     public func activate() {
