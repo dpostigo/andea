@@ -40,8 +40,8 @@ extension RawRepresentable where Self: Autorepresentable {
     
     // String representation
     
-    public init?(string: String) {
-        guard let value = Self.autorepresentation(from: string) else { return nil }
+    public init?(stringValue: String) {
+        guard let value = Self.autorepresentation(from: stringValue) else { return nil }
         self = value
     }
     

@@ -20,7 +20,7 @@ Pod::Spec.new do |s|
   s.osx.deployment_target = '10.12'
 
   # ――― Project Linking ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-  s.default_subspec = 'AndeaKit'
+  s.default_subspecs = 'AndeaKit', 'PlaygroundKit'
   s.frameworks = 'Foundation'
   s.module_name = 'Andea'
 
@@ -32,7 +32,6 @@ Pod::Spec.new do |s|
     ss.dependency 'Andea/Foundation'
     ss.dependency 'Andea/Lorem'
     ss.ios.dependency 'Andea/ActionKit'
-    ss.ios.dependency 'Andea/PlaygroundKit'
 
   	ss.ios.frameworks = 'UIKit'
   	ss.ios.source_files = 'Sources/AndeaKit/{shared,ios}/*'
@@ -46,6 +45,7 @@ Pod::Spec.new do |s|
   s.subspec 'PlaygroundKit' do |ss|
     ss.ios.deployment_target = '11.0'
   	ss.frameworks = 'UIKit'
+  	ss.dependency 'Andea/AndeaKit'
     ss.source_files = 'Sources/PlaygroundKit/ios/**/*'
   end
 

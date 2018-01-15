@@ -46,7 +46,7 @@ extension UIGestureRecognizerKind {
 
 extension UIView {
 	public func addGestureRecognizer(_ kind: UIGestureRecognizerKind, target: Any? = nil, action: Selector? = nil) {
-		self.addGesture(kind.gestureClass.init(target: target, action: action))
+		self.addGestureRecognizer(kind.gestureClass.init(target: target, action: action))
 
 	}
 	public func addGestureRecognizer(_ kind: UIGestureRecognizerKind, closure: @escaping ActionKitGestureClosure) {

@@ -24,4 +24,12 @@ public extension UIImage {
     public var template: UIImage {
         return self.withRenderingMode(.alwaysTemplate)
     }
+
+    public static func blank(size: CGSize = .zero) -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(size, false, 1.0)
+        let graphicsImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        guard let image = graphicsImage?.cgImage else { return nil }
+        return self.init(cgImage: image)
+    }
 }

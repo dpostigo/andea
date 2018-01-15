@@ -8,11 +8,16 @@ import Foundation
 
 import UIKit
 public typealias EdgeInsets = UIEdgeInsets
+public typealias LayoutPriority = UILayoutPriority
+public typealias LayoutGuide = UILayoutGuide
 
 
 #elseif os(macOS)
 
 import AppKit
 public typealias EdgeInsets = NSEdgeInsets
+public typealias LayoutPriority = NSLayoutConstraint.Priority
+public typealias LayoutGuide = NSLayoutGuide
 
 #endif
+

@@ -50,3 +50,58 @@ extension Array where Element: NSLayoutConstraint {
 }
 
 
+
+
+precedencegroup LeftAssociativePrecedence {
+    associativity: left
+}
+
+infix operator ⟛ : LeftAssociativePrecedence
+infix operator ≃ : LeftAssociativePrecedence
+
+//infix operator ⫩ : LeftAssociativePrecedence
+// infix operator ‖ : LeftAssociativePrecedence
+infix operator ⇤ : LeftAssociativePrecedence
+infix operator ⇥ : LeftAssociativePrecedence
+
+
+extension LayoutGuide {
+    public static func ⇤(lhs: LayoutGuide, rhs: LayoutGuide) -> NSLayoutConstraint {
+        return lhs.leadingAnchor.constraint(equalTo: rhs.leadingAnchor)
+    }
+    public static func ⇥(lhs: LayoutGuide, rhs: LayoutGuide) -> NSLayoutConstraint {
+        return lhs.trailingAnchor.constraint(equalTo: rhs.trailingAnchor)
+    }
+
+}
+//↔ ↹ ⇄ ⇆ ⇹ ⇿ ⇼ ⍇ ⟷ ⟺ ⃡ ⇅ ↕︎↔︎⬄ ⇔ ⬌ ⟷ ⤄
+// ⥃ ⥂⥄ ⇵ ↕︎ ⇅ ⇕↕︎ ↨ ⬍⇕ ⫩⟛⟚≕
+extension NSLayoutXAxisAnchor {
+    public static func ⟛(lhs: NSLayoutXAxisAnchor, rhs: NSLayoutXAxisAnchor) -> NSLayoutConstraint {
+        return lhs.constraint(equalTo: rhs)
+    }
+
+	
+    public static func ≃(lhs: NSLayoutXAxisAnchor, rhs: (NSLayoutXAxisAnchor, Float)) -> NSLayoutConstraint {
+        let ret = lhs.constraint(equalTo: rhs.0)
+		ret.priority = LayoutPriority(rhs.1)
+		return ret
+    }
+}
+
+extension NSLayoutYAxisAnchor {
+    public static func ⟛(lhs: NSLayoutYAxisAnchor, rhs: NSLayoutYAxisAnchor) -> NSLayoutConstraint {
+        return lhs.constraint(equalTo: rhs)
+    }
+}
+
+
+extension NSLayoutDimension {
+    public static func ⟛(lhs: NSLayoutDimension, rhs: NSLayoutDimension) -> NSLayoutConstraint {
+        return lhs.constraint(equalTo: rhs)
+    }
+
+    public static func *(lhs: NSLayoutDimension, rhs: (NSLayoutDimension, CGFloat)) -> NSLayoutConstraint {
+        return lhs.constraint(equalTo: rhs.0, multiplier: rhs.1)
+    }
+}

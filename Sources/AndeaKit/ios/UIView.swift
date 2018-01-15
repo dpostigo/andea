@@ -104,20 +104,34 @@ extension UIView {
         })
     }
 
-    // TODO:
-    var compression: [UILayoutConstraintAxis: UILayoutPriority]? {
-        get { return nil }
-        set { self.update(compression: newValue) }
-    }
-    // TODO:
-    private func update(compression: [UILayoutConstraintAxis: UILayoutPriority]?) {
-        guard let compression = compression else { return }
-        compression.forEach({ self.setContentCompressionResistancePriority($0.value, for: $0.key) })
-    }
-    // TODO:
+
+	public var compression: (UILayoutConstraintAxis, UILayoutPriority)? {
+		get { return nil }
+		set { self.update(compression: newValue) }
+	}
+
+	private func update(compression: (UILayoutConstraintAxis, UILayoutPriority)?) {
+		guard let compression = compression else { return }
+		self.setCompression(compression)
+	}
+
     public func setCompression( _ items: (UILayoutConstraintAxis, UILayoutPriority)...) {
-        self.compression = Dictionary(uniqueKeysWithValues: items)
+	    items.forEach({ self.setContentCompressionResistancePriority($0.1, for: $0.0) })
     }
+
+	public var hugging: (UILayoutConstraintAxis, UILayoutPriority)? {
+		get { return nil }
+		set { self.update(hugging: newValue) }
+	}
+
+	private func update(hugging: (UILayoutConstraintAxis, UILayoutPriority)?) {
+		guard let hugging = hugging else { return }
+		self.setHugging(hugging)
+	}
+
+	public func setHugging( _ items: (UILayoutConstraintAxis, UILayoutPriority)...) {
+		items.forEach({ self.setContentHuggingPriority($0.1, for: $0.0) })
+	}
 
     // MARK: Autolayout / Autolayout helpers
 
