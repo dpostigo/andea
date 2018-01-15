@@ -5,6 +5,10 @@
 import Foundation
 
 extension CGSize {
+	public static var compressed: CGSize {
+		return UILayoutFittingCompressedSize
+	}
+
 	public init(value: CGFloat) {
 		self.init(width: value, height: value)
 	}

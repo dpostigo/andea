@@ -32,4 +32,8 @@ public extension UIImage {
         guard let image = graphicsImage?.cgImage else { return nil }
         return self.init(cgImage: image)
     }
+
+    public convenience init?(named: String, in bundle: Bundle) {
+        self.init(named: named, in: bundle, compatibleWith: nil)
+    }
 }
