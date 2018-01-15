@@ -143,6 +143,13 @@ extension UIView {
         return self.systemLayoutSizeFitting(size, withHorizontalFittingPriority: .required, verticalFittingPriority: .fittingSizeLevel).height
     }
 
+	public var safe: UILayoutGuide {
+		return self.safeAreaLayoutGuide
+	}
+
+	public var margins: UILayoutGuide {
+		return self.layoutMarginsGuide
+	}
 
     // MARK: Initializers
 
