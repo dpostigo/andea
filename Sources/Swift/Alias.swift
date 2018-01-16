@@ -10,3 +10,9 @@ public typealias Block = () -> Void
 public typealias Completion = () -> Void
 public typealias Failure = (Error) -> Void
 
+public func customLog(name: String, value string: String, file: String = #file, line: Int = #line) {
+	let base = file.split(separator: "/").last!
+	let string = "[\(name)] \(base):\(line)  \(string)"
+	NSLog(string)
+	//	Swift.print("[\(name)] \(string) ( \(base):\(line) )")
+}
