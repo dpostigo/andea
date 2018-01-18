@@ -11,38 +11,40 @@ public enum ResourceEndpoint<Resource: ResourceProtocol>: Equatable, URLRequestC
 	case post(Resource)
 	case patch(Resource)
 	case delete(Resource)
+	case last
 
-	var root: URL { return URL(string: Resource.hostname)! }
-
-	var path: String {
+	var method: Alamofire.HTTPMethod {
 		switch self {
-			case .get(let id): return "\(id)"
-			case .delete(let item): return "\(item.identifier)"
-			default : return ""
+			case .index:    return .get
+			case .last:     return .get
+			default: return Alamofire.HTTPMethod(rawValue: Mirror.customReflect(self).uppercased())!
+		}
+	}
+
+	public func asURLRequest() throws -> URLRequest {
+		let request = try URLRequest(url: self.asURL(), method: self.method)
+		switch self {
+			case .index:    return request
+			case .get:      return request
+			case .post(let item):  return try self.encoding.encode(request, withDecodable: item)
+			case .patch:    return request
+			case .delete:   return request
+			case .last:     return request
 		}
 	}
 
 	// MARK: URLConvertible
 
-	func asURL() throws -> URL {
-		return self.root.appendingPathComponent(Resource.route).appendingPathComponent(self.path)
-	}
-
-	// MARK: URLRequestConvertible
-
-	public func asURLRequest() throws -> URLRequest {
-		let url = try self.asURL()
-		let request = try URLRequest(url: url, method: self.method)
-
+	public func asURL() throws -> URL {
+		var url = URL(string: Resource.hostname)!
+		url.appendPathComponent(Resource.route)
 		switch self {
-			case .index:    return request
-			case .get:      return request
-			case .post(let item):
-				return try Alamofire.JSONEncoding.default.encode(request, withJSONObject: JSONSerialization.jsonObject(with: item))
-			case .patch:    return request
-			case .delete:   return request
-
+			case let .get(id):      url.appendPathComponent("\(id)")
+			case let .delete(item): url.appendPathComponent("\(item.identifier)")
+			case let .last:         url.appendPathComponent("last")
+			default: break
 		}
+		return url
 	}
 
 	// MARK: Equatable
@@ -57,6 +59,11 @@ public enum ResourceEndpoint<Resource: ResourceProtocol>: Equatable, URLRequestC
 			default : return false
 		}
 	}
+
+
+	var encoding: Alamofire.JSONEncoding {
+		return Alamofire.JSONEncoding.default
+	}
 }
 
 
@@ -69,7 +76,8 @@ extension ResourceConvertibleProtocol {
 }
 
 fileprivate enum ResourcePath: String {
-	case index, list
+	case index
+	case list
 	case get
 	case post
 	case patch

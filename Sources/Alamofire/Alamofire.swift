@@ -15,6 +15,14 @@ extension HTTPURLResponse {
     }
 }
 
+extension Alamofire.JSONEncoding {
+    public func encode<Resource: Encodable>(_ request: URLRequestConvertible, withDecodable object: Resource) throws-> URLRequest {
+        let json = try JSONSerialization.jsonObject(with: object)
+        return try self.encode(request, withJSONObject: json)
+    }
+}
+
+
 
 extension Alamofire.DataRequest {
 
