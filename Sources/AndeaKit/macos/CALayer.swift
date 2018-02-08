@@ -122,7 +122,7 @@ class ShadowLayer: CALayer {
 
     override init(layer: Any) {
         super.init(layer: layer)
-        Swift.print("\(type(of: self)).\(#function)")
+        Log.print("\(type(of: self)).\(#function)")
 
         self.masksToBounds = true
 

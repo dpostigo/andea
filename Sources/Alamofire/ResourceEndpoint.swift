@@ -39,9 +39,9 @@ public enum ResourceEndpoint<Resource: ResourceProtocol>: Equatable, URLRequestC
 		var url = URL(string: Resource.hostname)!
 		url.appendPathComponent(Resource.route)
 		switch self {
-			case let .get(id):      url.appendPathComponent("\(id)")
-			case let .delete(item): url.appendPathComponent("\(item.identifier)")
-			case let .last:         url.appendPathComponent("last")
+			case .get(let id):      url.appendPathComponent("\(id)")
+			case .delete(let item): url.appendPathComponent("\(item.identifier)")
+			case .last:         url.appendPathComponent("last")
 			default: break
 		}
 		return url

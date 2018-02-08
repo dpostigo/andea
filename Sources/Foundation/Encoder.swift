@@ -64,7 +64,7 @@ open class DecodableTransformer<T: Decodable>: ValueTransformer {
         do {
             return try JSONDecoder.decode(data, forType: self.decodableType)
         } catch {
-            Swift.print("error = \(String(describing: error))")
+            Log.print("error = \(String(describing: error))")
         }
 
         return super.transformedValue(value)
