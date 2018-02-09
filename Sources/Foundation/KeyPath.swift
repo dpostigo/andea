@@ -11,5 +11,4 @@ extension AnyKeyPath {
         guard let value = self._kvcKeyPathString else { return nil }
         return "\(self.rootString).\(value)"
     }
-    
 }

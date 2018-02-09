@@ -9,11 +9,11 @@ extension Decodable {
 		return try JSONDecoder.decode(data) as Self
 	}
 
-	public static func decode(_ data: Data, dateDecodingStrategy: JSONDecoder.DateDecodingStrategy = .formatted(DateFormatter.iso8601Full)) throws -> Self {
-		// return try JSONDecoder.decode(self, from: data, dateDecodingStrategy: dateDecodingStrategy)
-		
-		return try JSONDecoder.decode(data, dateDecodingStrategy: dateDecodingStrategy)
-	}
+//	public static func decode(_ data: Data, dateDecodingStrategy: JSONDecoder.DateDecodingStrategy = .formatted(DateFormatter.iso8601Full)) throws -> Self {
+//		return try JSONDecoder.decode(self, from: data, dateDecodingStrategy: dateDecodingStrategy)
+//
+//		// return try JSONDecoder.decode(data, dateDecodingStrategy: dateDecodingStrategy)
+//	}
 }
 
 
