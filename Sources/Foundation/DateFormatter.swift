@@ -6,17 +6,6 @@ import Foundation
 
 extension DateFormatter {
 
-    public convenience init(dateStyle: DateFormatter.Style) {
-        self.init(); self.dateStyle = dateStyle
-    }
-    public convenience init(timeStyle: DateFormatter.Style) {
-        self.init(); self.timeStyle = timeStyle
-    }
-
-    public convenience init(dateFormat: String) {
-        self.init(); self.dateFormat = dateFormat
-    }
-
     public static let iso8601Full: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"

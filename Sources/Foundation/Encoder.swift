@@ -8,29 +8,29 @@ extension Encodable {
 	public func encodedData() throws -> Data { return try JSONEncoder.encode(self) }
 
     public func json() throws -> [String: Any] {
-        let encoded: Data = try self.encodedData()
-        return try JSONSerialization.json(with: encoded)
+        return try JSONSerialization.json(with: self.encodedData())
     }
 
     public func json() throws -> [JSON] {
-        let encoded: Data = try self.encodedData()
-        return try JSONSerialization.json(with: encoded)
+        return try JSONSerialization.json(with: self.encodedData())
     }
 
 }
 
 extension JSONEncoder {
-    open class func encode<T>(_ value: T) throws -> Data where T : Encodable { return try JSONEncoder().encode(value)}
+    public class func encode<T: Encodable>(_ value: T) throws -> Data {
+        return try JSONEncoder().encode(value)
+    }
 }
 
 extension JSONDecoder {
-    open class func decode<T: Decodable>(_ data: Data, dateDecodingStrategy: JSONDecoder.DateDecodingStrategy = .deferredToDate) throws -> T {
+    public class func decode<T: Decodable>(_ data: Data, dateDecodingStrategy: JSONDecoder.DateDecodingStrategy = .deferredToDate) throws -> T {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = dateDecodingStrategy
         return try decoder.decode(T.self, from: data)
     }
 
-    open class func decode<T: Decodable>(_ data: Data, forType: T.Type) throws -> Any {
+    public class func decode<T: Decodable>(_ data: Data, forType: T.Type) throws -> Any {
         do {
             return try self.decode(data) as [T]
         } catch {
@@ -43,31 +43,16 @@ extension JSONDecoder {
             }
         }
     }
+    
 }
 
-
-open class DecodableTransformer<T: Decodable>: ValueTransformer {
-    open let decodableType: T.Type
-
-    public init(forClass decodableType: T.Type) {
-        self.decodableType = decodableType
-        super.init()
+extension JSONDecoder {
+    
+    public class func decode<T: Decodable>(_ type: T.Type, from data: Data,
+        dateDecodingStrategy: JSONDecoder.DateDecodingStrategy = .formatted(DateFormatter.iso8601Full)
+    ) throws -> T {
+        let decoder = JSONDecoder.init()
+        decoder.dateDecodingStrategy = dateDecodingStrategy
+        return try decoder.decode(type, from: data)
     }
-
-    override open class func transformedValueClass() -> Swift.AnyClass {
-        return NSData.self
-    }
-
-    override open func transformedValue(_ value: Any?) -> Any? {
-        guard let data = value as? Data else { return nil }
-
-        do {
-            return try JSONDecoder.decode(data, forType: self.decodableType)
-        } catch {
-            Log.print("error = \(String(describing: error))")
-        }
-
-        return super.transformedValue(value)
-    }
-
 }

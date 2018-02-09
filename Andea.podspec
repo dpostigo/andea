@@ -57,7 +57,7 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'Swift' do |ss|
-    ss.source_files = 'Sources/Swift/*'
+    ss.source_files = 'Sources/Swift/**/*'
   end
 
   s.subspec 'CoreGraphics' do |ss|

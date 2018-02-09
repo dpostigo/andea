@@ -5,7 +5,7 @@
 import Foundation
 import Alamofire
 
-public struct BearerEntityResponseSerializer<Resource: Decodable>: CustomErrorResponseSerializer {
+public struct BearerEntityResponseSerializer<Resource: Decodable>: CustomResponseSerializer {
 	public typealias SerializedObject = (bearer: String, entity: Resource)
 
 	public var serializeResponse: (URLRequest?, HTTPURLResponse?, Data?, Error?) -> Result<SerializedObject>

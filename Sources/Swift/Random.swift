@@ -20,11 +20,7 @@ extension Array {
 public extension Int {
 	/// SwiftRandom extension
 	public static func random(_ range: Range<Int>) -> Int {
-#if swift(>=3)
 		return random(range.lowerBound, range.upperBound - 1)
-#else
-		return random(range.upperBound, range.lowerBound)
-#endif
 	}
 
 	/// SwiftRandom extension

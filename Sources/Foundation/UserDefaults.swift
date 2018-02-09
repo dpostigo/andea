@@ -6,13 +6,6 @@ import Foundation
 
 extension UserDefaults {
 
-    public convenience init(suiteName: String, initialValues: [String: Any]?) {
-        self.init(suiteName: suiteName)!
-        guard !self.initialized, let values = initialValues else { return }
-		self.setValuesForKeys(values)
-        self.initialized = true
-    }
-
     open var initialized: Bool {
         get { return self.bool(forKey: "initialized") }
         set { self.set(newValue, forKey: "initialized") }

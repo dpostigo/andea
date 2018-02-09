@@ -27,6 +27,6 @@ public protocol NamedOptionSet: OptionSet, CustomDebugStringConvertible where Ra
 extension NamedOptionSet {
     public var representation: Name? { return Name(rawValue: self.rawValue >> 1) }
     public var debugDescription: String {
-        return self.representation?.stringRepresentation ?? "\(String(describing: type(of: self)))(rawValue: \(self.rawValue))"
+        return self.representation?.name ?? "\(String(describing: type(of: self)))(rawValue: \(self.rawValue))"
     }
 }

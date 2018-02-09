@@ -6,9 +6,10 @@
 import Foundation
 
 public typealias JSON = [String: Any]
-public typealias Block = (() -> ())
-public typealias Completion = (() -> ())
-public typealias Failure = ((Error) -> Void)
+public typealias Block = () -> Void
+public typealias Completion = () -> Void
+public typealias Failure = (Error) -> Void
+
 
 
 public enum CustomLog {
@@ -43,6 +44,11 @@ public enum CustomLog {
 		let string = "[\(name)] \(type(of: caller)).\(function), \(value)"
 		Swift.print(string)
 	}
+    
+    public static func divider(name: String, count: Int)  {
+        let divider = Array.init(repeating: "=", count: count).joined() as String
+        Swift.print("[\(name)] \(divider)")
+    }
 	
 }
 
@@ -59,4 +65,13 @@ enum Log {
 	static func print(_ value: Any, _ file: String = #file, _ line: Int = #line) {
 		CustomLog.print(name: "Andea", value: value, file: file, line: line)
 	}
+    
+    static func printFunction(_ value: Any, _ caller: Any, _ function: StaticString = #function) {
+        CustomLog.printFunction(name: "Andea", value: value, caller: caller, function: function)
+    }
+    
+    
+    static func divider() {
+        CustomLog.divider(name: "Andea", count: 100)
+    }
 }
