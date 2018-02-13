@@ -53,5 +53,15 @@ extension Alamofire.DataRequest {
 			}
 		}
 	}
+	
+//	@discardableResult
+//	public func response<T: DataResponseSerializerProtocol>(
+//		queue: DispatchQueue? = nil,
+//		responseSerializer: T,
+//		completionHandler: @escaping (DataResponse<T.SerializedObject>) -> Void)
+//			-> Self
+//	{
 
+ 
 }
+

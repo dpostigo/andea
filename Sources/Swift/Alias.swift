@@ -13,17 +13,17 @@ public typealias Failure = (Error) -> Void
 
 
 public enum CustomLog {
-	public static func customLog(name: String, value: Any, file: String? = #file, line: Int? = #line) {
+	public static func customLog(name: String, value: Any, file: StaticString? = #file, line: UInt? = #line) {
 		let string = self.string(name, value, file: file, line: line)
 		NSLog(string)
 		Swift.print(string)
 	}
 	
-	public static func print(name: String, value: Any, file: String = #file, line: Int? = #line) {
+	public static func print(name: String, value: Any, file: StaticString = #file, line: UInt? = #line) {
 		Swift.print(self.string(name, value, file: file, line: line))
 	}
 	
-	private static func string(_ name: String, _ value: Any, file: String?, line: Int?) -> String {
+	private static func string(_ name: String, _ value: Any, file: StaticString?, line: UInt?) -> String {
 		var components = ["[\(name)]"]
 		
 		switch (file?.base, line) {
@@ -53,16 +53,16 @@ public enum CustomLog {
 }
 
 
-extension String {
+extension StaticString {
 	
 	fileprivate var base: String? {
-        guard let split = self.split(separator: "/").last else { return nil }
+        guard let split = self.description.split(separator: "/").last else { return nil }
         return String(split)
 	}
 }
 
 enum Log {
-	static func print(_ value: Any, _ file: String = #file, _ line: Int = #line) {
+	static func print(_ value: Any, _ file: StaticString = #file, _ line: UInt = #line) {
 		CustomLog.print(name: "Andea", value: value, file: file, line: line)
 	}
     
