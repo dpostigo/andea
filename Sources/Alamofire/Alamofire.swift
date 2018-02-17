@@ -6,23 +6,12 @@
 import Foundation
 import Alamofire
 
-extension HTTPURLResponse {
-    public var authorization: String? {
-        guard let headers = self.allHeaderFields as? [String: Any], let token = headers["Authorization"] as? String else {
-            return nil
-        }
-        return AuthorizationHeader(string: token).bearer?.string
-    }
-}
-
 extension Alamofire.JSONEncoding {
     public func encode<Resource: Encodable>(_ request: URLRequestConvertible, withDecodable object: Resource) throws-> URLRequest {
         let json = try JSONSerialization.jsonObject(with: object)
         return try self.encode(request, withJSONObject: json)
     }
 }
-
-
 
 extension Alamofire.DataRequest {
 
