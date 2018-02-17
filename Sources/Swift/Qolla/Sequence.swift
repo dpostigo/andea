@@ -4,8 +4,13 @@
 
 import Foundation
 
-extension Array where Iterator.Element: Equatable {
-	public static func -(lhs: [Iterator.Element], rhs: [Iterator.Element]) -> [Iterator.Element] {
+extension Array where Element: Equatable {
+    public mutating func remove(_ element: Element) -> Element {
+        let index = self.index(of: element)
+        return self.remove(at: index!)
+    }
+    
+	public static func -(lhs: [Element], rhs: [Element]) -> [Element] {
 		var lhs = lhs
 		rhs.forEach { _ = lhs.remove($0) }
 		return lhs

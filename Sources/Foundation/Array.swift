@@ -11,9 +11,4 @@ extension Array {
 	}
 }
 
-extension Array where Element : Equatable {
-	public mutating func remove(_ element: Iterator.Element) -> Element {
-		let index = self.index(of: element)
-		return self.remove(at: index!)
-	}
-}
+

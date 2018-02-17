@@ -14,7 +14,7 @@ extension NSApplication {
 extension RawRepresentable where Self: Autorepresentable {
 #if os(macOS)
     public static var itemIdentifiers: [NSUserInterfaceItemIdentifier] {
-        return self.stringRepresentations.map({ NSUserInterfaceItemIdentifier(rawValue: $0) })
+        return self.stringValues.map({ NSUserInterfaceItemIdentifier(rawValue: $0) })
     }
 #endif
 }
