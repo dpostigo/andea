@@ -15,5 +15,14 @@ extension CodingKey where Self: RawRepresentable, Self.RawValue == Int {
 		}
 		return ret
 	}
+	
+	public static func map<T>(_ transform: (Self) throws -> T) rethrows -> [T] {
+		return try self.all.map(transform)
+	}
 }
 
+extension Sequence where Element: CodingKey {
+	public var stringValues: [String] {
+		return self.map { $0.stringValue }
+	}
+}

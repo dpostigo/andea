@@ -38,11 +38,15 @@ extension RawRepresentable where Self.RawValue == Int {
 	}
 	
 	public static var stringValues: [String] {
-		return Self.all.map { $0.stringValue }
+		return Self.all.stringValues
 	}
 }
 
-
+extension Sequence where Element: RawRepresentable, Element.RawValue == Int {
+	public var stringValues: [String] {
+		return self.map { $0.stringValue }
+	}
+}
 
 extension RawRepresentable where Self: Equatable {
 

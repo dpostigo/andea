@@ -3,7 +3,7 @@
 //
 
 import Foundation
-import Alamofire
+import class Alamofire.Request
 
 extension Alamofire.Request {
     open static func authorizationHeader(_ cred: URLCredential) -> (key: String, value: String)? {

@@ -5,7 +5,7 @@
 import Foundation
 import Alamofire
 
-public struct BearerResponseSerializer: CustomResponseSerializer {
+public struct BearerDataSerializer: CustomResponseSerializer {
 	public typealias SerializedObject = (bearer: String, data: Data)
 
 	public var serializeResponse: (URLRequest?, HTTPURLResponse?, Data?, Error?) -> Result<SerializedObject>

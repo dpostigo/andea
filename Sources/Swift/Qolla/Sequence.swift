@@ -5,16 +5,17 @@
 import Foundation
 
 extension Array where Element: Equatable {
-    public mutating func remove(_ element: Element) -> Element {
+    @discardableResult
+    public mutating func remove(_ element: Iterator.Element) -> Element {
         let index = self.index(of: element)
         return self.remove(at: index!)
     }
     
-	public static func -(lhs: [Element], rhs: [Element]) -> [Element] {
-		var lhs = lhs
-		rhs.forEach { _ = lhs.remove($0) }
-		return lhs
-	}
+    public static func -(lhs: [Iterator.Element], rhs: [Iterator.Element]) -> [Iterator.Element] {
+        var lhs = lhs
+        rhs.forEach { lhs.remove($0) }
+        return lhs
+    }
 }
 
 extension Sequence {
@@ -28,9 +29,6 @@ extension Sequence {
 }
 
 extension RangeReplaceableCollection  {
-    public func appending(_ item: Self.Iterator.Element) -> Self {
-        return self.appending([item])
-    }
 
     public func appending(_ item: [Self.Iterator.Element]) -> Self {
         var ret = Array(self) as! Self

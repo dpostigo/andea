@@ -1,20 +1,12 @@
 //
-// Created by Daniela Postigo on 6/21/17.
-// Copyright (c) 2017 Daniela Postigo. All rights reserved.
+// Created by Daniela Postigo on 3/2/18.
 //
 
 import Foundation
 import Alamofire
 
-extension Alamofire.JSONEncoding {
-    public func encode<Resource: Encodable>(_ request: URLRequestConvertible, withDecodable object: Resource) throws-> URLRequest {
-        let json = try JSONSerialization.jsonObject(with: object)
-        return try self.encode(request, withJSONObject: json)
-    }
-}
-
-extension Alamofire.DataRequest {
-
+extension DataRequest {
+    
     @discardableResult public func responseJSON(completion: ((JSON) -> Void)? = nil, failure: ((Error) -> Void)? = nil) -> Self {
         return self.responseJSON(completionHandler: { response in
             switch response.result {
@@ -23,7 +15,7 @@ extension Alamofire.DataRequest {
             }
         })
     }
-
+    
     @discardableResult public func responseJSON(completion: ((Any) -> Void)? = nil, failure: ((Error) -> Void)? = nil) -> Self {
         return self.responseJSON(completionHandler: { response in
             switch response.result {
@@ -33,4 +25,3 @@ extension Alamofire.DataRequest {
         })
     }
 }
-

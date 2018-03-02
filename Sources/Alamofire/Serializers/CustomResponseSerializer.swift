@@ -18,27 +18,27 @@ extension CustomResponseSerializer {
 	}
 }
 
+extension DataResponseSerializerProtocol {
 
-extension Alamofire.DataRequest {
+}
+
+extension DataRequest {
 
 	// MARK: BearerResponseSerializer
 	
-	@discardableResult public func responseBearer(completion: ((BearerResponseSerializer.SerializedObject) -> Void)? = nil, failure: Failure? = nil) -> Self {
-		return self.response(serializerType: BearerResponseSerializer.self, completion: completion, failure: failure)
+	@discardableResult public func responseBearer(completion: ((BearerDataSerializer.SerializedObject) -> Void)? = nil, failure: Failure? = nil) -> Self {
+		return self.response(serializerType: BearerDataSerializer.self, completion: completion, failure: failure)
 	}
 
 	// MARK: EntityResponseSerializer
 
-	@discardableResult public func responseEntity<Resource: Decodable>(_ decodableClass: Resource.Type = Resource.self, completion: ((EntityResponseSerializer<Resource>.SerializedObject) -> Void)? = nil, failure: Failure? = nil) -> Self {
-		return self.response(serializerType: EntityResponseSerializer<Resource>.self, completion: completion, failure: failure)
-	}
-
-	// MARK: BearerResponseSerializer
-
-	@discardableResult public func responseBearer<Resource: Decodable>(_ entityClass: Resource.Type = Resource.self, completion: ((BearerEntityResponseSerializer<Resource>.SerializedObject) -> Void)? = nil, failure: Failure? = nil) -> Self {
-		return self.response(serializerType: BearerEntityResponseSerializer<Resource>.self, completion: completion, failure: failure)
-	}
-
+    @discardableResult public func responseEntity<D: Decodable>(_ decodableClass: D.Type = D.self, queue: DispatchQueue? = nil, completionHandler: Result<D>.Item? = nil) -> Self {
+        let serializer = EntityResponseSerializer<D>.init()
+		return self.response(queue: queue, responseSerializer: serializer) {
+			completionHandler?($0.result)
+		}
+    }
+	
 	// MARK: CustomResponseSerializer
 
 	@discardableResult public func response<T: CustomResponseSerializer>(queue: DispatchQueue? = nil, serializerType: T.Type = T.self, completion: ((T.SerializedObject) -> Void)? = nil, failure: Failure? = nil) -> Self {
@@ -53,15 +53,6 @@ extension Alamofire.DataRequest {
 			}
 		}
 	}
-	
-//	@discardableResult
-//	public func response<T: DataResponseSerializerProtocol>(
-//		queue: DispatchQueue? = nil,
-//		responseSerializer: T,
-//		completionHandler: @escaping (DataResponse<T.SerializedObject>) -> Void)
-//			-> Self
-//	{
-
  
 }
 
