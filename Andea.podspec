@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
 
   # ―――  Spec Metadata  ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   s.name             = 'Andea'
-  s.version          = '0.1.6'
+  s.version          = '0.1.7'
   s.summary          = 'Extensions for Swift from the Andeas.'
   s.description      = 'Convenience initializers & other extensions.'
 
@@ -85,7 +85,8 @@ Pod::Spec.new do |s|
     ss.dependency 'Andea/Bits'
     ss.dependency 'Andea/Foundation'
     ss.dependency 'Andea/Swift'
-    ss.source_files = 'Sources/Alamofire/{*,ResponseSerializers/*}'
+    ss.source_files = 'Sources/Alamofire/**/*'
+    ss.exclude_files = 'Sources/Alamofire/Bits/*'
   end
 
   s.subspec 'Bits' do |ss|
