@@ -22,14 +22,21 @@ extension String {
 		return self + String.newLine
 	}
 	
-	public var tabbed: String {
-		return self.tabbed(1)
+	public func newLine(_ count: Int) -> String {
+		return self + count.newLines
 	}
 	
+	// MARK: Tab
+	
+	
+	public var horizontalTab: String {
+		return String.horizontalTab + self
+	}
+	
+	
 	public func tabbed( _ count: Int) -> String {
-		let components = self.components(separatedBy: "\n")
-		let tab = Array(repeating: "\t", count: count).joined()
-		return components.map { tab + $0 }.joined(separator: "\n")
+		let components = self / String.newLine
+		return components.map { count.tabs + $0 }.joined(separator: "\n")
 	}
 	
 	// MARK: Operators
@@ -41,4 +48,6 @@ extension String {
 	public static func /(lhs: String, rhs: String) -> [String] {
 		return lhs.components(separatedBy: rhs)
 	}
+	
 }
+
