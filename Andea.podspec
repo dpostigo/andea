@@ -54,10 +54,6 @@ Pod::Spec.new do |s|
 
   # ――― Subspecs –––––––―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
-  s.subspec 'Alias' do |c|
-    c.source_files = 'Sources/Swift/Alias.swift'
-  end
-
   s.subspec 'Swift' do |c|
     c.dependency 'Qolla'
     c.source_files = 'Sources/Swift/**/*'
@@ -76,10 +72,10 @@ Pod::Spec.new do |s|
   # ――― Third party –––––––―――――――――――――――――――――――――――――――――――――-―――――――――――――――― #
 
   s.subspec 'ActionKit' do |c|
-    c.ios.deployment_target = '11.0'
     c.frameworks = 'UIKit'
     c.dependency 'ActionKit'
     c.dependency 'Andea/Foundation'
+    c.ios.deployment_target = '11.0'
     c.source_files = 'Sources/ActionKit/*'
   end
 
