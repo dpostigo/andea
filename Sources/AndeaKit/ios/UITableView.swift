@@ -86,4 +86,35 @@ extension UITableView {
 	public func deleteRows(at indexPaths: [IndexPath], with animation: UITableViewRowAnimation, completion: Completion?) {
 		self.performBatchUpdates({ self.deleteRows(at: indexPaths, with: animation) }, completion: { _ in completion?() })
 	}
+	
+	
+	// MARK: Single
+	
+	public func deleteRow(at indexPath: IndexPath, with animation: UITableViewRowAnimation, completion: Completion? = nil) {
+		self.deleteRows(at: [indexPath], with: animation, completion: completion)
+	}
+
+	public func insertRow(at indexPath: IndexPath, with animation: UITableViewRowAnimation, completion: Completion? = nil) {
+		self.insertRows(at: [indexPath], with: animation, completion: completion)
+	}
+	
+	public func reloadRow(at indexPath: IndexPath, with animation: UITableViewRowAnimation, completion: Completion? = nil) {
+		self.reloadRows(at: [indexPath], with: animation, completion: completion)
+	}
+	
+	// MARK: Index
+	
+	public func insertRow(at index: Int, with animation: UITableViewRowAnimation, completion: Completion? = nil) {
+		self.insertRow(at: [0, index], with: animation, completion: completion)
+	}
+	
+	public func reloadRow(at index: Int, with animation: UITableViewRowAnimation, completion: Completion? = nil) {
+		self.reloadRow(at: [0, index], with: animation, completion: completion)
+	}
+	
+	public func deleteRow(at index: Int, with animation: UITableViewRowAnimation, completion: Completion? = nil) {
+		self.deleteRow(at: [0, index], with: animation, completion: completion)
+	}
+	
+
 }
