@@ -18,6 +18,12 @@ extension Array where Element: Equatable {
 			self.insert(element, at: self.index(after: index))
 		}
 	}
+	
+	public func next(after element: Element) -> Element? {
+		guard let index = self.index(of: element) else { return nil }
+		guard let next = self.index(index, offsetBy: 1, limitedBy: self.count - 1) else { return nil }
+		return self[next]
+	}
 }
 
 extension Sequence {
@@ -31,3 +37,5 @@ extension Sequence where Element: Hashable {
         return Set<Element>(self).array
     }
 }
+
+
