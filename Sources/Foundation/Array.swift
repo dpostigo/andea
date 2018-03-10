@@ -19,3 +19,15 @@ extension Array where Element: Equatable {
 		}
 	}
 }
+
+extension Sequence {
+	public var array: [Element] {
+		return Array(self)
+	}
+}
+
+extension Sequence where Element: Hashable {
+    public var unique: [Element] {
+        return Set<Element>(self).array
+    }
+}
