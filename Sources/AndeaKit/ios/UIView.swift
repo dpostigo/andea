@@ -291,6 +291,14 @@ extension UIView {
             self.removeGestureRecognizer(gesture)
         }
     }
+    
+    public func removeGestures() {
+        self.gestures.forEach { self.removeGestureRecognizer($0) }
+    }
+    
+    public var gestures: [UIGestureRecognizer] {
+        return self.gestureRecognizers ?? []
+    }
 }
 
 
