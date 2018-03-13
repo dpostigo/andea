@@ -5,21 +5,22 @@
 import UIKit
 import ActionKit
 
-public protocol Actionable { }
+@objc public protocol Actionable: class { }
 
 extension UIControl: Actionable { }
 
+
 extension Actionable where Self: UIControl {
-	public func addControlEvent(_ controlEvent: UIControlEvents, closure: @escaping (Self) -> Void) {
-		self.addControlEvent(controlEvent, { closure(self) })
-	}
-}
+    public func addControlEvent(_ controlEvent: UIControlEvents, closure: @escaping (Self) -> Void) {
+        self.addControlEvent(controlEvent, { closure(self) })
+    }
 
-
-/*
-extension UIControl {
-	func addControlEvent(_ controlEvent: UIControlEvents, _ closure: (() -> Void)) {
-		self.addControlEvent(controlEvent, closure)
-	}
+    public init(_ controlEvent: UIControlEvents, handler: @escaping () -> Void) {
+        self.init(); self.addControlEvent(controlEvent, handler)
+    }
+    
+    public init(_ controlEvent: UIControlEvents, eventHandler: @escaping (Self) -> Void) {
+        self.init(); self.addControlEvent(controlEvent, closure: eventHandler)
+    }
+	
 }
-*/
