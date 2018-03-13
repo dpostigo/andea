@@ -58,6 +58,13 @@ extension UIViewController {
         self.addChildViewController(vc)
         inView.addView(vc.view)
     }
+    
+    public func `in`<T: UIViewController>(_ viewControllerType: T.Type = T.self) -> UIViewController {
+        switch viewControllerType {
+            case let type as UINavigationController.Type: return type.init(rootViewController: self)
+            default: return self
+        }
+    }
 }
 
 extension UINavigationController {

@@ -21,8 +21,48 @@ extension UITableViewController {
 	public var table: UITableView { return self.tableView! }
 }
 
+
+public enum UITableViewBackgroundState: ParameterRepresentable {
+	case none
+	case loading(Bool)
+	case loaded([Any]?, UIView)
+	
+	public var rawValue: Int {
+		switch self {
+			case .none: return 0
+			case .loading: return 1
+			case .loaded: return 2
+		}
+	}
+}
+
+extension UITableView {
+	
+	public func setBackgroundViewState(_ newValue: UITableViewBackgroundState?) {
+		newValue.some { self.backgroundView = self.backgroundView($0)}
+	}
+	private func backgroundView(_ backgroundState: UITableViewBackgroundState) -> UIView? {
+		switch backgroundState {
+			case .none: return nil
+			case .loaded(let items, let view): return (items ?? []).isEmpty ? view : nil
+			case .loading(let animating): return UIActivityIndicatorView(frame: self.bounds, isAnimating: animating)
+		}
+	}
+}
+
 extension UITableView {
 
+	public var showsActivityBackgroundView: Bool {
+		get { return (self.backgroundView as? UIActivityIndicatorView) != nil }
+		set { self.backgroundView = newValue ? self.activityBackgroundView : nil }
+	}
+	
+	public var activityBackgroundView: UIActivityIndicatorView {
+		return  UIActivityIndicatorView(frame: self.bounds, isAnimating: true)
+	}
+	
+	// MARK: Cells
+	
 	open func register(_ views: UIView.Type...) {
 		self.register(views.flatMap { $0 as? UITableViewCell.Type })
 		self.register(views.flatMap { $0 as? UITableViewHeaderFooterView.Type })
@@ -87,7 +127,6 @@ extension UITableView {
 		self.performBatchUpdates({ self.deleteRows(at: indexPaths, with: animation) }, completion: { _ in completion?() })
 	}
 	
-	
 	// MARK: Single
 	
 	public func deleteRow(at indexPath: IndexPath, with animation: UITableViewRowAnimation, completion: Completion? = nil) {
@@ -115,6 +154,5 @@ extension UITableView {
 	public func deleteRow(at index: Int, with animation: UITableViewRowAnimation, completion: Completion? = nil) {
 		self.deleteRow(at: [0, index], with: animation, completion: completion)
 	}
-	
 
 }

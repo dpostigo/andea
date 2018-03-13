@@ -38,19 +38,24 @@ extension UIAlertController {
 	// MARK: Creates UIAlertAction
 	
 	public func add(title: String?, style: UIAlertActionStyle, handler: @escaping Completion) {
-		self.add(title: title, style: style, handler: { _ in handler() })
+        self.add(title: title, style: style) { _ in handler() }
 	}
 	
-	public func add(title: String?, style: UIAlertActionStyle, handler: ((UIAlertAction) -> Swift.Void)? = nil) {
+	public func add(title: String?, style: UIAlertActionStyle, handler: UIAlertAction.Handler? = nil) {
 		self.addAction(UIAlertAction(title: title, style: style, handler: handler))
 	}
 }
 
-extension UIAlertAction {
-	public typealias Handler = (UIAlertAction) -> Swift.Void
+
+
+extension Optional where Wrapped == Completion {
+ 
+    public func converted<T>(_ parameterType: T.Type = T.self) -> ((T) -> Void)? {
+		switch self {
+			case .none: return nil
+			case .some(let wrapped): return { _ in wrapped() }
+		}
+    }
 }
 
 
-extension Sequence {
-	public typealias Handler = (Self) -> Swift.Void
-}
