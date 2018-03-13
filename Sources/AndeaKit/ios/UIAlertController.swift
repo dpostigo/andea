@@ -16,14 +16,6 @@ extension UIAlertController {
 		self.addActions(actions)
 	}
 	
-	public convenience init(title: String?, message: String?, preferredStyle: UIAlertControllerStyle, actionHandler: ([UIAlertAction]) -> Void) {
-		self.init(title: title, message: message, preferredStyle: preferredStyle)
-		var actions: [UIAlertAction] = []
-		actionHandler(actions)
-		self.addActions(actions)
-  
-	}
-	
 	// MARK: Utility
 	
 	public func addAction(_ action: UIAlertAction?) {

@@ -6,11 +6,11 @@ import Foundation
 import Alamofire
 
 extension SessionManager {
-    public func cancelAllTasks() { self.session.cancelAllTasks() }
+    open func cancelAllTasks() { self.session.cancelAllTasks() }
 }
 
 extension URLSession {
-    func cancelAllTasks() {
+    public func cancelAllTasks() {
         self.getAllTasks { $0.forEach { $0.cancel() } }
     }
 }
