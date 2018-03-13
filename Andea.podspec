@@ -55,8 +55,13 @@ Pod::Spec.new do |s|
   # ――― Subspecs –––––––―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
   s.subspec 'Swift' do |c|
-    c.dependency 'Qolla'
+    c.dependency 'Andea/Qolla'
     c.source_files = 'Sources/Swift/**/*'
+  end
+
+  s.subspec 'Qolla' do |c|
+    c.dependency 'Qolla'
+    c.source_files = 'Sources/Qolla/**/*'
   end
 
   s.subspec 'CoreGraphics' do |c|

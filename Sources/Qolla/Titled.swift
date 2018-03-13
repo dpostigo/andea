@@ -1,9 +1,8 @@
 //
-// Created by Daniela Postigo on 3/2/18.
+// Created by Daniela Postigo on 3/13/18.
 //
 
-@_exported import Qolla
-
+import Foundation
 
 public protocol Titled {
     var title: String { get }
