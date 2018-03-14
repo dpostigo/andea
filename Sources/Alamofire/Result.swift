@@ -25,3 +25,24 @@ extension Decodable {
     public typealias Item = (Alamofire.Result<Self>) -> Void
     public typealias Multiple = (Alamofire.Result<[Self]>) -> Void
 }
+
+public struct Credential {
+    public let username: String?
+    public let password: String?
+    public var user: String? { return self.username }
+    public init(_ username: String?, _ password: String?) {
+        self.username = username
+        self.password = password
+    }
+    
+    public var credential: URLCredential {
+        return URLCredential(user: self.user!, password: self.password!, persistence: .none)
+    }
+}
+
+extension URLCredential {
+    
+    public var credential: Credential {
+        return Credential(self.user, self.password)
+    }
+}

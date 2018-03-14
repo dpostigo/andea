@@ -6,11 +6,6 @@ import Foundation
 import UIKit
 
 extension UIAlertController {
-	public convenience init(error: Error) {
-		self.init(title: "Error", message: "\(error)", preferredStyle: .alert)
-		self.addAction(UIAlertAction(title: "OK", style: .default))
-	}
-	
 	public convenience init(title: String?, message: String?, preferredStyle: UIAlertControllerStyle, actions: [UIAlertAction]) {
 		self.init(title: title, message: message, preferredStyle: preferredStyle)
 		self.addActions(actions)
