@@ -45,6 +45,9 @@ extension TabBarItemRepresentable {
 
 extension UITabBarController {
     
+    public func viewControllers<T: TabBarItemRepresentable>(_ itemType: T.Type = T.self) -> [T: UIViewController] {
+        return Dictionary(pairs: itemType.all.flatMap { ($0, self.viewController($0)) as? (T, UIViewController) })
+    }
     public func viewController<T: TabBarItemRepresentable>(_ item: T) -> UIViewController? {
         return self.viewControllers.map { $0[item.rawValue] }
                                    .flatMap { $0 as? UINavigationController }

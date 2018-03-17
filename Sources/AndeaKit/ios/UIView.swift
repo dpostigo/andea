@@ -299,6 +299,16 @@ extension UIView {
     public var gestures: [UIGestureRecognizer] {
         return self.gestureRecognizers ?? []
     }
+    
+    open class func animate(
+        _ duration: TimeInterval,
+        delay: TimeInterval,
+        options: UIViewAnimationOptions = [],
+        animations: @escaping () -> Swift.Void,
+        completion: ((Bool) -> Swift.Void)? = nil
+    ) {
+        self.animate(withDuration: duration, delay: delay, options: options, animations: animations, completion: completion)
+    }
 }
 
 

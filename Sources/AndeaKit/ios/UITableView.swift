@@ -52,14 +52,22 @@ extension UITableView {
 
 extension UITableView {
 
-	public var showsActivityBackgroundView: Bool {
-		get { return (self.backgroundView as? UIActivityIndicatorView) != nil }
-		set { self.backgroundView = newValue ? self.activityBackgroundView : nil }
-	}
-	
 	public var activityBackgroundView: UIActivityIndicatorView {
-		return  UIActivityIndicatorView(frame: self.bounds, isAnimating: true)
+		return UIActivityIndicatorView(frame: self.bounds, isAnimating: true)
 	}
+
+	public func beginRefreshing(animated: Bool = false) {
+		guard let control = self.refreshControl else { return }
+		guard !control.isRefreshing else { return }
+		if animated {
+			self.setContentOffset([0, self.contentOffset.y - control.height], animated: animated)
+		} else {
+			self.contentOffset.y = self.contentOffset.y - control.height
+		}
+		control.beginRefreshing()
+		control.sendActions(for: .valueChanged)
+	}
+
 	
 	// MARK: Cells
 	
