@@ -65,6 +65,14 @@ extension UIViewController {
             default: return self
         }
     }
+    
+    public func childViewController<T: UIViewController>(_ viewControllerClass: T.Type = T.self) -> T? {
+        return self.childViewControllers(viewControllerClass).first
+    }
+    
+    public func childViewControllers<T: UIViewController>(_ viewControllerClass: T.Type = T.self) -> [T] {
+        return self.childViewControllers.elements()
+    }
 }
 
 extension UINavigationController {
