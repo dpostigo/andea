@@ -134,7 +134,23 @@ extension UIView {
 	}
 
     // MARK: Autolayout / Autolayout helpers
-
+    
+    public convenience init(systemLayoutHeight view: UIView) {
+        self.init(frame: view.bounds)
+        self.sizeToSystemLayoutHeight(to: view)
+    }
+    
+    @discardableResult
+    public func sizeToSystemLayoutHeight(to view: UIView) -> UIView {
+        let size = self.systemLayoutSizeFitting(
+            view.bounds.size,
+            withHorizontalFittingPriority: .required,
+            verticalFittingPriority: .fittingSizeLevel
+        )
+        self.frame.size.height = size.height
+        return self
+    }
+    
     public func systemLayoutHeight(_ frame: CGRect) -> CGFloat {
         return self.systemLayoutHeight(frame.size)
     }
