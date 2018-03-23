@@ -21,8 +21,56 @@ extension UITableViewController {
 	public var table: UITableView { return self.tableView! }
 }
 
+
+public enum UITableViewBackgroundState: ParameterRepresentable {
+	case none
+	case loading(Bool)
+	case loaded([Any]?, UIView)
+	
+	public var rawValue: Int {
+		switch self {
+			case .none: return 0
+			case .loading: return 1
+			case .loaded: return 2
+		}
+	}
+}
+
+extension UITableView {
+	
+	public func setBackgroundViewState(_ newValue: UITableViewBackgroundState?) {
+		newValue.some { self.backgroundView = self.backgroundView($0)}
+	}
+	private func backgroundView(_ backgroundState: UITableViewBackgroundState) -> UIView? {
+		switch backgroundState {
+			case .none: return nil
+			case .loaded(let items, let view): return (items ?? []).isEmpty ? view : nil
+			case .loading(let animating): return UIActivityIndicatorView(frame: self.bounds, isAnimating: animating)
+		}
+	}
+}
+
 extension UITableView {
 
+	public var activityBackgroundView: UIActivityIndicatorView {
+		return UIActivityIndicatorView(frame: self.bounds, isAnimating: true)
+	}
+
+	public func beginRefreshing(animated: Bool = false) {
+		guard let control = self.refreshControl else { return }
+		guard !control.isRefreshing else { return }
+		if animated {
+			self.setContentOffset([0, self.contentOffset.y - control.height], animated: animated)
+		} else {
+			self.contentOffset.y = self.contentOffset.y - control.height
+		}
+		control.beginRefreshing()
+		control.sendActions(for: .valueChanged)
+	}
+
+	
+	// MARK: Cells
+	
 	open func register(_ views: UIView.Type...) {
 		self.register(views.flatMap { $0 as? UITableViewCell.Type })
 		self.register(views.flatMap { $0 as? UITableViewHeaderFooterView.Type })
@@ -86,4 +134,33 @@ extension UITableView {
 	public func deleteRows(at indexPaths: [IndexPath], with animation: UITableViewRowAnimation, completion: Completion?) {
 		self.performBatchUpdates({ self.deleteRows(at: indexPaths, with: animation) }, completion: { _ in completion?() })
 	}
+	
+	// MARK: Single
+	
+	public func deleteRow(at indexPath: IndexPath, with animation: UITableViewRowAnimation, completion: Completion? = nil) {
+		self.deleteRows(at: [indexPath], with: animation, completion: completion)
+	}
+
+	public func insertRow(at indexPath: IndexPath, with animation: UITableViewRowAnimation, completion: Completion? = nil) {
+		self.insertRows(at: [indexPath], with: animation, completion: completion)
+	}
+	
+	public func reloadRow(at indexPath: IndexPath, with animation: UITableViewRowAnimation, completion: Completion? = nil) {
+		self.reloadRows(at: [indexPath], with: animation, completion: completion)
+	}
+	
+	// MARK: Index
+	
+	public func insertRow(at index: Int, with animation: UITableViewRowAnimation, completion: Completion? = nil) {
+		self.insertRow(at: [0, index], with: animation, completion: completion)
+	}
+	
+	public func reloadRow(at index: Int, with animation: UITableViewRowAnimation, completion: Completion? = nil) {
+		self.reloadRow(at: [0, index], with: animation, completion: completion)
+	}
+	
+	public func deleteRow(at index: Int, with animation: UITableViewRowAnimation, completion: Completion? = nil) {
+		self.deleteRow(at: [0, index], with: animation, completion: completion)
+	}
+
 }

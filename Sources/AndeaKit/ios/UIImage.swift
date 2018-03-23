@@ -37,3 +37,13 @@ public extension UIImage {
         self.init(named: named, in: bundle, compatibleWith: nil)
     }
 }
+
+public func UIGraphicsImageContext(_ size: CGSize, handler: () -> Void) -> UIImage? {
+    UIGraphicsBeginImageContext(size)
+    handler()
+    let image = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+    guard let cgImage = image?.cgImage else { return nil }
+    return UIImage(cgImage: cgImage)
+}
+

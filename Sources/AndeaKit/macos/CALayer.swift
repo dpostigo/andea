@@ -5,12 +5,6 @@
 import Cocoa
 import QuartzCore
 
-extension CALayer {
-    public convenience init(frame: CGRect) {
-        self.init(); self.frame = frame
-    }
-}
-
 
 open class Background: NSView {
     private let maskLayer: CAShapeLayer = CAShapeLayer()

@@ -1,20 +1,13 @@
 //
-// Created by Dani Postigo on 10/3/16.
+// Created by Daniela Postigo on 3/23/18.
 //
 
-#if os(iOS)
-import UIKit
+import Foundation
 
 extension UIBezierPath {
-    public convenience init(circleWithRadius radius: CGFloat) {
-        self.init(ovalIn: CGRect(width: radius, height: radius))
-    }
-}
-
-extension UIBezierPath {
-
+    
     // MARK: Triangle shape
-
+    
     public convenience init(triangleInRect rect: CGRect, edge: UIRectEdge) {
         self.init()
         switch edge {
@@ -42,18 +35,18 @@ extension UIBezierPath {
         }
         self.close()
     }
-
+    
     // MARK: Popover shapes
-
+    
     public convenience init(popoverInRect rect: CGRect, withSize size: CGSize, edge: UIRectEdge = .bottom, cornerRadius: CGFloat = 0) {
         let rect = edge.offset(popoverRect: rect, forArrowSize: size)
         self.init(roundedRect: rect, cornerRadius: cornerRadius)
         self.append(popoverArrowOfSize: size, forEdge: edge)
     }
-
+    
     public func append(popoverArrowOfSize size: CGSize, forEdge edge: UIRectEdge = .bottom) {
         let bounds = self.bounds
-        var rect = CGRect(size: size)
+        var rect = CGRect(origin: .zero, size: size)
         switch edge {
             case UIRectEdge.top:    rect.origin = CGPoint(x: bounds.midX - (size.width * 0.5), y: bounds.minY - size.height)
             case UIRectEdge.bottom: rect.origin = CGPoint(x: bounds.midX - (size.width * 0.5), y: bounds.maxY)
@@ -63,7 +56,7 @@ extension UIBezierPath {
         }
         self.append(UIBezierPath(triangleInRect: rect, edge: edge))
     }
-
+    
 }
 
 extension UIRectEdge {
@@ -79,5 +72,3 @@ extension UIRectEdge {
         return rect
     }
 }
-
-#endif

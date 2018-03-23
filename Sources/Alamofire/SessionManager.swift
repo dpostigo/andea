@@ -6,12 +6,11 @@ import Foundation
 import Alamofire
 
 extension SessionManager {
+    open func cancelAllTasks() { self.session.cancelAllTasks() }
+}
 
-//	@discardableResult public func nested<T: ResourceProtocol, Nested: ResourceProtocol & Decodable>( _ resource: T, _ nested: Nested.Type = Nested.self, completion: (([Nested]) -> Void)? = nil, failure: Failure? = nil) -> Alamofire.DataRequest {
-//		let request = self.request(ResourceEndpoint.nested.get(resource, Nested.self))
-//		request.responseEntity(completion: completion, failure: failure)
-//		return request
-//	}
-//
-//
+extension URLSession {
+    public func cancelAllTasks() {
+        self.getAllTasks { $0.forEach { $0.cancel() } }
+    }
 }

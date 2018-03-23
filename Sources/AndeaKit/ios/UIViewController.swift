@@ -58,6 +58,27 @@ extension UIViewController {
         self.addChildViewController(vc)
         inView.addView(vc.view)
     }
+    
+    public func `in`<T: UIViewController>(_ viewControllerType: T.Type = T.self) -> UIViewController {
+        switch viewControllerType {
+            case let type as UINavigationController.Type: return type.init(rootViewController: self)
+            default: return self
+        }
+    }
+    
+    public func childViewController<T: UIViewController>(_ viewControllerClass: T.Type = T.self) -> T? {
+        return self.childViewControllers(viewControllerClass).first
+    }
+    
+    public func childViewControllers<T: UIViewController>(_ viewControllerClass: T.Type = T.self) -> [T] {
+        return self.childViewControllers.elements()
+    }
+    
+    public func embed(_ vc: UIViewController, from: UILayoutGuide? = nil) {
+        let from = from ?? self.view.safeAreaLayoutGuide
+        self.addChildViewController(vc)
+        self.view.embed(vc.view, from: from)
+    }
 }
 
 extension UINavigationController {

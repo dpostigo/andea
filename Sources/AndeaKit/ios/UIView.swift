@@ -134,7 +134,23 @@ extension UIView {
 	}
 
     // MARK: Autolayout / Autolayout helpers
-
+    
+    public convenience init(systemLayoutHeight view: UIView) {
+        self.init(frame: view.bounds)
+        self.sizeToSystemLayoutHeight(to: view)
+    }
+    
+    @discardableResult
+    public func sizeToSystemLayoutHeight(to view: UIView) -> UIView {
+        let size = self.systemLayoutSizeFitting(
+            view.bounds.size,
+            withHorizontalFittingPriority: .required,
+            verticalFittingPriority: .fittingSizeLevel
+        )
+        self.frame.size.height = size.height
+        return self
+    }
+    
     public func systemLayoutHeight(_ frame: CGRect) -> CGFloat {
         return self.systemLayoutHeight(frame.size)
     }
@@ -290,6 +306,24 @@ extension UIView {
         if (self.gestureRecognizers ?? []).contains(gesture) {
             self.removeGestureRecognizer(gesture)
         }
+    }
+    
+    public func removeGestures() {
+        self.gestures.forEach { self.removeGestureRecognizer($0) }
+    }
+    
+    public var gestures: [UIGestureRecognizer] {
+        return self.gestureRecognizers ?? []
+    }
+    
+    open class func animate(
+        _ duration: TimeInterval,
+        delay: TimeInterval,
+        options: UIViewAnimationOptions = [],
+        animations: @escaping () -> Swift.Void,
+        completion: ((Bool) -> Swift.Void)? = nil
+    ) {
+        self.animate(withDuration: duration, delay: delay, options: options, animations: animations, completion: completion)
     }
 }
 

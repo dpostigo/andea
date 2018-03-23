@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import class Alamofire.Request
 
 // MARK: HTTPHeader
 
@@ -23,6 +24,24 @@ extension URLRequest {
         get { return self.value(forHTTPHeaderField: field.stringValue) }
         set { self.setValue(newValue, forHTTPHeaderField: field.stringValue) }
     }
+    
+    public mutating func withAuthorization(handler: () -> String) -> URLRequest {
+        self[.authorization] = handler()
+        return self
+    }
+    
+    public mutating func withAuthorization(handler: () -> URLCredential) -> URLRequest {
+        return self.withAuthorization { Request.authorizationHeader(handler()) }
+    }
+    
+    public mutating func withAuthorization(handler: () -> (key: String, value: String)?) -> URLRequest {
+        switch handler() {
+            case .none: break
+            case .some(let value): self[.authorization] = value.value
+        }
+        return self
+    }
+
 }
 
 
@@ -37,3 +56,6 @@ extension HTTPURLResponse {
         return String(token[range.upperBound...])
     }
 }
+
+
+
