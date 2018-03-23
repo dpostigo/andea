@@ -1,5 +1,5 @@
 //
-// Created by Daniela Postigo on 3/13/18.
+// Created by Daniela Postigo on 3/23/18.
 //
 
 import Foundation
@@ -21,5 +21,11 @@ extension RawRepresentable where RawValue == Int, Self: Titled {
         }
     }
     
-    public static var titles: [String] { return self.all.titles }
+    public var title: String {
+        return self.stringValue.capitalized
+    }
+    
+    public static var titles: [String] {
+        return self.all.titles
+    }
 }

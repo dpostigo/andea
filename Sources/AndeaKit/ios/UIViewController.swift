@@ -73,6 +73,12 @@ extension UIViewController {
     public func childViewControllers<T: UIViewController>(_ viewControllerClass: T.Type = T.self) -> [T] {
         return self.childViewControllers.elements()
     }
+    
+    public func embed(_ vc: UIViewController, from: UILayoutGuide? = nil) {
+        let from = from ?? self.view.safeAreaLayoutGuide
+        self.addChildViewController(vc)
+        self.view.embed(vc.view, from: from)
+    }
 }
 
 extension UINavigationController {
