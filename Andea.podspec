@@ -34,20 +34,20 @@ Pod::Spec.new do |s|
     c.dependency 'Andea/Foundation'
     c.dependency 'Andea/Lorem'
 
-  	c.ios.frameworks = 'UIKit'
+    c.ios.frameworks = 'UIKit'
     c.ios.dependency 'Andea/ActionKit'
-  	c.ios.source_files = 'Sources/AndeaKit/{shared,ios}/*'
+    c.ios.source_files = 'Sources/AndeaKit/{shared,ios}/*'
 
     c.osx.frameworks = 'AppKit'
-  	c.osx.source_files = 'Sources/AndeaKit/{shared,macos}/*'
+    c.osx.source_files = 'Sources/AndeaKit/{shared,macos}/*'
   end
 
   # ――― PlaygroundKit –––――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
   s.subspec 'PlaygroundKit' do |c|
     c.ios.deployment_target = '11.0'
-  	c.frameworks = 'UIKit'
-  	c.dependency 'Andea/AndeaKit'
+    c.frameworks = 'UIKit'
+    c.dependency 'Andea/AndeaKit'
     c.source_files = 'Sources/PlaygroundKit/ios/**/*'
   end
 
@@ -66,12 +66,12 @@ Pod::Spec.new do |s|
 
   s.subspec 'CoreGraphics' do |c|
     c.frameworks = 'CoreGraphics'
-    c.source_files = 'Sources/CoreGraphics'
+    c.source_files = 'Sources/CoreGraphics/*'
   end
 
   s.subspec 'Foundation' do |c|
-    c.source_files = 'Sources/Foundation/*'
     c.dependency 'Andea/Swift'
+    c.source_files = 'Sources/Foundation/*'
   end
 
   # ――― Third party –––––––―――――――――――――――――――――――――――――――――――――-―――――――――――――――― #
