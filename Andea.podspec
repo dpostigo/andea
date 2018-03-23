@@ -56,7 +56,6 @@ Pod::Spec.new do |s|
   # ――― Subspecs –––––––―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
   s.subspec 'Swift' do |c|
-    c.dependency 'Andea/Qolla'
     c.source_files = 'Sources/Swift/**/*'
   end
 
@@ -66,6 +65,7 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'CoreGraphics' do |c|
+    c.dependency 'Andea/Shared'
     c.frameworks = 'CoreGraphics'
     c.source_files = 'Sources/CoreGraphics/*'
   end
@@ -75,6 +75,24 @@ Pod::Spec.new do |s|
     c.dependency 'Andea/Qolla'
     c.source_files = 'Sources/Foundation/*'
   end
+
+  s.subspec 'QuartzCore' do |c|
+    c.dependency 'Andea/Qolla'
+    c.dependency 'Andea/Shared'
+    c.dependency 'Andea/CoreGraphics'
+
+    c.frameworks = 'QuartzCore'
+    c.source_files = 'Sources/QuartzCore/*'
+
+    c.ios.frameworks = 'UIKit'
+    c.ios.source_files = 'Sources/QuartzCore/ios/*'
+  end
+
+
+  s.subspec 'Shared' do |c|
+    c.source_files = 'Sources/AndeaKit/shared/Kit.swift'
+  end
+
 
   # ――― Third party –––––––―――――――――――――――――――――――――――――――――――――-―――――――――――――――― #
 
