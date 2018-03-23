@@ -36,6 +36,7 @@ Pod::Spec.new do |s|
 
     c.ios.frameworks = 'UIKit'
     c.ios.dependency 'Andea/ActionKit'
+    c.ios.dependency 'Andea/ActionHandler'
     c.ios.source_files = 'Sources/AndeaKit/{shared,ios}/*'
 
     c.osx.frameworks = 'AppKit'
@@ -71,6 +72,7 @@ Pod::Spec.new do |s|
 
   s.subspec 'Foundation' do |c|
     c.dependency 'Andea/Swift'
+    c.dependency 'Andea/Qolla'
     c.source_files = 'Sources/Foundation/*'
   end
 
@@ -83,6 +85,14 @@ Pod::Spec.new do |s|
     c.ios.deployment_target = '11.0'
     c.source_files = 'Sources/ActionKit/*'
   end
+
+  s.subspec 'ActionHandler' do |c|
+    c.frameworks = 'UIKit'
+    c.dependency 'Andea/Foundation'
+    c.ios.deployment_target = '11.0'
+    c.source_files = 'Sources/ActionHandler/*'
+  end
+
 
   s.subspec 'Alamofire' do |c|
     c.dependency 'Alamofire'

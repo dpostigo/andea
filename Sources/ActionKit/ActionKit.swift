@@ -13,9 +13,6 @@ public enum UIGestureRecognizerKind: Int, Autorepresentable {
 	case pan
 	case screenEdge
 	case longPress
-}
-
-extension UIGestureRecognizerKind {
 
 	var gestureClass: UIGestureRecognizer.Type {
 		switch self {
@@ -28,9 +25,7 @@ extension UIGestureRecognizerKind {
 			case .longPress:    return UILongPressGestureRecognizer.self
 		}
 	}
-}
-
-extension UIGestureRecognizerKind {
+	
 	public func gestureRecognizer(closure: @escaping ActionKitGestureClosure) -> UIGestureRecognizer {
 		switch self {
 			case .tap:			return UITapGestureRecognizer(self.stringValue, closure)
