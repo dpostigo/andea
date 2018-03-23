@@ -60,7 +60,7 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'Qolla' do |c|
-	c.dependency 'Qolla'
+	c.dependency 'Qolla', '0.0.3'
 	c.source_files = 'Sources/Qolla/**/*'
   end
 
