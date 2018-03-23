@@ -73,6 +73,7 @@ Pod::Spec.new do |s|
   s.subspec 'Foundation' do |c|
 	c.dependency 'Andea/Swift'
 	c.dependency 'Andea/Qolla'
+	c.dependency 'Andea/Shared'
 	c.source_files = 'Sources/Foundation/*'
   end
 

@@ -29,9 +29,7 @@ public class ActionHandler {
                 item.action = self.selector(item)
             default: break
         }
-        self.handler(item).some {
-            $0[item] = newValue
-        }
+        self.handler(item).some { $0[item] = newValue }
     }
     
     
