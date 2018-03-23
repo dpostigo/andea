@@ -6,11 +6,42 @@ import Foundation
 import enum Alamofire.Result
 import struct Alamofire.DefaultDataResponse
 
+
+enum ResultError: Swift.Error {
+    case noValue
+}
 extension Result {
     public typealias Item = (Result<Value>) -> Void
     public typealias Multiple = (Result<[Value]>) -> Void
+
+    public static func from(_ value: Value, _ error: Error?) -> Result {
+        return Result(value, error)
+    }
+    
+    public static func from(_ value: Value?, _ error: Error?) -> Result {
+        switch error {
+            case .none: return value.result
+            case .some(let error): return .failure(error)
+        }
+    }
+    
+    init(_ value: Value, _ error: Error?) {
+        switch error {
+            case .none: self = .success(value)
+            case .some(let error): self = .failure(error)
+        }
+    }
 }
 
+extension Optional {
+    
+    var result: Result<Wrapped> {
+        switch self {
+            case .none: return .failure(ResultError.noValue)
+            case .some(let value): return .success(value)
+        }
+    }
+}
 extension DefaultDataResponse {
     public var result: Result<Bool> {
         switch self.error {
