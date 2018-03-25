@@ -15,14 +15,14 @@ public class ActionHandler {
     
     // MARK: Subscripts
     
-    subscript<T: ActionableType>(_ item: T) -> ((T) -> Void)? {
+    subscript<T: UIActionElementProtocol>(_ item: T) -> ((T) -> Void)? {
         get { return self.itemHandler(item) }
         set { self.set(itemHandler: newValue, forItem: item) }
     }
     
     // MARK: Private
     
-    private func set<T: ActionableType>(itemHandler newValue: ((T) -> Void)?, forItem item: T) {
+    private func set<T: UIActionElementProtocol>(itemHandler newValue: ((T) -> Void)?, forItem item: T) {
         switch item {
             case let item as UIBarButtonItem:
                 item.target = self
@@ -33,11 +33,11 @@ public class ActionHandler {
     }
     
     
-    private func itemHandler<T: ActionableType>(_ item: T) -> ((T) -> Void)? {
+    private func itemHandler<T: UIActionElementProtocol>(_ item: T) -> ((T) -> Void)? {
         return self.handler(item)?[item]
     }
     
-    private func handler<T: ActionableType>(_ item: T) -> ActionableTypeHandler<T>? {
+    private func handler<T: UIActionElementProtocol>(_ item: T) -> ActionableTypeHandler<T>? {
         switch item {
             case is UIBarButtonItem: return self.barButtonItemActionHandler as? ActionableTypeHandler<T>
             default: return nil
@@ -52,7 +52,7 @@ public class ActionHandler {
         self.barButtonItemActionHandler.itemHandler(item)
     }
     
-    private func selector<T: ActionableType>(_ item: T) -> Selector? {
+    private func selector<T: UIActionElementProtocol>(_ item: T) -> Selector? {
         switch item {
             case is UIBarButtonItem: return #selector(self.barButtonItemHandler(_:))
             default: return nil

@@ -4,7 +4,7 @@
 
 import Foundation
 
-class ActionableTypeHandler<ItemType: ActionableType> {
+class ActionableTypeHandler<ItemType: UIActionElementProtocol> {
     private var handlers: [ItemType: ItemType.Handler] = [:]
     
     // MARK: Init
