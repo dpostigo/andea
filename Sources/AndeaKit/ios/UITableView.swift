@@ -97,16 +97,10 @@ extension UITableView {
 		return self.dequeueReusableHeaderFooterView(withIdentifier: viewClass.identifier) as! HeaderFooter
 	}
 
-	open func dequeueReusableCell<Cell: UITableViewCell>(_ cellClass: Cell.Type = Cell.self, _ indexPath: IndexPath) -> Cell {
-		return self.dequeueReusableCell(cellClass, for: indexPath)
-	}
-
-	open func dequeueReusableCell<Cell: UITableViewCell>(_ cellClass: Cell.Type = Cell.self, for indexPath: IndexPath) -> Cell {
+	open func dequeueReusableCell<Cell: UITableViewCell>(_ cellClass: Cell.Type = Cell.self, at indexPath: IndexPath) -> Cell {
 		return self.dequeueReusableCell(withIdentifier: cellClass.identifier, for: indexPath) as! Cell
 	}
-
-
-
+	
 	// MARK: Reload
 
 	public func reloadSections( _ indexSet: IndexSet, with animation: UITableViewRowAnimation, completion: Completion?) {

@@ -2,7 +2,6 @@
 // Created by Dani Postigo on 9/30/16.
 //
 
-#if os(iOS)
 import UIKit
 
 extension UIBarButtonItem {
@@ -27,7 +26,13 @@ extension UIBarButtonItem {
     public convenience init(barButtonSystemItem: UIBarButtonSystemItem) {
         self.init(barButtonSystemItem: barButtonSystemItem, target: nil, action: nil)
     }
-   
 }
 
-#endif
+extension UIBarItem {
+    
+    public var titleTextAttributes: [NSAttributedStringKey: Any]? {
+        get { return self.titleTextAttributes(for: .normal)?.mapKeys { NSAttributedStringKey($0.key) } }
+        set { self.setTitleTextAttributes(newValue, for: .normal) }
+    }
+}
+

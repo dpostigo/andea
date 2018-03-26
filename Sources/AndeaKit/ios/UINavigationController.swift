@@ -14,7 +14,7 @@ extension UINavigationController {
     public var rootViewController: UIViewController? {
         return self.viewControllers.first
     }
-    public convenience init(rootViewController: UIViewController, backgroundColor: UIColor) {
+    public convenience init(rootViewController: UIViewController, backgroundColor: UIColor?) {
         self.init(rootViewController: rootViewController); self.view.backgroundColor = backgroundColor
     }
 

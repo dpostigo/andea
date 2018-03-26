@@ -12,8 +12,8 @@ extension EdgeInsets: ExpressibleByArrayLiteral {
 	    switch elements.count {
 		    // top/bottom
 		    case 1: self.init(top: elements[0], left: 0, bottom: elements[0], right: 0)
-		    // top/bottom, left/right
-		    case 2: self.init(top: elements[0], left: elements[1], bottom: elements[0], right: elements[1])
+		    // x, y
+		    case 2: self.init(top: elements[1], left: elements[0], bottom: elements[1], right: elements[0])
 		    // top, left/right, bottom
 		    case 3: self.init(top: elements[0], left: elements[1], bottom: elements[2], right: elements[1])
 		    // top, left, bottom, right
