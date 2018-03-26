@@ -27,10 +27,10 @@ Pod::Spec.new do |s|
 
 
   s.subspec 'AndeaKit' do |c|
-	c.dependency 'Andea/Alamofire'
-	c.dependency 'Andea/CoreGraphics'
-	c.dependency 'Andea/Foundation'
-	c.dependency 'Andea/Lorem'
+    c.dependency 'Andea/Alamofire'
+    c.dependency 'Andea/CoreGraphics'
+    c.dependency 'Andea/Foundation'
+    c.dependency 'Andea/Lorem'
 
     c.source_files = 'Sources/AndeaKit/shared/*'
 
@@ -64,31 +64,12 @@ Pod::Spec.new do |s|
     c.source_files = 'Sources/Qolla/**/*'
   end
 
-  s.subspec 'CoreGraphics' do |c|
-	c.dependency 'Andea/Shared'
-	c.frameworks = 'CoreGraphics'
-    c.source_files = 'Sources/Frameworks/CoreGraphics/*'
-  end
-
   s.subspec 'Foundation' do |c|
 	c.dependency 'Andea/Swift'
-	c.dependency 'Andea/Qolla'
 	c.dependency 'Andea/Shared'
-	c.source_files = 'Sources/Foundation/*'
+    c.dependency 'Andea/Qolla'
+    c.source_files = 'Sources/Foundation/*'
   end
-
-  s.subspec 'QuartzCore' do |c|
-	c.dependency 'Andea/Qolla'
-	c.dependency 'Andea/Shared'
-	c.dependency 'Andea/CoreGraphics'
-
-	c.frameworks = 'QuartzCore'
-	c.source_files = 'Sources/QuartzCore/*'
-
-	c.ios.frameworks = 'UIKit'
-	c.ios.source_files = 'Sources/QuartzCore/ios/*'
-  end
-
 
   s.subspec 'Shared' do |c|
 	c.source_files = 'Sources/AndeaKit/shared/Kit.swift'
@@ -121,8 +102,30 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'Lorem' do |c|
-	c.source_files = 'Sources/Lorem/*'
 	c.dependency 'Andea/Swift'
+	c.source_files = 'Sources/Lorem/*'
   end
+
+
+  # ――― Frameworks –––––––―――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
+
+
+  s.subspec 'CoreGraphics' do |c|
+	c.dependency 'Andea/Shared'
+    c.frameworks = 'CoreGraphics'
+    c.source_files = 'Sources/Frameworks/CoreGraphics/*'
+  end
+
+  s.subspec 'QuartzCore' do |c|
+	c.dependency 'Andea/Shared'
+    c.dependency 'Andea/Qolla'
+    c.dependency 'Andea/CoreGraphics'
+    c.frameworks = 'QuartzCore'
+	c.source_files = 'Sources/QuartzCore/*'
+
+    c.ios.frameworks = 'UIKit'
+	c.ios.source_files = 'Sources/QuartzCore/ios/*'
+  end
+
 
 end
