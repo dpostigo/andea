@@ -18,7 +18,7 @@ public struct DecodableSerializer<T: Decodable> : DataResponseSerializerProtocol
 			let result = Request.serializeResponseData(response: response, data: data, error: error)
             switch result {
                 case .success(let data):
-                    do { return .success(try JSONDecoder.decode(T.self, from: data)) }
+                    do { return .success(try T.decode(data)) }
                     catch {
                         return .failure(error)
                     }

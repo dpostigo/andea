@@ -26,7 +26,7 @@ public enum ResourceEndpoint<Resource: ResourceProtocol>: Equatable, URLRequestC
 		switch self {
 			case .index:    return request
 			case .get:      return request
-			case .post(let item):  return try self.encoding.encode(request, withDecodable: item)
+			case .post(let item):  return try self.encoding.encode(request, item)
 			case .patch:    return request
 			case .delete:   return request
 			case .last:     return request

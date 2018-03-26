@@ -37,10 +37,10 @@ extension Bundle {
 	}
 
 
-	public func load(json jsonName: String, options opt: JSONSerialization.ReadingOptions = []) throws -> JSON {
+	public func load(json jsonName: String, options: JSONSerialization.ReadingOptions = []) throws -> JSON {
 		do {
 			let data = try self.load(resource: jsonName, ext: "json")
-			return try JSONSerialization.json(with: data, options: opt)
+            return try JSONSerialization.json(data: data, options: options)
 		}
 		catch { throw error }
 	}
