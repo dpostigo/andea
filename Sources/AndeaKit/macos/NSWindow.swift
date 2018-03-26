@@ -7,8 +7,8 @@ import AppKit
 
 extension NSWindow {
     public static let systemSize: CGSize = CGSize(width: 480, height: 270)
-    public static let systemLayoutRect: CGRect = CGRect(size: NSWindow.systemSize)
-    public static let systemStyleMask: NSWindow.StyleMask = [NSWindow.StyleMask.titled, NSWindow.StyleMask.closable, NSWindow.StyleMask.resizable, NSWindow.StyleMask.miniaturizable]
+    public static let systemLayoutRect: CGRect = [0, 0, NSWindow.systemSize.width, NSWindow.systemSize.height]
+    public static let systemStyleMask: NSWindow.StyleMask = [.titled, .closable, .resizable, .miniaturizable]
 
     public static let hudStyleMask: NSWindow.StyleMask = [NSWindow.StyleMask.hudWindow, NSWindow.StyleMask.titled, NSWindow.StyleMask.closable, NSWindow.StyleMask.resizable, NSWindow.StyleMask.miniaturizable , NSWindow.StyleMask.borderless, NSWindow.StyleMask.utilityWindow]
 
