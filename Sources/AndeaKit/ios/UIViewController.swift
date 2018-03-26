@@ -39,6 +39,11 @@ extension UIViewController {
         }
     }
 
+    
+    public func dismiss(completion: @escaping () -> Void) {
+        self.dismiss(animated: true, completion: completion)
+    }
+    
     // MARK:
 
     public func tabBarItem(_ tabBarItem: UITabBarItem? = nil) -> Self {
@@ -78,6 +83,10 @@ extension UIViewController {
         let from = from ?? self.view.safeAreaLayoutGuide
         self.addChildViewController(vc)
         self.view.embed(vc.view, from: from)
+    }
+    
+    public func navigationController(_ backgroundColor: UIColor? = nil) -> UINavigationController {
+        return UINavigationController(rootViewController: self, backgroundColor: backgroundColor)
     }
 }
 
