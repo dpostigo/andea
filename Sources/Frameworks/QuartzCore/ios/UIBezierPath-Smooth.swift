@@ -13,6 +13,59 @@ enum UIBezierPathElement {
     case close
 }
 
+extension Array where Element == CGPoint {
+    
+    var smoothed: [UIBezierPathElement]? {
+        guard self.count > 1 else { return nil }
+        var ret: [UIBezierPathElement] = [.move(self.first!)]
+        
+        func element(_ value: Int, _ index: Int) -> UIBezierPathElement {
+            switch value {
+                case 2: return .line(self[index])
+                case 3: return .quad(self[index], self[index - 1])
+                case 4: return .curve(self[index], self[index - 2], self[index - 1])
+                default:
+                    let point: CGPoint = [self[index-1].x + self[index + 1].x, self[index - 1].y + self[index + 1].y]
+                    return .curve(point * 0.5, self[index - 2], self[index - 1])
+            }
+        }
+        
+        var index = 0
+        while index < (self.count - 1) {
+            let value = self.count - index
+            switch value {
+                case let value where value <= 4: index += value - 1
+                default: index += 3
+            }
+            ret += element(value, index)
+        }
+        return ret
+    }
+   
+}
+
+extension UIBezierPath {
+    
+    
+    public convenience init?(smoothed points: [CGPoint]) {
+        guard let smoothed = points.smoothed else { return nil }
+        self.init(elements: smoothed)
+    
+    }
+    convenience init(elements: [UIBezierPathElement]) {
+        self.init()
+        elements.forEach {
+            switch $0 {
+                case .move(let a): self.move(to: a)
+                case .line(let a): self.addLine(to: a)
+                case .quad(let a, let b): self.addQuadCurve(to: a, controlPoint: b)
+                case .curve(let a, let b, let c): self.addCurve(to: a, controlPoint1: b, controlPoint2: c)
+                case .close: self.close()
+            }
+        }
+    }
+}
+
 extension UIBezierPath {
     
     /// Simple smoothing algorithm
@@ -30,7 +83,7 @@ extension UIBezierPath {
     ///
     /// - parameter points: The array of `CGPoint`.
     
-    public convenience init?(simpleSmooth points: [CGPoint]) {
+    convenience init?(simpleSmooth2 points: [CGPoint]) {
         guard points.count > 1 else { return nil }
         
         self.init()

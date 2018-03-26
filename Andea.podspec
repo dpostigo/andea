@@ -27,6 +27,7 @@ Pod::Spec.new do |s|
 
 
   s.subspec 'AndeaKit' do |c|
+    c.dependency 'Andea/Core'
     c.dependency 'Andea/Alamofire'
     c.dependency 'Andea/CoreGraphics'
     c.dependency 'Andea/Foundation'
@@ -55,9 +56,6 @@ Pod::Spec.new do |s|
 
   # ――― Subspecs –––––––―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
-  s.subspec 'Swift' do |c|
-	c.source_files = 'Sources/Swift/**/*'
-  end
 
   s.subspec 'Qolla' do |c|
     c.dependency 'Qolla', '0.0.3'
@@ -65,15 +63,14 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'Foundation' do |c|
-	c.dependency 'Andea/Swift'
-	c.dependency 'Andea/Shared'
+    c.dependency 'Andea/Core'
     c.dependency 'Andea/Qolla'
     c.source_files = 'Sources/Foundation/*'
   end
 
-  s.subspec 'Shared' do |c|
-	c.source_files = 'Sources/AndeaKit/shared/Kit.swift'
-  end
+
+  s.subspec 'Random' do |c| ; c.source_files = 'Sources/Random' ; end
+  s.subspec 'Logging' do |c| ; c.source_files = 'Sources/Logging' ; end
 
 
   # ――― Third party –––––––―――――――――――――――――――――――――――――――――――――-―――――――――――――――― #
@@ -97,34 +94,38 @@ Pod::Spec.new do |s|
   s.subspec 'Alamofire' do |c|
     c.dependency 'Alamofire'
     c.dependency 'Andea/Foundation'
-	c.dependency 'Andea/Swift'
+    c.dependency 'Andea/Logging'
     c.source_files = 'Sources/Alamofire/**/*'
   end
 
   s.subspec 'Lorem' do |c|
-	c.dependency 'Andea/Swift'
-	c.source_files = 'Sources/Lorem/*'
+    c.dependency 'Andea/Random'
+    c.source_files = 'Sources/Lorem/*'
   end
 
 
   # ――― Frameworks –––––––―――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
 
+  s.subspec 'Core' do |c|
+	c.source_files = 'Sources/Core'
+  end
+
   s.subspec 'CoreGraphics' do |c|
-	c.dependency 'Andea/Shared'
+	c.dependency 'Andea/Core'
     c.frameworks = 'CoreGraphics'
     c.source_files = 'Sources/Frameworks/CoreGraphics/*'
   end
 
   s.subspec 'QuartzCore' do |c|
-	c.dependency 'Andea/Shared'
+    c.dependency 'Andea/Core'
     c.dependency 'Andea/Qolla'
     c.dependency 'Andea/CoreGraphics'
     c.frameworks = 'QuartzCore'
-	c.source_files = 'Sources/QuartzCore/*'
+    c.source_files = 'Sources/Frameworks/QuartzCore/*'
 
     c.ios.frameworks = 'UIKit'
-	c.ios.source_files = 'Sources/QuartzCore/ios/*'
+    c.ios.source_files = 'Sources/Frameworks/QuartzCore/ios/*'
   end
 
 

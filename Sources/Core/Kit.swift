@@ -27,3 +27,8 @@ public typealias Font = NSFont
 
 #endif
 
+
+public typealias JSON = [String: Any]
+public typealias Block = () -> Void
+public typealias Completion = () -> Void
+public typealias Failure = (Error) -> Void
