@@ -25,19 +25,22 @@ Pod::Spec.new do |s|
 
   # ――― AndeaKit –––––––―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
+
   s.subspec 'AndeaKit' do |c|
-	c.dependency 'Andea/Alamofire'
-	c.dependency 'Andea/CoreGraphics'
-	c.dependency 'Andea/Foundation'
-	c.dependency 'Andea/Lorem'
+    c.dependency 'Andea/Alamofire'
+    c.dependency 'Andea/CoreGraphics'
+    c.dependency 'Andea/Foundation'
+    c.dependency 'Andea/Lorem'
 
-	c.ios.frameworks = 'UIKit'
-	c.ios.dependency 'Andea/ActionKit'
-	c.ios.dependency 'Andea/ActionHandler'
-	c.ios.source_files = 'Sources/AndeaKit/{shared,ios}/*'
+    c.source_files = 'Sources/AndeaKit/shared/*'
 
-	c.osx.frameworks = 'AppKit'
-	c.osx.source_files = 'Sources/AndeaKit/{shared,macos}/*'
+    c.ios.frameworks = 'UIKit'
+    c.ios.dependency 'Andea/ActionKit'
+    c.ios.dependency 'Andea/ActionHandler'
+    c.ios.source_files = 'Sources/AndeaKit/ios/**/*'
+
+    c.osx.frameworks = 'AppKit'
+    c.osx.source_files = 'Sources/AndeaKit/macos/*'
   end
 
 
@@ -57,35 +60,16 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'Qolla' do |c|
-	c.dependency 'Qolla', '0.0.3'
-	c.source_files = 'Sources/Qolla/**/*'
-  end
-
-  s.subspec 'CoreGraphics' do |c|
-	c.dependency 'Andea/Shared'
-	c.frameworks = 'CoreGraphics'
-    c.source_files = 'Sources/Frameworks/CoreGraphics/*'
+    c.dependency 'Qolla', '0.0.3'
+    c.source_files = 'Sources/Qolla/**/*'
   end
 
   s.subspec 'Foundation' do |c|
 	c.dependency 'Andea/Swift'
-	c.dependency 'Andea/Qolla'
 	c.dependency 'Andea/Shared'
-	c.source_files = 'Sources/Foundation/*'
+    c.dependency 'Andea/Qolla'
+    c.source_files = 'Sources/Foundation/*'
   end
-
-  s.subspec 'QuartzCore' do |c|
-	c.dependency 'Andea/Qolla'
-	c.dependency 'Andea/Shared'
-	c.dependency 'Andea/CoreGraphics'
-
-	c.frameworks = 'QuartzCore'
-	c.source_files = 'Sources/QuartzCore/*'
-
-	c.ios.frameworks = 'UIKit'
-	c.ios.source_files = 'Sources/QuartzCore/ios/*'
-  end
-
 
   s.subspec 'Shared' do |c|
 	c.source_files = 'Sources/AndeaKit/shared/Kit.swift'
@@ -94,32 +78,54 @@ Pod::Spec.new do |s|
 
   # ――― Third party –––––––―――――――――――――――――――――――――――――――――――――-―――――――――――――――― #
 
+
   s.subspec 'ActionKit' do |c|
-	c.frameworks = 'UIKit'
-	c.dependency 'ActionKit'
-	c.dependency 'Andea/Foundation'
-	c.ios.deployment_target = '11.0'
-	c.source_files = 'Sources/ActionKit/*'
+    c.frameworks = 'UIKit'
+    c.dependency 'ActionKit'
+    c.dependency 'Andea/Foundation'
+    c.ios.deployment_target = '11.0'
+    c.source_files = 'Sources/ActionKit/*'
   end
 
   s.subspec 'ActionHandler' do |c|
-	c.frameworks = 'UIKit'
-	c.dependency 'Andea/Foundation'
-	c.ios.deployment_target = '11.0'
-	c.source_files = 'Sources/ActionHandler/*'
+    c.frameworks = 'UIKit'
+    c.dependency 'Andea/Foundation'
+    c.ios.deployment_target = '11.0'
+    c.source_files = 'Sources/ActionHandler/*'
   end
 
-
   s.subspec 'Alamofire' do |c|
-	c.dependency 'Alamofire'
-	c.dependency 'Andea/Foundation'
+    c.dependency 'Alamofire'
+    c.dependency 'Andea/Foundation'
 	c.dependency 'Andea/Swift'
-	c.source_files = 'Sources/Alamofire/**/*'
+    c.source_files = 'Sources/Alamofire/**/*'
   end
 
   s.subspec 'Lorem' do |c|
-	c.source_files = 'Sources/Lorem/*'
 	c.dependency 'Andea/Swift'
+	c.source_files = 'Sources/Lorem/*'
   end
+
+
+  # ――― Frameworks –––––––―――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
+
+
+  s.subspec 'CoreGraphics' do |c|
+	c.dependency 'Andea/Shared'
+    c.frameworks = 'CoreGraphics'
+    c.source_files = 'Sources/Frameworks/CoreGraphics/*'
+  end
+
+  s.subspec 'QuartzCore' do |c|
+	c.dependency 'Andea/Shared'
+    c.dependency 'Andea/Qolla'
+    c.dependency 'Andea/CoreGraphics'
+    c.frameworks = 'QuartzCore'
+	c.source_files = 'Sources/QuartzCore/*'
+
+    c.ios.frameworks = 'UIKit'
+	c.ios.source_files = 'Sources/QuartzCore/ios/*'
+  end
+
 
 end
