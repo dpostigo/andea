@@ -122,10 +122,10 @@ Pod::Spec.new do |s|
     c.dependency 'Andea/Qolla'
     c.dependency 'Andea/CoreGraphics'
     c.frameworks = 'QuartzCore'
-	c.source_files = 'Sources/QuartzCore/*'
+    c.source_files = 'Sources/Frameworks/QuartzCore/*'
 
     c.ios.frameworks = 'UIKit'
-	c.ios.source_files = 'Sources/QuartzCore/ios/*'
+    c.ios.source_files = 'Sources/Frameworks/QuartzCore/ios/*'
   end
 
 
