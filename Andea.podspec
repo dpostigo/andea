@@ -20,7 +20,7 @@ Pod::Spec.new do |s|
   s.frameworks = 'Foundation'
   s.module_name = 'Andea'
 
-  s.default_subspecs = 'AndeaKit', 'PlaygroundKit'
+  s.default_subspecs = 'AndeaKit', 'Playgrounds'
 
 
   # ――― AndeaKit –––––––―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -40,13 +40,13 @@ Pod::Spec.new do |s|
 	c.osx.source_files = 'Sources/AndeaKit/{shared,macos}/*'
   end
 
-  # ――― PlaygroundKit –––――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
-  s.subspec 'PlaygroundKit' do |c|
-	c.ios.deployment_target = '11.0'
-	c.frameworks = 'UIKit'
-	c.dependency 'Andea/AndeaKit'
-	c.source_files = 'Sources/PlaygroundKit/ios/**/*'
+  # ――― Playgrounds –––―――――――――――――――――――――――――――――――――――――――――――――――――--―――――――― #
+
+  s.subspec 'Playgrounds' do |c|
+    c.dependency 'Andea/AndeaKit'
+    c.ios.frameworks = 'UIKit'
+    c.ios.source_files = 'Sources/Playground/ios/**/*'
   end
 
 
