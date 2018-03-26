@@ -9,15 +9,12 @@ Pod::Spec.new do |s|
   s.homepage         = 'https://bitbucket.com/dpostigo/Andea'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
 
-
   # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   s.source           = { :git => 'https://github.com/dpostigo/andea.git', :tag => s.version.to_s }
-
 
   # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   s.ios.deployment_target = '11.0'
   s.osx.deployment_target = '10.13'
-
 
   # ――― Project Linking ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   s.frameworks = 'Foundation'
@@ -67,7 +64,7 @@ Pod::Spec.new do |s|
   s.subspec 'CoreGraphics' do |c|
 	c.dependency 'Andea/Shared'
 	c.frameworks = 'CoreGraphics'
-	c.source_files = 'Sources/CoreGraphics/*'
+    c.source_files = 'Sources/Frameworks/CoreGraphics/*'
   end
 
   s.subspec 'Foundation' do |c|

@@ -17,4 +17,3 @@ extension CGPath {
 extension CGColor {
     public var color: Color? { return Color(cgColor: self) }
 }
-
