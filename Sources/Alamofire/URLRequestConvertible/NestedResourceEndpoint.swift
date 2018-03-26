@@ -23,7 +23,9 @@ public enum NestedResourceEndpoint<Resource: ResourceProtocol, Nested: ResourceP
 		switch self {
 			case .get: return request
 			case .post(let resource, _) :
-				return try Alamofire.JSONEncoding.default.encode(request, withJSONObject: JSONSerialization.jsonObject(with: resource))
+                let json = try JSONSerialization.json(resource.encode())
+                return try Alamofire.JSONEncoding.default.encode(request, withJSONObject: json)
+                
 		}
 	}
 
