@@ -4,9 +4,9 @@
 
 import Foundation
 
-public protocol ActionableType: class, Hashable { }
+public protocol UIActionElementProtocol: class, Hashable { }
 
-extension ActionableType {
+extension UIActionElementProtocol {
     public typealias Handler = (Self) -> Void
     
     public var actionHandler: Handler? {
@@ -15,4 +15,18 @@ extension ActionableType {
     }
 }
 
-extension UIBarButtonItem: ActionableType { }
+extension UIBarButtonItem: UIActionElementProtocol {
+    public convenience init(title: String, actionHandler: @escaping Handler) {
+        self.init(title: title, style: .plain, target: nil, action: nil)
+        self.actionHandler = actionHandler
+    }
+    
+    public convenience init(image: UIImage, actionHandler: @escaping Handler) {
+        self.init(image: image, style: .plain, target: nil, action: nil)
+        self.actionHandler = actionHandler
+    }
+    
+    public convenience init(image: UIImage, actionHandler: @escaping () -> Void) {
+        self.init(image: image) { _ in actionHandler() }
+    }
+}
