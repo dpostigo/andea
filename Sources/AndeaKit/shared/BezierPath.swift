@@ -6,7 +6,7 @@ import Foundation
 
 extension BezierPath {
     public convenience init(circleWithRadius radius: CGFloat) {
-        self.init(ovalIn: CGRect(width: radius, height: radius))
+        self.init(ovalIn: [0, 0, radius, radius])
     }
     
     public convenience init(start: CGPoint?) {

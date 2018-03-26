@@ -22,7 +22,7 @@ extension UIImage {
     // MARK: Methods
     
     public func scaled(to: CGSize) -> UIImage {
-        let format = UIGraphicsImageRendererFormat(scale: to.scale(to: self.size), opaque: false)
+        let format = UIGraphicsImageRendererFormat(scale: to.ratio(to: self.size), opaque: false)
         let renderer = UIGraphicsImageRenderer(size: to, format: format)
         return renderer.image { context in
             self.draw(in: [0, 0, to.width, to.height])
@@ -57,7 +57,7 @@ extension UIImage {
     
     public convenience init?(image: UIImage, size to: CGSize) {
         guard let cgImage = image.cgImage else { return nil }
-        let scale = to.scale(to: cgImage.image.size)
+        let scale = to.ratio(to: cgImage.image.size)
         self.init(cgImage: cgImage, scale: scale, orientation: .up)
     }
 }

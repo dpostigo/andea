@@ -4,7 +4,6 @@
 
 import Foundation
 
-
 extension CGPoint: ExpressibleByArrayLiteral {
     public typealias ArrayLiteralElement = CGFloat
     
@@ -12,9 +11,12 @@ extension CGPoint: ExpressibleByArrayLiteral {
         precondition(elements.count == 2)
         self.init(x: elements.first!, y: elements.last!)
     }
+    public var size: CGSize {
+        return CGSize(width: self.x, height: self.y)
+    }
     
-    public init(size: CGSize) {
-        self.init(x: size.width, y: size.height)
+    public func rect(_ size: CGSize) -> CGRect {
+        return CGRect(x: self.x, y: self.y, width: size.width, height: size.height)
     }
 }
 
