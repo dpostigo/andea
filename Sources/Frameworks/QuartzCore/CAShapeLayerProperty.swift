@@ -15,8 +15,8 @@ public enum CAShapeLayerProperty: RawRepresentable, ParameterRepresentable, Titl
         switch name {
             case .lineWidth: self = .lineWidth(0)
             case .miterLimit: self = .miterLimit(0)
-            case .lineCap: self = .lineCap(CAShapeLayer.LineCapStyle.first)
-            case .lineJoin: self = .lineJoin(CAShapeLayer.LineJoinStyle.first)
+            case .lineCap: self = .lineCap(CAShapeLayer.LineCapStyle(0)!)
+            case .lineJoin: self = .lineJoin(CAShapeLayer.LineJoinStyle(0)!)
         }
     }
     

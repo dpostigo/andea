@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
 
   # ―――  Spec Metadata  ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   s.name             = 'Andea'
-  s.version          = '0.2.1'
+  s.version          = '0.2.2'
   s.summary          = 'Extensions for Swift from the Andeas.'
   s.description      = 'Convenience initializers & other extensions.'
   s.author           = { 'Dani Postigo' => 'dani.postigo@gmail.com' }
@@ -58,7 +58,7 @@ Pod::Spec.new do |s|
 
 
   s.subspec 'Qolla' do |c|
-    c.dependency 'Qolla', '0.0.3'
+    c.dependency 'Qolla', '~> 0.0.5'
     c.source_files = 'Sources/Qolla/**/*'
   end
 
