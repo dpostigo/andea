@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
 
   # ―――  Spec Metadata  ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   s.name             = 'Andea'
-  s.version          = '0.2.0'
+  s.version          = '0.2.1'
   s.summary          = 'Extensions for Swift from the Andeas.'
   s.description      = 'Convenience initializers & other extensions.'
   s.author           = { 'Dani Postigo' => 'dani.postigo@gmail.com' }
