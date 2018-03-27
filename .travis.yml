@@ -4,13 +4,13 @@
 
 osx_image: xcode9.2
 language: objective-c
-# cache: cocoapods
+cache: cocoapods
 podfile: Example/Podfile
 before_install:
- - brew update
- - gem install cocoapods
- - gem install xcpretty -N
- - pod install --project-directory=Example
+- brew update
+- gem install cocoapods
+- gem install xcpretty -N
+- pod install --project-directory=Example
 script:
 - set -o pipefail && xcodebuild -workspace Example/Andea.xcworkspace -scheme Andea-Example -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO | xcpretty
 - pod lib lint --sources=https://github.com/CocoaPods/Specs.git,https://github.com/dpostigo/pods
