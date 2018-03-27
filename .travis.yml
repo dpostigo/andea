@@ -4,7 +4,7 @@
 
 osx_image: xcode9.2
 language: objective-c
-cache: cocoapods
+# cache: cocoapods
 podfile: Example/Podfile
 before_install:
 - brew update
