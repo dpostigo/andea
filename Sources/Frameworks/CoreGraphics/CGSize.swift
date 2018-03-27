@@ -28,16 +28,15 @@ extension CGSize: ExpressibleByArrayLiteral {
 	public static func *(lhs: CGSize, rhs: Double) -> CGSize { return [lhs.width * CGFloat(rhs), lhs.height * CGFloat(rhs)] }
 	public static func /(lhs: CGSize, rhs: Double) -> CGSize { return [lhs.width / CGFloat(rhs), lhs.height / CGFloat(rhs)] }
 	
+	// MARK: Getters
+	
+	public var rect: CGRect { return CGRect(origin: .zero, size: self) }
+	public var ratio: CGFloat { return self.width / self.height }
 }
 
 
 extension CGSize {
 	
-	// MARK: Getters
-	
-	public var ratio: CGFloat {
-		return self.width / self.height
-	}
 	
 	// MARK: Methods
 	
@@ -48,6 +47,7 @@ extension CGSize {
 	public func ratio(to: CGSize) -> CGFloat {
 		return self.ratio > to.ratio ? to.width / self.width : to.height / self.height
 	}
+	
 	
 	// MARK: Convenience initializers
 	
