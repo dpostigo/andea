@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'Andea_Example' do
+  pod 'Andea', :path => '../'
+
+  target 'Andea_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end

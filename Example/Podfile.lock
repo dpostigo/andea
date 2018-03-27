@@ -1,0 +1,16 @@
+PODS:
+  - Andea (0.1.0)
+
+DEPENDENCIES:
+  - Andea (from `../`)
+
+EXTERNAL SOURCES:
+  Andea:
+    :path: ../
+
+SPEC CHECKSUMS:
+  Andea: 1e462bfecaf5571255b3bfc1b4fd3ae64b9e07bb
+
+PODFILE CHECKSUM: 2320b567c63ef7abcf5f95952c3f15df2e3e6503
+
+COCOAPODS: 1.4.0
