@@ -1,3 +1,8 @@
+platform :ios, '11.0'
+
+source 'https://github.com/dpostigo/pods'
+source 'https://github.com/CocoaPods/Specs.git'
+
 use_frameworks!
 
 target 'Andea_Example' do
@@ -5,7 +10,6 @@ target 'Andea_Example' do
 
   target 'Andea_Tests' do
     inherit! :search_paths
-
-    
   end
 end
+
