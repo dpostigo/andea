@@ -1,5 +1,41 @@
 PODS:
-  - Andea (0.1.0)
+  - ActionKit (2.3.2)
+  - Alamofire (4.7.0)
+  - Andea (0.2.1):
+    - Andea/AndeaKit (= 0.2.1)
+    - Andea/Playgrounds (= 0.2.1)
+  - Andea/ActionHandler (0.2.1):
+    - Andea/Foundation
+  - Andea/ActionKit (0.2.1):
+    - ActionKit
+    - Andea/Foundation
+  - Andea/Alamofire (0.2.1):
+    - Alamofire
+    - Andea/Foundation
+    - Andea/Logging
+  - Andea/AndeaKit (0.2.1):
+    - Andea/ActionHandler
+    - Andea/ActionKit
+    - Andea/Alamofire
+    - Andea/Core
+    - Andea/CoreGraphics
+    - Andea/Foundation
+    - Andea/Lorem
+  - Andea/Core (0.2.1)
+  - Andea/CoreGraphics (0.2.1):
+    - Andea/Core
+  - Andea/Foundation (0.2.1):
+    - Andea/Core
+    - Andea/Qolla
+  - Andea/Logging (0.2.1)
+  - Andea/Lorem (0.2.1):
+    - Andea/Random
+  - Andea/Playgrounds (0.2.1):
+    - Andea/AndeaKit
+  - Andea/Qolla (0.2.1):
+    - Qolla (= 0.0.3)
+  - Andea/Random (0.2.1)
+  - Qolla (0.0.3)
 
 DEPENDENCIES:
   - Andea (from `../`)
@@ -9,8 +45,11 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  Andea: 1e462bfecaf5571255b3bfc1b4fd3ae64b9e07bb
+  ActionKit: cf7ca5781f4a43342384d872105fadd58985f416
+  Alamofire: 907e0a98eb68cdb7f9d1f541a563d6ac5dc77b25
+  Andea: 8999b887f32cfec76c72027e1b189f1941366237
+  Qolla: 1e6f1746bdb3fbbb56f7b757cbca12af49baa52e
 
-PODFILE CHECKSUM: 2320b567c63ef7abcf5f95952c3f15df2e3e6503
+PODFILE CHECKSUM: f2588196d4eb057dda8a05b8234da85104deac88
 
 COCOAPODS: 1.4.0
