@@ -7,10 +7,13 @@ import enum Alamofire.Result
 import struct Alamofire.DefaultDataResponse
 
 
-enum ResultError: Swift.Error {
-    case noValue
+extension Decodable {
+    public typealias Item = (Alamofire.Result<Self>) -> Void
+    public typealias Multiple = (Alamofire.Result<[Self]>) -> Void
 }
+enum ResultError: Swift.Error { case noValue }
 extension Result {
+  
     public typealias Item = (Result<Value>) -> Void
     public typealias Multiple = (Result<[Value]>) -> Void
 
@@ -34,7 +37,6 @@ extension Result {
 }
 
 extension Optional {
-    
     var result: Result<Wrapped> {
         switch self {
             case .none: return .failure(ResultError.noValue)
@@ -49,12 +51,6 @@ extension DefaultDataResponse {
             case .some(let error): return .failure(error)
         }
     }
-}
-
-extension Decodable {
-    public typealias Closure = (Self) -> Void
-    public typealias Item = (Alamofire.Result<Self>) -> Void
-    public typealias Multiple = (Alamofire.Result<[Self]>) -> Void
 }
 
 public struct Credential {
@@ -72,7 +68,6 @@ public struct Credential {
 }
 
 extension URLCredential {
-    
     public var credential: Credential {
         return Credential(self.user, self.password)
     }
