@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
   s.description      = 'Convenience initializers & other extensions.'
   s.author           = { 'Dani Postigo' => 'dani.postigo@gmail.com' }
   s.homepage         = 'https://bitbucket.com/dpostigo/Andea'
-  s.license          = { :type => 'MIT', :file => 'LICENSE' }
+  s.license          = { :type => 'Apache', :file => 'LICENSE' }
 
   # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   s.source           = { :git => 'https://github.com/dpostigo/andea.git', :tag => s.version.to_s }
