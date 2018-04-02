@@ -66,6 +66,10 @@ extension UIButton {
     public convenience init(title: String, color: UIColor) {
         self.init(title: title, titleColor: color)
     }
+    
+    public convenience init(title: String, actionHandler: @escaping Handler) {
+        self.init(title: title); self.addControlEvent(.touchUpInside, actionHandler: actionHandler)
+    }
 
     // MARK: Actions
 

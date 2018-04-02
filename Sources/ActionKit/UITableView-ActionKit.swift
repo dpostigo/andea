@@ -13,7 +13,7 @@ extension UITableView {
     
     public var refreshControlEventHandler: ((UIRefreshControl) -> Void)? {
         get { return nil }
-        set { newValue.some { self.refreshControl = UIRefreshControl(.valueChanged, eventHandler: $0) } }
+        set { newValue.some { self.refreshControl = UIRefreshControl(.valueChanged, actionHandler: $0) } }
     }
 }
 

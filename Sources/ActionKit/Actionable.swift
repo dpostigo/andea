@@ -5,22 +5,40 @@
 import UIKit
 import ActionKit
 
-@objc public protocol Actionable: class { }
+public protocol ActionKitProtocol: class {
+    init()
+}
 
-extension UIControl: Actionable { }
+extension UIButton: ActionKitProtocol { }
+extension UITextField: ActionKitProtocol { }
+extension UIRefreshControl: ActionKitProtocol { }
+extension UISegmentedControl: ActionKitProtocol { }
 
 
-extension Actionable where Self: UIControl {
-    public func addControlEvent(_ controlEvent: UIControlEvents, closure: @escaping (Self) -> Void) {
-        self.addControlEvent(controlEvent, { closure(self) })
-    }
-
+extension ActionKitProtocol {
+    
+    public typealias Handler = (Self) -> Void
+    
     public init(_ controlEvent: UIControlEvents, handler: @escaping () -> Void) {
-        self.init(); self.addControlEvent(controlEvent, handler)
+        self.init(); self.addControlEvent(controlEvent, handler: handler)
     }
     
-    public init(_ controlEvent: UIControlEvents, eventHandler: @escaping (Self) -> Void) {
-        self.init(); self.addControlEvent(controlEvent, closure: eventHandler)
+    public init(_ controlEvent: UIControlEvents, actionHandler: @escaping (Self) -> Void) {
+        self.init(); self.addControlEvent(controlEvent, actionHandler: actionHandler)
     }
-	
+    
+    public func addControlEvent(_ controlEvent: UIControlEvents, handler: @escaping () -> Void) {
+        switch self as? UIControl {
+            case .some(let value): value.addControlEvent(controlEvent, { handler() })
+            default: break
+        }
+    }
+    
+    public func addControlEvent(_ controlEvent: UIControlEvents, actionHandler: @escaping (Self) -> Void) {
+        switch self as? UIControl {
+            case .some(let value): value.addControlEvent(controlEvent, { actionHandler(self) })
+            default: break
+        }
+    }
 }
+
