@@ -25,15 +25,3 @@ extension Sequence where Self.Iterator.Element: RawRepresentable {
         return self.map({ $0.rawValue })
     }
 }
-
-
-extension Array {
-    public subscript<T: RawRepresentable>(representable: T) -> Element where T.RawValue == Int {
-        get { return self[representable.rawValue] }
-        set { self[representable.rawValue] = newValue }
-    }
-}
-
-
-
-
