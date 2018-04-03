@@ -33,7 +33,8 @@ extension CAShapeLayer {
     }
     
     public var lineCapStyle: CAShapeLayer.LineCapStyle? {
-        return CAShapeLayer.LineCapStyle(stringValue: self.lineCap)
+        get { return CAShapeLayer.LineCapStyle(stringValue: self.lineCap) }
+        set { self.lineCap = newValue?.stringValue ?? self.lineCap }
     }
    
     public enum LineJoinStyle: Int, Autorepresentable {
@@ -51,7 +52,8 @@ extension CAShapeLayer {
     }
     
     public var lineJoinStyle: CAShapeLayer.LineJoinStyle? {
-        return CAShapeLayer.LineJoinStyle(stringValue: self.lineJoin)
+        get { return CAShapeLayer.LineJoinStyle(stringValue: self.lineJoin) }
+        set { self.lineJoin = newValue?.stringValue ?? self.lineJoin }
     }
 }
 

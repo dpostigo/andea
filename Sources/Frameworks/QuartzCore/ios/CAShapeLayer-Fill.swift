@@ -20,7 +20,7 @@ extension CAShapeLayer {
     
     // MARK: Fill
     
-    public enum Fill {
+    public enum FillType {
         case color(Color)
         case rule(FillRule, Color?)
         case evenOdd(Color?)
@@ -30,11 +30,11 @@ extension CAShapeLayer {
     
     // MARK: CAShapeLayer.Fill
     
-    public convenience init(fill: Fill) {
+    public convenience init(fill: FillType) {
         self.init(); self.fillType = fill
     }
     
-    public var fillType: Fill? {
+    public var fillType: FillType? {
         get { return nil }
         set { self.update(fill: newValue) }
     }
@@ -42,7 +42,7 @@ extension CAShapeLayer {
     
     // MARK: Private
     
-    private func update(fill: Fill?) {
+    private func update(fill: FillType?) {
         guard let fill = fill else { return }
         switch fill {
             case .color(let value):
