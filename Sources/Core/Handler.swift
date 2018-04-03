@@ -14,5 +14,8 @@ extension NSObjectProtocol {
 
 extension ExpressibleByNilLiteral {
     public typealias Handler = (Self) -> Swift.Void
+}
 
+extension Decodable {
+    public typealias Handler = (Self) -> Void
 }

@@ -29,7 +29,7 @@ extension Decodable {
 }
 
 extension JSONDecoder {
-	class func decode<T: Decodable>(
+	public class func decode<T: Decodable>(
 		_ data: Data,
 		decodableType: T.Type = T.self,
 		dateDecodingStrategy: JSONDecoder.DateDecodingStrategy = .deferredToDate,
