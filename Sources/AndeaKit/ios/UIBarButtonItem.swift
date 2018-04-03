@@ -31,8 +31,8 @@ extension UIBarButtonItem {
 extension UIBarItem {
     
     public var titleTextAttributes: [NSAttributedStringKey: Any]? {
-        get { return self.titleTextAttributes(for: .normal)?.mapKeys { NSAttributedStringKey($0.key) } }
-        set { self.setTitleTextAttributes(newValue, for: .normal) }
+        get { return self.titleTextAttributes(for: [.normal, .highlighted])?.mapKeys { NSAttributedStringKey($0.key) } }
+        set { self.setTitleTextAttributes(newValue, for: [.normal, .highlighted]) }
     }
 }
 

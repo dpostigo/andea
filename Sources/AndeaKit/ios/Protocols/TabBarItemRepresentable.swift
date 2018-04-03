@@ -12,17 +12,9 @@ public protocol TabBarItemRepresentable: Autorepresentable {
 
 extension TabBarItemRepresentable {
     
-    public var title: String {
-        return self.stringValue.capitalized
-    }
-    
-    public var image: UIImage? {
-        return nil
-    }
-    
-    public var selectedImage: UIImage? {
-        return nil
-    }
+    public var title: String { return self.stringValue.capitalized }
+    public var image: UIImage? { return nil }
+    public var selectedImage: UIImage? { return nil }
     
     public var tabBarItem: UITabBarItem {
         return UITabBarItem(title: self.title, image: self.image, selectedImage: self.selectedImage)
@@ -43,7 +35,18 @@ extension TabBarItemRepresentable {
     
 }
 
+extension Sequence where Element: TabBarItemRepresentable {
+    public var navigationControllers: [UINavigationController] {
+        return self.map { $0.navigationController }
+    }
+}
+
 extension UITabBarController {
+    
+    public convenience init<T: TabBarItemRepresentable>(navigationControllers items: [T]) {
+        self.init()
+        self.viewControllers = items.navigationControllers
+    }
     
     public func viewControllers<T: TabBarItemRepresentable>(_ itemType: T.Type = T.self) -> [T: UIViewController] {
         return Dictionary(pairs: itemType.all.flatMap { ($0, self.viewController($0)) as? (T, UIViewController) })
