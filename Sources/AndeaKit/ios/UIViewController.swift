@@ -26,7 +26,15 @@ extension UIViewController {
         self.init(viewControllerTitle: title)
         self.tabBarItem = UITabBarItem(title: title)
     }
-
+    
+    // MARK: Utils
+    
+    public var isDismissing: Bool {
+        return self.presentedViewController?.isBeingDismissed ?? false
+    }
+    
+    // MARK: Dismiss
+    
     @objc public func dismiss(_ sender: AnyObject? = nil) {
         self.dismiss(animated: true)
     }
@@ -72,11 +80,11 @@ extension UIViewController {
     }
     
     public func childViewController<T: UIViewController>(_ viewControllerClass: T.Type = T.self) -> T? {
-        return self.childViewControllers(viewControllerClass).first
+        return self.childViewControllers.first()
     }
     
     public func childViewControllers<T: UIViewController>(_ viewControllerClass: T.Type = T.self) -> [T] {
-        return self.childViewControllers.elements()
+        return self.childViewControllers.flatMap()
     }
     
     public func embed(_ vc: UIViewController, from: UILayoutGuide? = nil) {
@@ -90,9 +98,5 @@ extension UIViewController {
     }
 }
 
-extension UINavigationController {
-    public convenience init(rootViewController: UIViewController, navigationBarHidden: Bool) {
-        self.init(rootViewController: rootViewController)
-        self.isNavigationBarHidden = navigationBarHidden
-    }
-}
+
+

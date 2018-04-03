@@ -142,11 +142,12 @@ extension UIView {
     
     @discardableResult
     public func sizeToSystemLayoutHeight(to view: UIView) -> UIView {
-        let size = self.systemLayoutSizeFitting(
-            view.bounds.size,
-            withHorizontalFittingPriority: .required,
-            verticalFittingPriority: .fittingSizeLevel
-        )
+        return self.sizeToSystemLayoutHeight(to: view.frame)
+    }
+    
+    @discardableResult
+    public func sizeToSystemLayoutHeight(to frame: CGRect) -> UIView {
+        let size = self.systemLayoutSizeFitting(frame.size, withHorizontalFittingPriority: .required, verticalFittingPriority: .fittingSizeLevel)
         self.frame.size.height = size.height
         return self
     }

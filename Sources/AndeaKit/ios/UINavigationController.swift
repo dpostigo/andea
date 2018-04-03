@@ -11,11 +11,20 @@ extension UINavigationController {
         self.setViewControllers([rootViewController], animated: false)
     }
 
+   
+    public convenience init(rootViewController: UIViewController, navigationBarHidden: Bool = false, backgroundColor: UIColor? = nil) {
+        self.init(rootViewController: rootViewController)
+        self.isNavigationBarHidden = navigationBarHidden
+        backgroundColor.some { self.view.backgroundColor = $0 }
+        // self.view.backgroundColor = backgroundColor
+    }
+    
     public var rootViewController: UIViewController? {
         return self.viewControllers.first
     }
-    public convenience init(rootViewController: UIViewController, backgroundColor: UIColor?) {
-        self.init(rootViewController: rootViewController); self.view.backgroundColor = backgroundColor
+    
+    public func rootViewController<T: UIViewController>(_ viewControllerClass: T.Type = T.self) -> T? {
+        return self.rootViewController as? T
     }
 
 }
