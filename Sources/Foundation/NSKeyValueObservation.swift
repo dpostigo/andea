@@ -15,37 +15,55 @@ public class Observer<T: NSObject>: ObserverProtocol {
     }
 }
 
-public protocol ObserverProtocol: class {
+public protocol ObservationCollectionProtocol : class {
     associatedtype Observed: NSObject
-    
-    init(_ object: Observed)
-    var object: Observed? { get set }
     var observations: [NSKeyValueObservation] { get set }
-    
 }
 
-extension ObserverProtocol {
+extension ObservationCollectionProtocol {
     public typealias ChangeHandler<Value> = (Observed, NSKeyValueObservedChange<Value>) -> Void
     
     @discardableResult
-    public func observe<Value>(_ keyPath: KeyPath<Observed, Value>, options: NSKeyValueObservingOptions = [], changeHandler: ChangeHandler<Value>? = nil) -> Self {
+    public func observe<Value>(_ object: Observed?, _ keyPath: KeyPath<Observed, Value>, options: NSKeyValueObservingOptions = [], changeHandler: ChangeHandler<Value>? = nil) -> Self {
         let changeHandler = changeHandler ?? Self.changeHandler(keyPath)
-        self.object.some { self.observations += $0.observe(keyPath, options: options, changeHandler: changeHandler) }; return self
+        object.some { self.observations += $0.observe(keyPath, options: options, changeHandler: changeHandler) }
+        return self
+    }
+    
+    private static func changeHandler<Value>(_ keyPath: KeyPath<Observed, Value>, _ valueType: Value.Type = Value.self) -> ChangeHandler<Value> {
+        return { value, change in
+            keyPath.kvcString.some {
+                Swift.print("Changed: \(String(describing: $0)), change = \(String(describing: change))")
+            }
+        }
+    }
+}
+
+public protocol ObserverProtocol: ObservationCollectionProtocol {
+    init(_ object: Observed)
+    var object: Observed? { get set }
+}
+
+extension ObserverProtocol {
+    
+    @discardableResult
+    public func observe<Value>(_ keyPath: KeyPath<Observed, Value>, options: NSKeyValueObservingOptions = [], changeHandler: ChangeHandler<Value>? = nil) -> Self {
+        return self.observe(self.object, keyPath, options: options, changeHandler: changeHandler)
+//        let changeHandler = changeHandler ?? Self.changeHandler(keyPath)
+//        self.object.some { self.observations += $0.observe(keyPath, options: options, changeHandler: changeHandler) }; return self
     }
     
     public static func observe<Value>(_ object: Observed, keyPath: KeyPath<Observed, Value>, options: NSKeyValueObservingOptions = [], changeHandler: ChangeHandler<Value>? = nil) -> Self {
         return Self(object).observe(keyPath, options: options, changeHandler: changeHandler)
     }
     
-    private static func changeHandler<Value>(_ keyPath: KeyPath<Observed, Value>, _ valueType: Value.Type = Value.self) -> ChangeHandler<Value> {
-        return { value, change in
-           
-            keyPath.kvcString.some {
-    
-                Swift.print("Changed: \(String(describing: $0)), change = \(String(describing: change))")
-            }
-        }
-    }
+//    private static func changeHandler<Value>(_ keyPath: KeyPath<Observed, Value>, _ valueType: Value.Type = Value.self) -> ChangeHandler<Value> {
+//        return { value, change in
+//            keyPath.kvcString.some {
+//                Swift.print("Changed: \(String(describing: $0)), change = \(String(describing: change))")
+//            }
+//        }
+//    }
 }
 
 extension NSObjectProtocol where Self: NSObject  {
